@@ -1,0 +1,102 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Upload additional accompanying transport documents – GOV.UK
+{% endblock %}
+
+{% block content %}
+  {% include "../includes/phase.html" %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+      <a href="../gamma/cmr.html" class="govuk-back-link">Back</a>
+
+      <h1 class="govuk-heading-xl">Upload your CMR note for this truck</h1>
+
+      <p class="govuk-body">
+        Upload your CMR note for this truck.
+      </p>
+
+      <form action="transport-truck-additional-documents.html" method="get">
+        
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="file-upload">
+            Upload document (CSV file)
+          </label>
+          <input class="govuk-file-upload" id="file-upload" name="file-upload" type="file" aria-describedby="file-upload-hint">
+          <div id="file-upload-hint" class="govuk-hint">
+            Must be a CSV file. Only one file can be uploaded at a time.
+          </div>
+        </div>
+
+        <button class="govuk-button govuk-button--secondary" data-module="govuk-button" onclick="clearData(event)">Clear upload</button>
+
+        <h2 class="govuk-heading-l govuk-!-margin-top-6">Your transport documents</h2>
+
+        <table class="govuk-table" id="data-table">
+          <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">Document type</th>
+              <th scope="col" class="govuk-table__header">Identification number</th>
+              <th scope="col" class="govuk-table__header">Freight bill number</th>
+            </tr>
+          </thead>
+          <tbody class="govuk-table__body" id="document-body">
+            <!-- Rows will be inserted here dynamically -->
+          </tbody>
+        </table>
+
+           <!-- Form controls -->
+           <div class="govuk-button-group">
+            <button class="govuk-button govuk-button--secondary" data-module="govuk-button" formaction="progress">
+              Save as draft
+            </button>
+            <button class="govuk-button" data-module="govuk-button" type="submit">
+              Save and continue
+            </button>            
+          </div>
+          
+          
+
+      </form>
+
+    </div>
+  </div>
+
+  <script>
+    const fileInput = document.getElementById("file-upload");
+    const documentBody = document.getElementById("document-body");
+
+    fileInput.addEventListener("change", function () {
+      const file = fileInput.files[0];
+      if (file) {
+        // Clear previous rows
+        documentBody.innerHTML = "";
+
+        const row = document.createElement("tr");
+        row.classList.add("govuk-table__row");
+
+        row.innerHTML = `
+          <td class="govuk-table__cell">${file.name}</td>
+          <td class="govuk-table__cell">
+            <input class="govuk-input" type="text" name="identification-number" aria-label="Identification number">
+          </td>
+          <td class="govuk-table__cell">
+            <input class="govuk-input" type="text" name="freight-bill-number" aria-label="Freight bill number">
+          </td>
+        `;
+
+        documentBody.appendChild(row);
+      }
+    });
+
+    function clearData(event) {
+      event.preventDefault();
+      documentBody.innerHTML = "";
+      fileInput.value = "";
+    }
+  </script>
+
+  {% include "../includes/help.html" %}
+{% endblock %}

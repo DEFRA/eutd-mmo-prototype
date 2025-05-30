@@ -1,0 +1,114 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Upload additional accompanying transport documents
+{% endblock %}
+
+{% block content %}
+
+<style>
+  .govuk-table { margin-top: 30px; }
+</style>
+
+<script>
+  function handleFileUpload(event) {
+    const files = event.target.files;
+    const tableBody = document.getElementById("data-table-body");
+    tableBody.innerHTML = "";
+
+    if (files.length === 0) {
+      document.getElementById("file-upload-label").textContent = "No file chosen";
+    } else {
+      document.getElementById("file-upload-label").textContent = files.length === 1
+        ? files[0].name
+        : `${files.length} files selected`;
+
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const row = document.createElement("tr");
+        row.className = "govuk-table__row";
+        row.innerHTML = `
+          <td class="govuk-table__cell">
+            <input class="govuk-input" type="text" name="document-type" value="${file.name}" aria-label="Document type">
+          </td>
+          <td class="govuk-table__cell">
+            <input class="govuk-input" type="text" name="identification-number" aria-label="Identification number">
+          </td>
+          <td class="govuk-table__cell">
+            <input class="govuk-input" type="text" name="freight-bill-number" aria-label="Freight bill number">
+          </td>
+        `;
+        tableBody.appendChild(row);
+      }
+    }
+  }
+
+  function clearUpload(event) {
+    event.preventDefault();
+    document.getElementById("file-upload").value = "";
+    document.getElementById("file-upload-label").textContent = "No file chosen";
+    document.getElementById("data-table-body").innerHTML = "";
+  }
+</script>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    
+    <a href="/do-you-have-additional-transport-documents" class="govuk-back-link">Back</a>
+
+    <h1 class="govuk-heading-xl">Upload additional accompanying transport documents</h1>
+
+    <form method="post" enctype="multipart/form-data">
+
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="file-upload">
+          Choose one or more files to upload
+        </label>
+        <div id="file-upload-hint" class="govuk-hint">
+          For example, an invoice, packing list or certificate of origin.
+        </div>
+        <input
+          class="govuk-file-upload"
+          id="file-upload"
+          name="file-upload"
+          type="file"
+          multiple
+          onchange="handleFileUpload(event)"
+        >
+        <p class="govuk-body" id="file-upload-label">No file chosen</p>
+      </div>
+
+      <button class="govuk-button govuk-button--secondary" onclick="clearUpload(event)">Clear upload</button>
+
+      <h2 class="govuk-heading-l" style="margin-top:40px;">Your transport documents</h2>
+
+      <table class="govuk-table" id="data-table">
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Document type</th>
+            <th scope="col" class="govuk-table__header">Identification number</th>
+            <th scope="col" class="govuk-table__header">Freight bill number</th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body" id="data-table-body">
+          <!-- Dynamic rows will appear here -->
+        </tbody>
+      </table>
+
+     <!-- Form controls -->
+          <div class="govuk-button-group">
+            <button class="govuk-button govuk-button--secondary" data-module="govuk-button" formaction="progress">
+              Save as draft
+            </button>
+            <button class="govuk-button" data-module="govuk-button" type="button" onclick="window.location.href='../gamma/transport-additional-modes.html'">
+              Save and continue
+            </button>
+          </div>
+          
+    
+  </form>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

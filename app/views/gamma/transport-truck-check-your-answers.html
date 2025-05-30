@@ -1,0 +1,127 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+  {% include "../includes/phase.html" %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <a href="javascript:history.back()" class="govuk-back-link">Back</a>
+
+      <h1 class="govuk-heading-l">Check your answers</h1>
+
+      <!-- Transport Details -->
+      <h2 class="govuk-heading-m">Transport type details</h2>
+      <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Type of transport</dt>
+          <dd class="govuk-summary-list__value">{{ data['transport-type'] or 'Not provided' }}</dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="../gamma/transport-type.html">Change<span class="govuk-visually-hidden"> transport-type</span></a>
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Truck nationality</dt>
+          <dd class="govuk-summary-list__value">{{ data['truck-nationality'] or 'Not provided' }}</dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="../gamma/transport-truck.html">Change<span class="govuk-visually-hidden">truck-nationality</span></a>
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Registration number</dt>
+          <dd class="govuk-summary-list__value">{{ data['truck-registration'] or 'Not provided' }}</dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="../gamma/transport-truck.html">Change<span class="govuk-visually-hidden">truck-registration</span></a>
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Place export leaves the UK</dt>
+          <dd class="govuk-summary-list__value">{{ data['truck-departure'] or 'Not provided' }}</dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="../gamma/transport-truck.html">Change<span class="govuk-visually-hidden">truck-departure</span></a>
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">CMR document</dt>
+          <dd class="govuk-summary-list__value">{{ data['cmr'] or 'Not provided' }}</dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="../gamma/cmr.html">Change<span class="govuk-visually-hidden">CMR document</span></a>
+          </dd>
+        </div>
+
+      </dl>
+
+      <!-- Application Details -->
+      <h2 class="govuk-heading-m">File uploads</h2>
+      <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">CMR file upload</dt>
+          <dd class="govuk-summary-list__value">{{ data['cmr-file-upload'] or 'Not provided' }}</dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="../gamma/transport-truck-upload-file.html">Change<span class="govuk-visually-hidden"> CMR file upload</span></a>
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Additional file uploads</dt>
+          <dd class="govuk-summary-list__value">{{ data['has-additional-documents'] or 'Not provided' }}</dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="../gamma/transport-truck-additional-documents.html">Change<span class="govuk-visually-hidden"> additional uploads</span></a>
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">File uploads</dt>
+          <dd class="govuk-summary-list__value">
+            {% if data['additional-documents'] %}
+              <ul class="govuk-list govuk-list--bullet">
+                {% for doc in data['additional-documents'] %}
+                  <li>{{ doc }}</li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              No additional files uploaded
+            {% endif %}
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> file uploads</span></a>
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Additional transport modes</dt>
+          <dd class="govuk-summary-list__value">{{ data['additional-transport'] or 'Not provided' }}</dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="../gamma/transport-additional-modes.html">Change<span class="govuk-visually-hidden"> additional transport</span></a>
+          </dd>
+        </div>
+
+      </dl>
+
+      <!-- Final submission -->
+      <h2 class="govuk-heading-m">Now create your catch certificate</h2>
+      <p class="govuk-body">
+        By submitting this application you are confirming that, to the best of your knowledge, the details you are providing are correct.
+      </p>
+
+      <form action="../gamma/export-summary" method="post" novalidate>
+        <input type="hidden" name="answers-checked" value="true">
+        <button class="govuk-button govuk-button--secondary" data-module="govuk-button" formaction="progress">Save as draft</button>&nbsp;
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+          Save and submit
+        </button>
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

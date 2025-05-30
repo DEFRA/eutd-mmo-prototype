@@ -1,0 +1,88 @@
+
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+	{% include "../includes/phase.html" %}
+
+<style>
+  .govuk-warning-text__icon {margin-top:20px;}
+	.govuk-button-group {margin-top:50px;}
+</style>
+
+<!-- Font awesome -->
+<script src="https://use.fontawesome.com/a73a334cb1.js"></script>
+
+<!-- JQuery -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<script>
+	
+  
+	
+</script>
+
+  
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      
+		<a href="your-reference.html" class="govuk-back-link">Back</a>
+		
+		<h1 class="govuk-heading-xl">Add exporter details</h1>{{releaseVersion | log }}
+     
+    <!-- Warning -->
+    <div class="govuk-warning-text">
+      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+      <strong class="govuk-warning-text__text">
+        <span class="govuk-warning-text__assistive">Warning</span>
+          Add the name and address of the company (or individual) responsible for this export.<br>
+          This information will appear on the final catch certificate so please make sure the exporter details are correct before continuing.
+      </strong>
+    </div>
+		
+		<form id="form" method="post">
+			
+      <!-- Exporter name -->
+			<div class="govuk-form-group">
+				<label class="govuk-label govuk-label--s" for="exporter-name">Name of person responsible for this export</label>
+				<input class="govuk-input govuk-!-width-three-quarters" id="exporter-name" name="exporter-name" type="text">
+			</div>
+      
+      <!-- Company name -->
+			<div class="govuk-form-group">
+				<label class="govuk-label govuk-label--s" for="company-name">Company name</label>
+        <div id="company-name-hint" class="govuk-hint">
+          If you do not have a company name, enter the full name of the person responsible for the export.
+        </div>
+				<input class="govuk-input govuk-!-width-three-quarters" id="company-name" name="company-name" type="text">
+			</div>
+      
+      <h2 class="govuk-heading-l">Address</h2>
+      
+      <!-- Address -->
+      <p class="govuk-body">
+          45 Leopold Street<br>
+          Derby<br>
+          DE1 2HF
+      </p>
+      <p><a href="#" class="govuk-link">Change</a></p>
+      
+      <!-- Form controls -->
+			<div class="govuk-button-group">
+        <button class="govuk-button govuk-button--secondary" data-module="govuk-button" formaction="progress">Save as draft</button>&nbsp;
+		    <button class="govuk-button" data-module="govuk-button" formaction="upload-file">Save and continue</button>
+      </div>
+			
+		</form>
+
+	  </div>
+  </div>
+
+	{% include "../includes/help.html" %}
+{% endblock %}
+

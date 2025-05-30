@@ -1,0 +1,143 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Progress - Processing Statement
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      
+      <!-- Back link -->
+      <a href="/" class="govuk-back-link">Back</a>
+      
+      <h1 class="govuk-heading-xl">
+        Processing Statement application:<br>GBR-2021-PS-C81EB3DFA
+      </h1>
+
+      <h2 class="govuk-heading-s govuk-!-margin-bottom-2">Application incomplete</h2>
+      <p class="govuk-body govuk-!-margin-bottom-7">You have completed 0 of 7 sections.</p>
+
+      <ol class="app-task-list">
+        
+        <!-- Section 1 - Exporter-->
+        <li>
+          <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">1. </span>Exporter
+          </h2>
+          <ul class="app-task-list__items">
+            
+            <!-- Your reference -->
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="" aria-describedby="your-reference-status">Your reference (optional)</a>
+              </span>
+              <strong class="govuk-tag app-task-list__tag govuk-tag--grey" id="your-reference-status">Optional</strong>
+              <strong class="govuk-tag app-task-list__tag" id="your-reference-status" style="display:none;">Completed</strong>
+            </li>
+            
+            <!-- Exporter details -->
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="" aria-describedby="exporter-details-status">Exporter details</a>
+              </span>
+              <strong class="govuk-tag app-task-list__tag govuk-tag--blue" id="exporter-details-status">Incomplete</strong>
+              <strong class="govuk-tag app-task-list__tag" id="exporter-details-status" style="display:none;">Completed</strong>
+            </li>
+          </ul>
+        </li>
+        
+        <!-- Section 2 - Products -->
+        <li>
+          <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">2. </span>Products
+          </h2>
+          <ul class="app-task-list__items">
+            
+            <!-- Consignment description -->
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="" aria-describedby="consignment-description-status">Consignment description</a>
+              </span>
+              <strong class="govuk-tag app-task-list__tag govuk-tag--blue" id="consignment-description-status">Incomplete</strong>
+              <strong class="govuk-tag app-task-list__tag" id="consignment-description-status" style="display:none;">Completed</strong>
+            </li>
+            
+            <!-- Add catch details -->
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="" aria-describedby="catch-details-status">Catch details</a>
+              </span>
+              <strong class="govuk-tag app-task-list__tag govuk-tag--blue" id="catch-details-status">Incomplete</strong>
+              <strong class="govuk-tag app-task-list__tag" id="catch-details-status" style="display:none;">Completed</strong>
+            </li>
+            
+          </ul>
+        </li>
+        
+        <!-- Section 3 - Processing plant -->
+        <li>
+          <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">3. </span>Processing plant
+          </h2>
+          <ul class="app-task-list__items">
+            
+            <!-- Processing plant ID -->
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="" aria-describedby="plant-id-status">Processing plant ID</a>
+              </span>
+              <strong class="govuk-tag app-task-list__tag govuk-tag--blue" id="plant-id-status">Incomplete</strong>
+              <strong class="govuk-tag app-task-list__tag" id="plant-id-status" style="display:none;">Completed</strong>
+            </li>
+            
+            <!-- Processing plant address -->
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="" aria-describedby="plant-address-status">Processing plant address</a>
+              </span>
+              <strong class="govuk-tag govuk-tag--blue app-task-list__tag" id="plant-address-status">Incomplete</strong>
+              <strong class="govuk-tag app-task-list__tag" id="plant-address-status" style="display:none;">Completed</strong>
+            </li>
+            
+          </ul>
+        </li>
+        
+        <!-- Section 3 - Tranportation & logistics-->
+        <li>
+          <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">4. </span>Transportation & logistics
+          </h2>
+          <ul class="app-task-list__items">
+            
+            <!-- Export Health certificate -->
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="" aria-describedby="ehc-status">Export Health certificate</a>
+              </span>
+              <strong class="govuk-tag app-task-list__tag govuk-tag--blue" id="ehc-status">Incomplete</strong>
+              <strong class="govuk-tag app-task-list__tag" id="ehc-status" style="display:none;">Completed</strong>
+            </li>
+            
+            <!-- Export destination -->
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="" aria-describedby="export-destination-status">Export destination</a>
+              </span>
+              <strong class="govuk-tag app-task-list__tag govuk-tag--blue" id="export-destination-status">Incomplete</strong>
+              <strong class="govuk-tag app-task-list__tag" id="export-destination-status" style="display:none;">Completed</strong>
+            </li>
+            
+          </ul>
+        </li>
+      </ol>
+      
+      <!-- Page navigation -->
+      <button class="govuk-button govuk-button--secondary" data-module="govuk-button" onclick="window.location = '../'">Return to your dashboard</button>&nbsp;
+		  <button class="govuk-button" data-module="govuk-button" onclick="window.location = 'export-summary.html'" style="display:none;">Check your answers and submit</button>
+      
+    </div>
+  </div>
+
+{% endblock %}

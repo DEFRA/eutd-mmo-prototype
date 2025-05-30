@@ -1,0 +1,10 @@
+{
+  "serviceName": "Create a UK catch certificate",
+  "port": 3001,
+  "useAuth": true,
+  "useAutoStoreData": true,
+  "useCookieSessionStore": false,
+  "useDocumentation": true,
+  "useHttps": true,
+  "useBrowserSync": true
+}

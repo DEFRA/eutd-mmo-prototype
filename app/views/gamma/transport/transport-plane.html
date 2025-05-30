@@ -1,0 +1,135 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+  {% include "../../includes/phase.html" %}
+
+<style>
+	.govuk-fieldset {margin-bottom:30px;}
+  .govuk-fieldset__legend {font-weight:bold;}
+  #cmr-hint {margin-bottom:50px;}
+  .black {color:#0b0c0c;}
+  .govuk-button-group {margin-top:50px;}
+</style>
+
+<script>
+		
+
+	
+</script>
+
+  
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+      
+		<a href="javascript:history.back()" class="govuk-back-link">Back</a>
+		
+		<h1 class="govuk-heading-xl">Plane details</h1>{{releaseVersion | log }}
+		
+		<form id="options-form" method="post" action="/gamma/transport/plane-details">
+
+			
+			<!-- plane nationality -->
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="plane-nationality"><b>Flight number</b></label>
+        <input class="govuk-input govuk-input--width-10" id="flight-number" name="flight-number" type="text">
+      </div>
+
+            <!-- Place leaving UK -->
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="plane-departure"><b>Place export leaves the UK</b></label>
+        <div id="plane-departure-hint" class="govuk-hint">For example, Hull.</div>
+        <input class="govuk-input govuk-!-width-one-half" id="plane-departure" name="plane-departure" type="text">
+      </div>
+      
+      <!-- Container identification -->
+<div id="container-fields">
+  <div class="govuk-form-group container-field">
+    <label class="govuk-label" for="container-identification-1"><b>Container identification number</b></label>
+    <input class="govuk-input govuk-!-width-one-third" id="container-identification-1" name="container-identification" type="text">
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const containerFields = document.getElementById('container-fields');
+    const addButton = document.getElementById('add-container-button');
+    let containerCount = 1;
+
+    addButton.addEventListener('click', function () {
+      containerCount++;
+
+      const wrapper = document.createElement('div');
+      wrapper.classList.add('govuk-form-group', 'container-field');
+      wrapper.id = `container-field-${containerCount}`;
+
+      const label = document.createElement('label');
+      label.classList.add('govuk-label');
+      label.setAttribute('for', `container-identification-${containerCount}`);
+      label.innerHTML = '<b>Container identification number</b>';
+
+      const input = document.createElement('input');
+      input.classList.add('govuk-input', 'govuk-!-width-one-third');
+      input.id = `container-identification-${containerCount}`;
+      input.name = 'container-identification[]';
+      input.type = 'text';
+
+      const buttonWrapper = document.createElement('div');
+      buttonWrapper.classList.add('govuk-!-margin-top-2');
+
+      const removeButton = document.createElement('button');
+      removeButton.type = 'button';
+      removeButton.classList.add('govuk-button', 'govuk-button--secondary');
+      removeButton.textContent = 'Remove';
+      removeButton.addEventListener('click', function () {
+        wrapper.remove();
+      });
+
+      buttonWrapper.appendChild(removeButton);
+      wrapper.appendChild(label);
+      wrapper.appendChild(input);
+      wrapper.appendChild(buttonWrapper);
+      containerFields.appendChild(wrapper);
+    });
+  });
+</script>
+
+
+<div class="govuk-button-group govuk-!-margin-top-2">
+  <button type="button" class="govuk-button govuk-button--secondary" id="add-container-button">Add another container</button>
+</div>
+
+
+            <!-- Freight bill number -->
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="freight-bill"><b>Freight bill number</b></label>
+        <input class="govuk-input govuk-!-width-one-quarter" id="freight-bill" name="freight-bill" type="text">
+      </div>
+      
+
+      
+     <!-- Form controls -->
+<div class="govuk-button-group">
+  <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button" formaction="/gamma/progress">
+    Save as draft
+  </button>
+  <button type="submit" class="govuk-button" data-module="govuk-button" formaction="/gamma/transport/transport-documents-plane">
+    Save and continue
+  </button>
+</div>
+
+   
+		
+		
+
+	 </div>
+</div>
+
+
+
+{% include "../../includes/help.html" %}
+{% endblock %}
+

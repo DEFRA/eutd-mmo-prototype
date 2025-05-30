@@ -1,0 +1,169 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Progress - Catch Certificates
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+
+<form action="../gamma/transport/check-your-answers" method="post">
+
+
+
+         <div class="govuk-phase-banner" style="position:relative;top:-50px;">
+	<p class="govuk-phase-banner__content">
+		<strong class="govuk-tag govuk-phase-banner__content__tag">BETA</strong>
+    	<span class="govuk-phase-banner__text">
+			This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+		</span>
+	</p>
+</div>
+
+    <!-- Back link -->
+    <a href="../gamma/landings-entry.html" class="govuk-back-link">Back</a>
+
+
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-2" data-testid="progress-titling">Your progress</h1>
+<span class="govuk-caption-xl">Catch Certificate application: GBR-2025-CC-DB9443BBF</span>
+<br>
+<h2 class="govuk-heading-l govuk-!-margin-bottom-2">Application incomplete</h2>
+<p class="govuk-body govuk-!-margin-bottom-7">You have completed 0 of 7 required sections.</p>
+
+
+    <ol class="app-task-list">
+
+      <!-- Section 1 - Exporter -->
+      <li>
+        <h2 class="govuk-heading-m govuk-!-font-weight-bold govuk-!-font-size-36 app-task-list__section">
+          <span class="app-task-list__section-number">1. </span>Exporter
+        </h2>
+        <ul class="app-task-list__items">
+
+          <!-- Your reference -->
+          <li class="app-task-list__item">
+            <span class="app-task-list__task-name">
+              <a href="your-reference.html" aria-describedby="your-reference-status">Your reference (optional)</a>
+            </span>
+            <strong class="govuk-tag app-task-list__tag govuk-tag govuk-tag--green">Completed</strong>
+          </li>
+
+          <!-- Exporter details -->
+          <li class="app-task-list__item">
+            <span class="app-task-list__task-name">
+              <a href="exporter-details.html" aria-describedby="exporter-details-status">Exporter details</a>
+            </span>
+           <strong class="govuk-tag app-task-list__tag govuk-tag govuk-tag--green">Completed</strong>
+          </li>
+        </ul>
+      </li>
+
+      <!-- Section 2 - Products/Landings -->
+      <li>
+        <h2 class="govuk-heading-m govuk-!-font-weight-bold govuk-!-font-size-36 app-task-list__section">
+          <span class="app-task-list__section-number">2. </span>Products and Landings
+        </h2>
+        <ul class="app-task-list__items">
+
+          <!-- Products details -->
+          <li class="app-task-list__item">
+            <span class="app-task-list__task-name">
+              <a href="add-products.html" aria-describedby="product-details-status">Products details</a>
+            </span>
+                        <strong class="govuk-tag app-task-list__tag govuk-tag govuk-tag--green">Completed</strong>
+
+          </li>
+
+          <!-- Landings details -->
+          <li class="app-task-list__item">
+            <span class="app-task-list__task-name">
+                <a href="add-landings.html" aria-describedby="landings-details-status">Landings details</span>
+            </span>
+           <strong class="govuk-tag app-task-list__tag govuk-tag govuk-tag--green">Completed</strong>
+
+          </li>
+
+          <!-- Catch waters -->
+          <li class="app-task-list__item">
+            <span class="app-task-list__task-name">
+              <a href="catch-waters.html" aria-describedby="catch-waters-status">Catch waters</a>
+            </span>
+           <strong class="govuk-tag app-task-list__tag govuk-tag govuk-tag--green">Completed</strong>
+
+          </li>
+
+        </ul>
+      </li>
+
+      <!-- Section 3 - Transportation -->
+      <li>
+        <h2 class="govuk-heading-m govuk-!-font-weight-bold govuk-!-font-size-36 app-task-list__section">
+          <span class="app-task-list__section-number">3. </span>Transportation
+        </h2>
+        <ul class="app-task-list__items">
+
+          <!-- Export journey -->
+          <li class="app-task-list__item">
+            <span class="app-task-list__task-name">
+              <a href="export-journey.html" aria-describedby="export-journey-status">Export journey</a>
+            </span>
+            <strong class="govuk-tag app-task-list__tag govuk-tag govuk-tag--green">Completed</strong>
+
+          </li>
+
+          <!-- Transport details -->
+          <li class="app-task-list__item">
+            <span class="app-task-list__task-name">
+              <a href="transport/transport-truck.html" aria-describedby="transport-type-status">Transport details</a>
+            </span>
+            <strong class="govuk-tag app-task-list__tag govuk-tag govuk-tag--green">Completed</strong>
+          </li>
+
+        </ul>
+      </li>
+    </ol>
+
+<!-- Page navigation -->
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <div class="govuk-button-group">
+      <a href="../gamma/catch-certificates.html" role="button"
+         class="dcx-button govuk-button govuk-button--secondary"
+         draggable="false" data-module="govuk-button" data-testid="return-to-dashboard-button">
+        Return to your dashboard
+      </a>
+
+
+
+<button class="govuk-button dcx-button"
+        data-module="govuk-button"
+        type="submit"
+        draggable="false"
+        data-testid="continue-button">
+  Check your answers and submit
+</button>
+
+
+</form>
+
+    </div>
+  </div>
+</div>
+
+
+    <div class="govuk-grid-row govuk-!-margin-bottom-6 govuk-!-margin-top-8">
+      <div class="govuk-grid-column-full">
+        <hr class="horizontal-line">
+        <h2 class="govuk-heading-l">Need help?</h2>
+        <a data-testid="guidance-on-exporting-fish" class="govuk-link" href="https://www.gov.uk/guidance/exporting-and-importing-fish-if-theres-no-brexit-deal" target="_blank" rel="noopener noreferrer" aria-label="Get help exporting fish from the UK (gov.uk)">Get help exporting fish from the UK (gov.uk)<span class="govuk-visually-hidden">(opens in new tab)</span></a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
+

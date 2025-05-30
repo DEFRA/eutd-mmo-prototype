@@ -1,0 +1,363 @@
+
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+	{% include "../includes/phase.html" %}
+
+<style>
+	#guidance {background-color:#eaf4f9;border-left-color:#2b8cc4;}
+  #manual,#favourites {background-color:#f8f8f8;}
+  .govuk-button-group {margin-top:50px;}
+  #update-button {display:none;}
+	#your-products {margin-bottom:100px;}
+  #your-products tbody tr td:last-child {white-space:nowrap;}
+  .govuk-table__caption {display:none;}
+  .govuk-table tr th:last-child, .govuk-table tr td:last-child {text-align:right;}
+</style>
+
+<script>
+  
+  // TEST
+  //document.getElementById("test").innerHTML = "Success!";
+	
+	// Add product to table
+    function addProduct() {
+      
+    // First check if a <tbody> tag exists, add one if not
+    if ($("#your-products tbody").length == 0) {
+        $("#your-products").append("<tbody></tbody>");
+    }
+
+    // Append product to the table
+    $("#your-products tbody").append(
+      "<tr>" +
+      "<td class='govuk-table__cell'>" + $("#species").val() + ", " + $("#state").val() + ", " + $("#presentation").val() + "</td>" +
+      "<td class='govuk-table__cell'>" + $("#commodity-code").val() + "</td>" +
+      "<td class='govuk-table__cell'><button class='govuk-button govuk-button--secondary' data-module='govuk-button' style='margin-bottom:0;' onclick='editProduct(this);'>Edit</button>&nbsp;&nbsp;<button class='govuk-button govuk-button--secondary' data-module='govuk-button' style='margin-bottom:0;' onclick='deleteProduct(this);'>Remove</button></td>" +
+      "</tr>");
+		
+		// Reset form fields
+		$("#product-form")[0].reset();
+		
+		// Stop page refreshing
+		return false;
+
+	}
+  
+  // FUNCTION: Edit a product
+  function editProduct(btn) {
+      
+    // Define the variables
+    var row = btn.parentNode.parentNode;
+    var product = btn.parentNode.parentNode.cells[0].innerHTML;
+    var comCode = btn.parentNode.parentNode.cells[1].innerHTML;
+
+    // Get the row index and use as an ID
+    document.getElementById("pid").value = row.rowIndex;
+    
+    // Extract the product into separate variables
+    var productArr = product.split(', ');
+    
+    // Populate the species input
+    document.getElementById("species").value = productArr[0];
+    
+    
+    // Choose the correct state select value
+    for (var option of document.getElementById("state").options) {
+      
+      if (option.value === productArr[1]) {
+        option.selected = true;
+      };
+      
+    };
+    
+    // Choose the correct presentation select value
+    for (var option of document.getElementById("presentation").options) {
+      
+      if (option.value === productArr[2]) {
+        option.selected = true;
+      };
+      
+    };
+    
+    // Choose the correct presentation select value
+    for (var option of document.getElementById("commodity-code").options) {
+      
+      if (option.value === comCode) {
+        option.selected = true;
+      };
+      
+    };
+    
+    // Switch form buttons
+    document.getElementById("add-button").style.display = 'none';
+    document.getElementById("update-button").style.display = 'inline';
+
+    // Stop the page refreshing
+    return false;
+
+	}
+  
+  // FUNCTION: Update a product
+  function updateProduct() {
+    
+    // Define the variables
+    var rowId = document.getElementById("pid").value;
+    var species = document.getElementById("species").value;
+    var state = document.getElementById("state").value;
+    var presentation = document.getElementById("presentation").value;
+    var comCode = document.getElementById("commodity-code").value;
+    var ptable = document.getElementById("your-products");
+        
+    // Update the table cells
+    ptable.rows[rowId].cells[0].innerHTML = species + ", " + state + ", " + presentation;
+    ptable.rows[rowId].cells[1].innerHTML = comCode;
+
+    // Reset the form fields
+    $("#product-form")[0].reset();
+    
+    // Return form buttons to default
+    document.getElementById("add-button").style.display = 'inline';
+    document.getElementById("update-button").style.display = 'none';
+    
+    // Stop the page refreshing
+    return false;
+
+	}
+	
+	// Remove product from table
+	function deleteProduct(btn) {
+  		var row = btn.parentNode.parentNode;
+  		row.parentNode.removeChild(row);
+	}
+  
+  // FUNCTION: Add a product from a favourite
+  function addFavourite() {
+      
+    // Define the variables
+    var product = document.getElementById("product").value;
+    
+    // Extract the product into separate variables
+    var productArr = product.split(', ');
+    
+    // Populate the species input
+    document.getElementById("species").value = productArr[0];
+    
+    // First check if a <tbody> tag exists, add one if not
+    if ($("#your-products tbody").length == 0) {
+        $("#your-products").append("<tbody></tbody>");
+    };
+
+    // Append product to the table
+    $("#your-products tbody").append(
+      "<tr>" +
+      "<td class='govuk-table__cell'>" + productArr[0] + ", " + productArr[1] + ", " + productArr[2] + "</td>" +
+      "<td class='govuk-table__cell'>" + productArr[3] + "</td>" +
+      "<td class='govuk-table__cell'><button class='govuk-button govuk-button--secondary' data-module='govuk-button' style='margin-bottom:0;' onclick='editProduct(this);'>Edit</button>&nbsp;&nbsp;<button class='govuk-button govuk-button--secondary' data-module='govuk-button' style='margin-bottom:0;' onclick='deleteProduct(this);'>Remove</button></td>" +
+      "</tr>");
+		
+		// Reset form fields
+		$("#favourites-form")[0].reset();
+		
+		// Stop page refreshing
+		return false;
+
+	}
+	
+</script>
+
+  
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      
+		<a href="upload-file.html" class="govuk-back-link">Back</a>
+		
+    <!-- Guidance -->
+		<div class="govuk-inset-text" id="guidance">
+			<p>Please note:</p>
+			<ul class="govuk-list govuk-list--bullet">
+				<li>Each product must have at least one landing.</li>
+				<li>A maximum of 100 landings is allowed per certificate.</li>
+			</ul>
+		</div>
+		
+		<h1 class="govuk-heading-xl">What are you exporting?</h1>{{releaseVersion | log }}
+      
+    <div class="govuk-tabs" data-module="govuk-tabs">
+      <ul class="govuk-tabs__list">
+        <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+          <a class="govuk-tabs__tab" href="#manual">Add products</a>
+        </li>
+        <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#favourites">Add products from favourites</a>
+        </li>
+      </ul>  
+      
+      <!-- Add products panel -->
+      <div class="govuk-tabs__panel" id="manual">
+        
+        <h2 class="govuk-heading-l">Add products</h2>
+      
+        <!-- Add products form -->
+        <form id="product-form" method="post">
+
+          <!-- RowId when editing a product -->
+          <input class="govuk-input" id="pid" name="pid" type="hidden" value="">
+
+          <!-- Species -->
+          <div class="govuk-form-group">
+            <label class="govuk-label govuk-label--s" for="species">Common name or FAO code</label>
+            <div id="species-hint" class="govuk-hint">For example, Lobster or LBE</div>
+            <input class="govuk-input govuk-!-width-one-half" id="species" name="species" type="text" aria-describedby="species-hint">
+          </div>
+
+          <!-- Missing species -->
+          <details class="govuk-details" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+              <span class="govuk-details__summary-text">I cannot find the species</span>
+            </summary>
+            <div class="govuk-details__text">
+              <p>For best results, search for the common English name or the FAO code (if known) as species nicknames are not supported.</p>
+              <p>Some species are exempt: <a href="https://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2011:057:0010:0018:EN:PDF" aria-label="Link opens in a new window" target="_blank" rel="noopener noreferrer">Species exempt from Catch Certificates</a></p>
+              <p>If you cannot find the species and it is not exempt, call 0330 159 1989.</p>
+            </div>
+          </details>
+
+          <!-- State -->
+          <div class="govuk-form-group">
+            <label class="govuk-label govuk-label--s" for="state">State</label>
+            <select class="govuk-select govuk-!-width-one-half" id="state" name="state">
+              <option value="">Select ...</option>
+              <option value="Fresh">Fresh</option>
+              <option value="Frozen">Frozen</option>
+            </select>
+          </div>
+
+          <!-- Presentation -->
+          <div class="govuk-form-group">
+            <label class="govuk-label govuk-label--s" for="presentation">Presentation</label>
+            <select class="govuk-select govuk-!-width-one-half" id="presentation" name="presentation">
+              <option value="">Select ...</option>
+              <option value="Filleted">Filleted</option>
+              <option value="Whole">Whole</option>
+              <option value="Whole">Claws only</option>
+            </select>
+          </div>
+
+          <!-- Commodity code -->
+          <div class="govuk-form-group">
+            <label class="govuk-label govuk-label--s" for="commodity-code">Commodity code</label>
+            <select class="govuk-select govuk-!-width-one-half" id="commodity-code" name="commodity-code">
+              <option value="">Select ...</option>
+              <option value="03044490">03044490</option>
+              <option value="03022980">03022980</option>
+              <option value="16051000">16051000</option>
+            </select>
+          </div>
+
+          <!-- Missing commodity code -->
+          <details class="govuk-details" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+              <span class="govuk-details__summary-text">I cannot find the commodity code</span>
+            </summary>
+            <div class="govuk-details__text">
+              <p>Call 0330 159 1989 if the commodity code you need is not shown.</p>
+            </div>
+          </details>
+
+          <!-- Add to favourites -->
+          <div class="govuk-form-group">
+            <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="favourite" name="waste" type="checkbox" value="yes">
+                <label class="govuk-label govuk-checkboxes__label" for="favourite">Add to product favourites</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form controls -->
+          <div class="govuk-button-group">
+            <button class="govuk-button govuk-button--secondary" data-module="govuk-button" type="reset">Cancel</button>&nbsp;
+            <button class="govuk-button" data-module="govuk-button" id="add-button" onclick="return addProduct()">Add product</button>
+            <button class="govuk-button" data-module="govuk-button" id="update-button" onclick="return updateProduct()">Update product</button>
+          </div>
+
+        </form>
+        
+      </div>
+      
+      <!-- Add products from favourites panel -->
+      <div class="govuk-tabs__panel" id="favourites">
+        
+        <h2 class="govuk-heading-l">Add products from favourites</h2>
+      
+        <!-- Add products from favourites form -->
+        <form id="favourites-form" method="post">
+          
+          <!-- Link to product favourites -->
+          
+          
+          <!-- Product -->
+          <div class="govuk-form-group">
+            <label class="govuk-label govuk-label--s" for="product">Product</label>
+            <select class="govuk-select govuk-!-width-one-half" id="product" name="product">
+              <option value="">Select a product</option>
+              <option value="Haddock (HAD), Fresh, Filleted, 03044490">Haddock (HAD), Fresh, Filleted, 03044490</option>
+              <option value="Lemon Sole (LEM), Fresh, Whole, 03022980">Lemon Sole (LEM), Fresh, Whole, 03022980</option>
+              <option value="Edible crab (CRE), Fresh, Claws only, 16051000">Edible crab (CRE), Fresh, Claws only, 16051000</option>
+            </select>
+          </div>
+          
+          <!-- Explanation of favourites -->
+          <details class="govuk-details" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+              <span class="govuk-details__summary-text">What are product favourites?</span>
+            </summary>
+            <div class="govuk-details__text">
+              <p>Product favourites are essential to enable the uploading of products and can also be used to speed up the process of adding products manually.</p>
+              <p>You can <a href="favourites.html" class="govuk-link" rel="noreferrer noopener" target="_blank">manage your product favourites <span class="govuk-visually-hidden">(opens in new tab)</span></a> at any time through the favourites link in the main navigation at the top of the page.</p>
+            </div>
+          </details>
+          
+          <!-- Form controls -->
+          <div class="govuk-button-group">
+            <button class="govuk-button" data-module="govuk-button" id="add-button-alt" onclick="return addFavourite()">Add product</button>
+          </div>
+
+        </form>
+        
+      </div>
+      
+    </div>
+      
+    <!-- Your products -->
+    <h2 class="govuk-heading-l">Your products</h2>
+		
+		<table class="govuk-table" id="your-products">
+			<caption class="govuk-table__caption">Your products</caption>
+			<thead class="govuk-table__head">
+				<tr class="govuk-table__row">
+					<th scope="col" class="govuk-table__header">Product</th>
+					<th scope="col" class="govuk-table__header">Commodity code</th>
+					<th scope="col" class="govuk-table__header">Action</th>
+				</tr>
+			</thead>
+		</table>
+		
+    <!-- Form controls -->
+      <div class="govuk-button-group">
+		    <button class="govuk-button govuk-button--secondary" data-module="govuk-button" onclick="window.location = 'progress.html'">Save as draft</button>&nbsp;
+		    <button class="govuk-button" data-module="govuk-button" onclick="window.location = 'direct-landing.html'">Save and continue (DL)</button>&nbsp;
+        <button class="govuk-button" data-module="govuk-button" onclick="window.location = 'add-landings.html'">Save and continue</button>
+      </div>
+
+	  </div>
+  </div>
+
+	{% include "../includes/help.html" %}
+{% endblock %}
+

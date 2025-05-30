@@ -1,0 +1,69 @@
+
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+	{% include "../includes/phase.html" %}
+
+<style>
+	.govuk-fieldset {margin-bottom:30px;}
+  .govuk-fieldset__legend {font-weight:bold;}
+  #cmr-hint {margin-bottom:50px;}
+  .black {color:#0b0c0c;}
+  .govuk-button-group {margin-top:50px;}
+</style>
+
+<script>
+		
+
+	
+</script>
+
+  
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+      
+		<a href="cmr.html" class="govuk-back-link">Back</a>
+		
+		<h1 class="govuk-heading-xl">Add transportation details: truck</h1>{{releaseVersion | log }}
+		
+		<form id="options-form" method="post">
+			
+			<!-- Truck nationality -->
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="truck-nationality">Truck nationality</label>
+        <input class="govuk-input govuk-!-width-one-half" id="truck-nationality" name="truck-nationality" type="text">
+      </div>
+      
+      <!-- Registration number -->
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="truck-registration">Registration number</label>
+        <input class="govuk-input govuk-!-width-one-half" id="truck-registration" name="truck-registration" type="text">
+      </div>
+      
+      <!-- Place leaving UK -->
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="truck-departure">Place export leaves the UK</label>
+        <div id="truck-departure-hint" class="govuk-hint">For example, Hull.</div>
+        <input class="govuk-input govuk-!-width-one-half" id="truck-departure" name="truck-departure" type="text">
+      </div>
+      
+     <!-- Form controls -->
+			<div class="govuk-button-group">
+        <button class="govuk-button govuk-button--secondary" data-module="govuk-button" formaction="progress">Save as draft</button>&nbsp;
+		    <button class="govuk-button" data-module="govuk-button" formaction="export-summary">Save and continue</button>
+      </div>
+			
+		</form>
+		
+		
+
+	 </div>
+</div>
+
+	{% include "../includes/help.html" %}
+{% endblock %}
+

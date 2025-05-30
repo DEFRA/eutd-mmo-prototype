@@ -1,0 +1,110 @@
+
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+	{% include "../includes/phase.html" %}
+
+<style>
+	.govuk-fieldset {margin-bottom:30px;}
+  .govuk-fieldset__legend {display:none;}
+  .govuk-details {margin-bottom:50px;}
+</style>
+
+<script>
+
+  	// Navigate to form chosen in options
+    function navigateOption() {
+        
+      if (document.getElementById('dl-option').checked) {
+        
+        // Navigate to add products page
+        window.location = 'add-products.html';
+        
+      };
+      
+      if (document.getElementById('manual-option').checked) {
+        
+        //Navigate to add products page
+        window.location = 'add-products.html';
+        
+      };
+      
+      if (document.getElementById('upload-option').checked) {
+        
+        //Navigate to data upload page
+        window.location = 'upload-file.html';
+        
+      };
+      
+		  // Stop page refreshing
+		  return false;
+
+    }
+		
+
+	
+</script>
+
+  
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      
+		<a href="progress.html" class="govuk-back-link">Back</a>
+		
+		<h1 class="govuk-heading-xl">How do you want to enter your products and landings?</h1>{{releaseVersion | log }}
+		
+		<form id="options-form" method="post">
+			
+			<div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend">How do you want to enter your products and landings?</legend>
+          <div class="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="dl-option" name="landings-option" type="radio" value="dl">
+              <label class="govuk-label govuk-radios__label" for="dl-option">Direct landing</label>
+              <div id="dl-option-item-hint" class="govuk-hint govuk-radios__hint">Recommended for UK registered fishing vessels landing and exporting their catch simultaneously in the EU (or a GB registered fishing vessel direct landing in Northern Ireland).</div>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="manual-option" name="landings-option" type="radio" value="manual">
+              <label class="govuk-label govuk-radios__label" for="manual-option">Manual entry</label>
+              <div id="manual-option-item-hint" class="govuk-hint govuk-radios__hint">Recommended for small to medium sized exports.</div>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="upload-option" name="landings-option" type="radio" value="upload">
+              <label class="govuk-label govuk-radios__label" for="upload-option">Upload from a CSV file</label>
+              <div id="upload-option-item-hint" class="govuk-hint govuk-radios__hint">Recommended for large exports. (Requires the set up of product favourites).</div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      
+      <!-- CSV explanation -->
+      <details class="govuk-details" data-module="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">What is a CSV file?</span>
+        </summary>
+        <div class="govuk-details__text">
+          <p>A CSV file is a text file that uses commas to separate its values. Each value in the file is a data field and each line is a data record.</p>
+          <p>Spreadsheets and some software can usually export their data to a CSV file.</p>
+        </div>
+      </details>
+          
+      <!-- Form controls -->
+			<div class="govuk-button-group">
+		    <button class="govuk-button" data-module="govuk-button" formaction="progress">Save and continue</button>
+		  </div>
+        
+		</form>
+		
+		
+
+	  </div>
+  </div>
+
+	{% include "../includes/help.html" %}
+{% endblock %}
+

@@ -1,0 +1,172 @@
+
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+	{% include "../includes/phase.html" %}
+
+<style>
+	#guidance {background-color:#eaf4f9;border-left-color:#2b8cc4;}
+	#add-products {margin-bottom:50px;}
+	#product-form {margin-bottom:50px;background-color:#f8f8f8;border:1px #f3f2f1 solid;padding:10px;}
+	#your-products {margin-bottom:100px;}
+  #your-products tbody tr td:last-child {white-space:nowrap;}
+  .govuk-table__caption {display:none;}
+  .govuk-table tr th:last-child, .govuk-table tr td:last-child {text-align:right;}
+</style>
+
+<script>
+  
+  // TEST
+  //document.getElementById("test").innerHTML = "Success!";
+	
+	// Add product to table
+    function addProduct() {
+        
+      // Create the random ID number
+      var pid = Math.floor(100 + Math.random() * 900);
+      
+      
+      // First check if a <tbody> tag exists, add one if not
+        if ($("#your-products tbody").length == 0) {
+            $("#your-products").append("<tbody></tbody>");
+        }
+        
+        // Append product to the table
+        $("#your-products tbody").append(
+			"<tr>" +
+        "<td class='govuk-table__cell'>PRD" + pid + "</td>" +
+        "<td class='govuk-table__cell'>" + "<strong>Species:</strong> " + $("#species").val() + "<br><strong>State:</strong> " + $("#state").val() + "<br><strong>Presentation:</strong> " + $("#presentation").val() + "<br><strong>Commodity code</strong> " + $("#commodity-code").val() + "</td>" +
+				"<td class='govuk-table__cell'><button class='govuk-button govuk-button--secondary' data-module='govuk-button' style='margin-bottom:0;' onclick='deleteProduct(this);'>Remove</button></td>" +
+            "</tr>");
+		
+		// Reset form fields
+		$("#product-form")[0].reset();
+		
+		// Stop page refreshing
+		return false;
+
+	}
+	
+	
+	// Remove product from table
+	function deleteProduct(btn) {
+  		var row = btn.parentNode.parentNode;
+  		row.parentNode.removeChild(row);
+	}
+	
+</script>
+
+  
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      
+		<a href="../" class="govuk-back-link">Back</a>
+		
+		<h1 class="govuk-heading-xl">Product favourites</h1>{{releaseVersion | log }}
+      
+    <!-- Guidance: Missing species -->
+    <details class="govuk-details" data-module="govuk-details">
+      <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">What are product favourites?</span>
+      </summary>
+      <div class="govuk-details__text">
+        <p>Product favourites are essential to enable the uploading of products and can also be used to speed up the process of adding products manually.</p>
+        <p>When a product favourite is saved, it generates a product ID which can then be used to identify products during the uploading of landings. Product IDs are only used internally by the FES service and have no relevance to the final catch certificate.</p>
+      </div>
+    </details>
+      
+    <!-- Form -->
+		<form id="product-form" method="post">
+		
+      <!-- RowId when editing a product -->
+      <input class="govuk-input" id="pid" name="pid" type="hidden" value="">
+      
+      <!-- Species -->
+			<div class="govuk-form-group">
+				<label class="govuk-label govuk-label--s" for="species">Common name or FAO code</label>
+				<div id="species-hint" class="govuk-hint">For example, Lobster or LBE</div>
+				<input class="govuk-input govuk-!-width-one-half" id="species" name="species" type="text" aria-describedby="species-hint">
+			</div>
+      
+			<!-- Guidance: Missing species -->
+      <details class="govuk-details" data-module="govuk-details">
+				<summary class="govuk-details__summary">
+					<span class="govuk-details__summary-text">I cannot find the species</span>
+				</summary>
+				<div class="govuk-details__text">
+          <p>For best results, search for the common English name or the FAO code (if known) as species nicknames are not supported.</p>
+          <p>Some species are exempt: <a href="https://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2011:057:0010:0018:EN:PDF" aria-label="Link opens in a new window" target="_blank" rel="noopener noreferrer">Species exempt from Catch Certificates</a></p>
+          <p>If you cannot find the species and it is not exempt, call 0330 159 1989.</p>
+        </div>
+			</details>
+
+      <!-- State -->
+			<div class="govuk-form-group">
+				<label class="govuk-label govuk-label--s" for="state">State</label>
+				<select class="govuk-select govuk-!-width-one-half" id="state" name="state">
+					<option value="">Select ...</option>
+					<option value="Fresh">Fresh</option>
+          <option value="Frozen">Frozen</option>
+				</select>
+			</div>
+
+      <!-- Presentation -->
+			<div class="govuk-form-group">
+				<label class="govuk-label govuk-label--s" for="presentation">Presentation</label>
+				<select class="govuk-select govuk-!-width-one-half" id="presentation" name="presentation">
+					<option value="">Select ...</option>
+					<option value="Filleted">Filleted</option>
+          <option value="Japanese cut. Transversal cut removing all parts from head to belly.">Japanese cut. Transversal cut removing all parts from head to belly.</option>
+				</select>
+			</div>
+
+      <!-- Commodity code -->
+			<div class="govuk-form-group">
+				<label class="govuk-label govuk-label--s" for="commodity-code">Commodity code</label>
+				<select class="govuk-select govuk-!-width-one-half" id="commodity-code" name="commodity-code">
+					<option value="">Select ...</option>
+					<option value="03044410 - Fresh or chilled fillets of cod “Gadus morhua. Gadus ogac. Gadus macrocephalus” and of Boreogadus saida">03044410 - Fresh or chilled fillets of cod “Gadus morhua. Gadus ogac. Gadus macrocephalus” and of Boreogadus saida</option>
+          <option value="12345678">03044410 - Another code</option>
+				</select>
+			</div>
+      
+      <!-- Guidance: Missing commodity code -->
+			<details class="govuk-details" data-module="govuk-details">
+				<summary class="govuk-details__summary">
+					<span class="govuk-details__summary-text">I cannot find the commodity code</span>
+				</summary>
+				<div class="govuk-details__text">
+          <p>Call 0330 159 1989 if the commodity code you need is not shown.</p>
+        </div>
+			</details>
+
+      <!-- Form controls -->
+			<button class="govuk-button govuk-button--secondary" data-module="govuk-button" type="reset">Cancel</button>&nbsp;
+      <button class="govuk-button" data-module="govuk-button" id="add-button" onclick="return addProduct()">Add product favourite</button>
+			
+		</form>
+      
+    <!-- Your products -->
+    <h2 class="govuk-heading-l">Your product favourites</h2>
+		
+		<table class="govuk-table" id="your-products">
+			<caption class="govuk-table__caption">Your product favourites</caption>
+			<thead class="govuk-table__head">
+				<tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header">Product ID</th>
+					<th scope="col" class="govuk-table__header">Product</th>
+					<th scope="col" class="govuk-table__header">Action</th>
+				</tr>
+			</thead>
+		</table>
+
+	  </div>
+  </div>
+
+	{% include "../includes/help.html" %}
+{% endblock %}
+

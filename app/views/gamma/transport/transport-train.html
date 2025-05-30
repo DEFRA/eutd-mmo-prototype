@@ -1,0 +1,75 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+  {% include "../../includes/phase.html" %}
+
+<style>
+	.govuk-fieldset {margin-bottom:30px;}
+  .govuk-fieldset__legend {font-weight:bold;}
+  #cmr-hint {margin-bottom:50px;}
+  .black {color:#0b0c0c;}
+  .govuk-button-group {margin-top:50px;}
+</style>
+
+<script>
+		
+
+	
+</script>
+
+  
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+      
+		<a href="javascript:history.back()" class="govuk-back-link">Back</a>
+		
+		<h1 class="govuk-heading-xl">Train details</h1>{{releaseVersion | log }}
+		
+		<form id="options-form" method="post">
+			
+			<!-- train nationality -->
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="railway-bill"><b>Railway bill number</b></label>
+                 <div id="container vessel-departure-hint" class="govuk-hint">For example, AB12345C</div>
+        <input class="govuk-input govuk-!-width-one-quarter" id="railway-bill" name="railway-bill" type="text">
+
+      </div>
+      
+      
+      <!-- Place leaving UK -->
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="train-departure"><b>Place export leaves the UK</b></label>
+        <div id="train-departure-hint" class="govuk-hint">For example, Hull.</div>
+        <input class="govuk-input govuk-!-width-one-half" id="train-departure" name="train-departure" type="text">
+      </div>
+
+            <!-- Registration number -->
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="freight-bill"><b>Freight bill number</b></label>
+                 <div id="container vessel-departure-hint" class="govuk-hint">For example, AA1234567C</div>
+        <input class="govuk-input govuk-!-width-one-quarter" id="freight-bill" name="freight-bill" type="text">
+      </div>
+      
+     <!-- Form controls -->
+     <div class="govuk-button-group">
+      <button class="govuk-button govuk-button--secondary" data-module="govuk-button" formaction="progress" type="submit">
+        Save as draft
+      </button>
+      <button class="govuk-button" data-module="govuk-button" type="button" onclick="location.href='transport-additional-modes.html'">
+        Save and continue
+      </button>      
+    </div>
+   
+		
+		
+
+	 </div>
+</div>
+
+{% include "../../includes/help.html" %}
+{% endblock %}
+

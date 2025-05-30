@@ -1,0 +1,77 @@
+
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+	{% include "../includes/phase.html" %}
+
+<style>
+  .govuk-warning-text__icon {margin-top:20px;}
+  .black {color:#0b0c0c;}
+	.govuk-button-group {margin-top:50px;}
+</style>
+
+<!-- Font awesome -->
+<script src="https://use.fontawesome.com/a73a334cb1.js"></script>
+
+<!-- JQuery -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<script>
+	
+  
+	
+</script>
+
+  
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      
+		<a href="add-landings.html" class="govuk-back-link">Back</a>
+		
+		<h1 class="govuk-heading-xl">Whose waters were the fish or shellfish caught in?</h1>{{releaseVersion | log }}
+      
+    <form id="form" method="post">
+     
+      <!-- Waters -->
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="waters-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l govuk-visually-hidden">Catch waters</legend>
+          <div id="waters-hint" class="govuk-hint black">Select all that apply</div>
+          <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="waters-1" name="waters" type="checkbox" value="UK">
+              <label class="govuk-label govuk-checkboxes__label" for="waters-1">UK, British Isles</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="waters-2" name="waters" type="checkbox" value="EU">
+              <label class="govuk-label govuk-checkboxes__label" for="waters-2">EU</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="waters-3" name="waters" type="checkbox" value="Other">
+              <label class="govuk-label govuk-checkboxes__label" for="waters-3">Other</label>
+            </div>
+          </div>
+
+        </fieldset>
+      </div>
+      
+      <!-- Form controls -->
+			<div class="govuk-button-group">
+        <button class="govuk-button govuk-button--secondary" data-module="govuk-button" formaction="progress">Save as draft</button>&nbsp;
+		    <button class="govuk-button" data-module="govuk-button" formaction="export-journey">Save and continue</button>
+      </div>
+			
+		</form>
+
+	  </div>
+  </div>
+
+	{% include "../includes/help.html" %}
+{% endblock %}
+

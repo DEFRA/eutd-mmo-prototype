@@ -1,0 +1,89 @@
+
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+	{% include "../includes/phase.html" %}
+
+<style>
+	.govuk-fieldset {margin-bottom:50px;}
+  .govuk-fieldset__legend {display:none;}
+</style>
+
+<script>
+
+  	// Navigate to form chosen in options
+    function navigateOption() {
+        
+      if (document.getElementById('landing-dl').checked) {
+        
+        //Navigate to direct landing page
+        window.location = 'direct-landing.html';
+        
+      };
+      
+      if (document.getElementById('landing-ndl').checked) {
+        
+        //Navigate to multiple landings page
+        window.location = 'add-landings.html';
+        
+      };
+      
+		  // Stop page refreshing
+		  return false;
+
+    }
+		
+
+	
+</script>
+
+  
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      
+		<a href="add-products.html" class="govuk-back-link">Back</a>
+		
+		<h1 class="govuk-heading-xl">Is this export a direct landing?</h1>{{releaseVersion | log }}
+      
+    <div class="govuk-inset-text">
+      <h3 class="govuk-heading-s">Direct landings</h3>
+      <p class="govuk-body">A direct landing is where a UK flagged fishing vessel exports their catch by landing directly into the EU (or by landing their catch from a vessel registered in Great Britain into Northern Ireland).</p>
+    </div>
+		
+		<form id="options-form" method="post">
+			
+			<div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend">Is this export a direct landing?</legend>
+          <div class="govuk-radios">
+            
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="landing-dl" name="landing-option" type="radio" value="dl">
+              <label class="govuk-label govuk-radios__label" for="landing-dl">Yes, this export is a single direct landing</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="landing-ndl" name="landing-option" type="radio" value="ndl">
+              <label class="govuk-label govuk-radios__label" for="landing-ndl">No, this export is not a direct landing</label>
+            </div>
+
+          </div>
+        </fieldset>
+      </div>
+      
+      <button class="govuk-button govuk-button--secondary" data-module="govuk-button">Save as draft</button>&nbsp;
+		  <button class="govuk-button" data-module="govuk-button" onclick="return navigateOption()">Save and continue</button>
+			
+		</form>
+		
+		
+
+	  </div>
+  </div>
+
+	{% include "../includes/help.html" %}
+{% endblock %}
+

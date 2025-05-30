@@ -1,0 +1,88 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+  {% include "../../includes/phase.html" %}
+
+<style>
+	.govuk-fieldset {margin-bottom:30px;}
+  .govuk-fieldset__legend {font-weight:bold;}
+  #cmr-hint {margin-bottom:50px;}
+  .black {color:#0b0c0c;}
+  .govuk-button-group {margin-top:50px;}
+</style>
+
+<script>
+		
+
+	
+</script>
+
+  
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+      
+		<a href="javascript:history.back()" class="govuk-back-link">Back</a>
+		
+		<h1 class="govuk-heading-xl">Container vessel details</h1>{{releaseVersion | log }}
+		
+		<form id="options-form" method="post">
+			
+			<!-- container vessel nationality -->
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="container-vessel-nationality"><b>Vessel name</b></label>
+                                <div id="container vessel-departure-hint" class="govuk-hint">For example, Felicity Ace</div>
+        <input class="govuk-input govuk-!-width-one-half" id="vessel-name" name="vessel-name" type="text">
+      </div>
+      
+      <!-- Registration number -->
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="container-vessel-registration"><b>Flag state</b></label>
+                        <div id="container vessel-departure-hint" class="govuk-hint">For example, Greece</div>
+        <input class="govuk-input govuk-!-width-one-half" id="flag-state" name="flag-state" type="text">
+      </div>
+
+            <!-- Registration number -->
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="container-vessel-registration"><b>Container identification number</b></label>
+                <div id="container vessel-departure-hint" class="govuk-hint">For example, ABCD1234567</div>
+        <input class="govuk-input govuk-input govuk-input--width-10" id="flag-state" name="flat-state" type="text">
+      </div>
+      
+      <!-- Place leaving UK -->
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="container-vessel-departure"><b>Place export leaves the UK</b></label>
+        <div id="container vessel-departure-hint" class="govuk-hint">For example, Hull.</div>
+        <input class="govuk-input govuk-!-width-one-half" id="container-vessel-departure" name="container-vessel-departure" type="text">
+      </div>
+
+            <!-- Place leaving UK -->
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="container-vessel-departure"><b>Freight bill number</b></label>
+        <div id="container vessel-departure-hint" class="govuk-hint">For example, AA1234567</div>
+        <input class="govuk-input govuk-input govuk-input--width-10" id="freight-bill" name="freight-bill" type="text">
+      </div>
+      
+      
+     <!-- Form controls -->
+     <div class="govuk-button-group">
+      <button class="govuk-button govuk-button--secondary" data-module="govuk-button" formaction="progress" type="submit">
+        Save as draft
+      </button>
+      <button class="govuk-button" data-module="govuk-button" type="button" onclick="location.href=' transport-additional-modes.html'">
+        Save and continue
+      </button>      
+    </div>
+   
+		
+		
+
+	 </div>
+</div>
+
+{% include "../../includes/help.html" %}
+{% endblock %}
+

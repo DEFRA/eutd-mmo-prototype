@@ -1,0 +1,91 @@
+
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+	{% include "../includes/phase.html" %}
+
+<style>
+	.govuk-fieldset {margin-bottom:30px;}
+  .govuk-fieldset__legend {font-weight:bold;}
+  #cmr-hint {margin-bottom:50px;}
+  .black {color:#0b0c0c;}
+  .govuk-button-group {margin-top:50px;}
+</style>
+
+<script>
+		
+  	// Navigate to form chosen in options
+    function navigateOption() {
+        
+      if (document.getElementById('cmr-yes').checked) {
+        
+        // Navigate to cmr page
+        window.location = 'export-summary.html';
+        
+      };
+      
+      if (document.getElementById('cmr-no').checked) {
+        
+        // Navigate to Plane transport page
+        window.location = 'transport-truck.html';
+        
+      };
+      
+		  // Stop page refreshing
+		  return false;
+
+    }
+	
+</script>
+
+  
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+      
+		<a href="transport-type.html" class="govuk-back-link">Back</a>
+		
+		<h1 class="govuk-heading-xl">Do you have a road transport document to go with this export?</h1>{{releaseVersion | log }}
+		
+		<form id="options-form" method="post">
+			
+			<!-- Transport type -->
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="cmr-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l govuk-visually-hidden">Do you have a road transport document to go with this export?</legend>
+          <div id="cmr-hint" class="govuk-hint">
+            This document is sometimes called a CMR note. It’s a contract between you and the haulier, and includes details about your export.
+          </div>
+          <div class="govuk-radios govuk-radios--inline">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="cmr-yes" name="cmr" type="radio" value="yes">
+              <label class="govuk-label govuk-radios__label" for="cmr-yes">Yes</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="cmr-no" name="cmr" type="radio" value="no">
+              <label class="govuk-label govuk-radios__label" for="cmr-no">No</label>
+            </div>
+          </div>
+
+        </fieldset>
+      </div>
+      
+     <!-- Form controls -->
+			<div class="govuk-button-group">
+        <button class="govuk-button govuk-button--secondary" data-module="govuk-button" formaction="progress">Save as draft</button>&nbsp;
+		    <button class="govuk-button" data-module="govuk-button" onclick="return navigateOption()">Save and continue</button>
+      </div>
+			
+		</form>
+		
+		
+
+	 </div>
+</div>
+
+	{% include "../includes/help.html" %}
+{% endblock %}
+

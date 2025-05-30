@@ -1,0 +1,188 @@
+
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+	{% include "../includes/phase.html" %}
+
+<style>
+	.govuk-inset-text {background-color:#e6eeff}
+  #date-button {margin-bottom:2px;vertical-align:bottom;background-image:images/calendar.png;}
+	#product-weights {margin-bottom:50px;}
+</style>
+
+<!-- Font awesome -->
+<script src="https://use.fontawesome.com/a73a334cb1.js"></script>
+
+<!-- JQuery -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<script>
+	
+  // FUNCTION: Sum product weights
+  function sumWeights() {
+    
+    // Define the variables
+    var weight1 = document.getElementById("weight-1").value;
+    var weight2 = document.getElementById("weight-2").value;
+    var weight3 = document.getElementById("weight-3").value;
+    var totalWeight = 0;
+    
+    // Sum the weights
+    totalWeight = Number(weight1) + Number(weight2) + Number(weight3);
+    
+    // Output the total export weight
+    document.getElementById("total-weight").innerHTML = "<strong>" + totalWeight + "kg</strong>";
+    console.log(totalWeight);
+    
+    // Stop the page refreshing
+    return false;
+    
+  }
+	
+</script>
+
+  
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      
+		<a href="add-products.html" class="govuk-back-link">Back</a>
+		
+		<div class="govuk-inset-text">
+			<p>Please note:</p>
+			<ul class="govuk-list govuk-list--bullet">
+				<li>A landing date is required before selecting a vessel</li>
+				<li>Landing dates can be up to 7 days in the future in draft documents but only up to 3 days in the future in final submitted catch certificates</li>
+				<li>All landings should have been made in accordance with the relevant conservation and management measures</li>
+			</ul>
+		</div>
+		
+		<h1 class="govuk-heading-xl">Add your landing</h1>{{releaseVersion | log }}
+		
+		<form id="landing-form" method="post">
+			
+			<!-- Date landed -->
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" role="group">
+          <legend class="govuk-fieldset__legend govuk-label--s">Date landed</legend>
+          <div class="govuk-hint">For example, 01 04 2020</div>
+          <div class="govuk-date-input" id="date-landed">
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="date-day">Day</label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="date-day" name="date-day" type="text" pattern="[0-9]*" inputmode="numeric">
+               </div>
+            </div>
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="date-month">Month</label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="date-month" name="date-month" type="text" pattern="[0-9]*" inputmode="numeric">
+              </div>
+            </div>
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="date-year">Year</label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="date-year" name="date-year" type="text" pattern="[0-9]*" inputmode="numeric"></div>
+            </div>
+            
+            <!-- Date picker -->
+            <input type="hidden" id="date-picker" name="date-picker">
+            <button class="govuk-button govuk-button--secondary" data-module="govuk-button" id="date-button">
+              <i class="fa fa-calendar fa-lg" aria-hidden="true"></i>
+            </button>
+
+          </div>
+        </fieldset>
+			</div>
+			
+      <!-- Catch area -->
+			<div class="govuk-form-group">
+				<label class="govuk-label govuk-label--s" for="area">Catch area</label>
+				<input class="govuk-input govuk-!-width-one-quarter" id="area" name="area" type="text" value="FAO27">
+			</div>
+			
+			<!-- Vessel name or PLN -->
+      <div class="govuk-form-group">
+				<label class="govuk-label govuk-label--s" for="vessel">Vessel name or PLN</label>
+				<input class="govuk-input govuk-!-width-one-half" id="vessel" name="vessel" type="text">
+			</div>
+
+			<details class="govuk-details" data-module="govuk-details">
+				<summary class="govuk-details__summary">
+					<span class="govuk-details__summary-text">I cannot find the vessel</span>
+				</summary>
+				<div class="govuk-details__text">If the vessel you need cannot be found, search for and select 'Vessel not found (N/A)'.</div>
+			</details>
+			
+      <!-- Export weight -->
+			<table class="govuk-table" id="product-weights">
+				<caption class="govuk-table__caption govuk-table__caption--m">Product weights</caption>
+				<thead class="govuk-table__head">
+					<tr class="govuk-table__row">
+						<th scope="col" class="govuk-table__header">Product</th>
+						<th scope="col" class="govuk-table__header">Export weight <span class="govuk-hint">For example, 175.25</span></th>
+					</tr>
+					<tr>
+						<td class="govuk-table__cell">Haddock (HAD), Fresh, Filleted, 03044490</td>
+						<td class="govuk-table__cell">
+							<div class="govuk-form-group">
+								<label class="govuk-label govuk-label--s govuk-visually-hidden" for="weight-1">Export weight 1</label>
+								<div class="govuk-input__wrapper">
+									<input class="govuk-input govuk-input--width-10" id="weight-1" name="weight-1" type="text" onchange="sumWeights()">
+									<div class="govuk-input__suffix" aria-hidden="true">kg</div>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="govuk-table__cell">Lemon Sole (LEM), Fresh, Whole, 03022980</td>
+						<td class="govuk-table__cell">
+							<div class="govuk-form-group">
+								<label class="govuk-label govuk-label--s govuk-visually-hidden" for="weight-2">Export weight 2</label>
+								<div class="govuk-input__wrapper">
+									<input class="govuk-input govuk-input--width-10" id="weight-2" name="weight-2" type="text" onchange="sumWeights()">
+									<div class="govuk-input__suffix" aria-hidden="true">kg</div>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="govuk-table__cell">Edible crab (CRE), Fresh, Claws only, 16051000</td>
+						<td class="govuk-table__cell">
+							<div class="govuk-form-group">
+								<label class="govuk-label govuk-label--s govuk-visually-hidden" for="weight-3">Export weight 3</label>
+								<div class="govuk-input__wrapper">
+									<input class="govuk-input govuk-input--width-10" id="weight-3" name="weight-3" type="text" onchange="sumWeights()">
+									<div class="govuk-input__suffix" aria-hidden="true">kg</div>
+								</div>
+							</div>
+						</td>
+					</tr>
+          			<tfoot>
+				<tr class="govuk-table__row">
+      		<td class="govuk-table__cell"><strong>Total export weight</strong></td>
+					<td class="govuk-table__cell" id="total-weight"><strong>0kg</strong></td>
+    		</tr>
+			</tfoot>
+				</thead>
+			</table>
+      
+      <!-- Form controls -->
+			<div class="govuk-button-group">
+        <button class="govuk-button govuk-button--secondary" data-module="govuk-button" formaction="progress">Save as draft</button>&nbsp;
+		    <button class="govuk-button" data-module="govuk-button" formaction="catch-waters">Save and continue</button>
+      </div>
+			
+		</form>
+
+	  </div>
+  </div>
+
+	{% include "../includes/help.html" %}
+{% endblock %}
+

@@ -1,0 +1,69 @@
+
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+	{% include "../includes/phase.html" %}
+
+<style>
+  .govuk-fieldset {margin-bottom:50px;}
+  .govuk-fieldset__legend {display:none;}
+</style>
+
+<script>
+
+	
+</script>
+
+  
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      
+		<a href="../../" class="govuk-back-link">Back</a>
+		
+		<h1 class="govuk-heading-xl">Are you sure you want to change your landings type?</h1>{{releaseVersion | log }}
+      
+    <div class="govuk-warning-text">
+      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+      <strong class="govuk-warning-text__text">
+        <span class="govuk-warning-text__assistive">Warning</span>
+        Switching between direct and non-direct landings types will require the re-entry of landings data.
+      </strong>
+    </div>
+		
+		<form id="confirmation-form" method="post">
+			
+			<div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend">Are you sure you want to change your landings type?</legend>
+          <div class="govuk-radios">
+            
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="Landings-confirmation-yes" name="landing-confirmation" type="radio" value="yes">
+              <label class="govuk-label govuk-radios__label" for="landing-dl">Yes, I want to change my landings type</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="landing-confirmation-no" name="landing-confirmation" type="radio" value="no">
+              <label class="govuk-label govuk-radios__label" for="landing-ndl">No, I want to keep my current landings type</label>
+            </div>
+
+          </div>
+        </fieldset>
+      </div>
+      
+      <button class="govuk-button govuk-button--secondary" data-module="govuk-button">Cancel</button>&nbsp;
+		  <button class="govuk-button" data-module="govuk-button" onclick="return navigateOption()">Continue</button>
+			
+		</form>
+		
+		
+
+	  </div>
+  </div>
+
+	{% include "../includes/help.html" %}
+{% endblock %}
+

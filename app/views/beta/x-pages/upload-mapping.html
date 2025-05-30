@@ -1,0 +1,196 @@
+
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+	{% include "../includes/phase.html" %}
+
+<style>
+	#limitations {background-color:#e6eeff}
+	.govuk-table {margin-bottom:50px;}
+  .govuk-table tr th:last-child, .govuk-table tr td:last-child {text-align:right;}
+  .govuk-button {margin-bottom:0;}
+  #add-1,#add-2,#add-3 {display:none;}
+  #remove-4,#remove-5,#remove-6,#remove-7 {display:none;}
+</style>
+
+<script>
+
+  // FUNCTION: Add a product
+  function addProduct(btn) {
+      
+    // Define the variables
+    var product = document.getElementById("product").value;
+    var bid = btn.id;
+    var ltable = document.getElementById("uploaded-landings");
+    
+    // Prevent refreshing
+    event.preventDefault();
+    
+    // Remove the landings that have the same product as the one being removed
+    for(var i = 1; i < (ltable.rows.length); i++) {
+      
+      if (bid == "add-" + i) {
+        
+        ltable.rows[i].cells[1].innerHTML = product;
+        document.getElementById("add-" + i).style.display = 'none';
+        document.getElementById("remove-" + i).style.display = 'inline';
+        
+        // Stop the page refreshing
+        return false;
+        
+      };
+
+    };
+
+	}
+  
+  // FUNCTION: Remove a product
+  function removeProduct(btn) {
+      
+    // Define the variables
+    var bid = btn.id;
+    var ltable = document.getElementById("uploaded-landings");
+    
+    // Prevent refreshing
+    event.preventDefault();
+    
+    // Remove the landings that have the same product as the one being removed
+    for(var i = 1; i < (ltable.rows.length); i++) {
+      
+      if (bid == "remove-" + i) {
+        
+        ltable.rows[i].cells[1].innerHTML = "";
+        document.getElementById("add-" + i).style.display = 'inline';
+        document.getElementById("remove-" + i).style.display = 'none';
+        
+        // Stop the page refreshing
+        return false;
+        
+      };
+
+    };
+
+	}
+	
+</script>
+
+  
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      
+		<a href="upload-file.html" class="govuk-back-link">Back</a>
+		
+		<h1 class="govuk-heading-xl">Upload landings: matching</h1>{{releaseVersion | log }}
+		
+		<p>Select a product then match it to its landings.</p>
+      
+    <form id="mapping-form" method="post">
+      
+			<div class="govuk-form-group">
+				<label class="govuk-label govuk-label--s" for="product">Product</label>
+				<select class="govuk-select govuk-!-width-one-half" id="product" name="product">
+					<option value="">Select a product</option>
+					<option value="European lobster (LBE), Frozen, Whole, 03061210">European lobster (LBE), Frozen, Whole, 03061210</option>
+					<option value="Edible crab (CRE), Frozen, Whole, 03061430">Edible crab (CRE), Frozen, Whole, 03061430</option>
+					<option value="Edible crab (CRE), Frozen, Claws only, 03061430">Edible crab (CRE), Frozen, Claws only, 03061430</option>
+				</select>
+			</div>
+		
+      <table class="govuk-table" id="uploaded-landings">
+        <caption class="govuk-table__caption govuk-table__caption--m govuk-visually-hidden">Data requirements</caption>
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Row</th>
+            <th scope="col" class="govuk-table__header">Product</th>
+            <th scope="col" class="govuk-table__header">Landing</th>
+            <th scope="col" class="govuk-table__header">Export weight (kg)</th>
+            <th scope="col" class="govuk-table__header">Action</th>
+          </tr>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">1</td>
+            <td class="govuk-table__cell">European lobster (LBE), Frozen, Whole, 03061210</td>
+            <td class="govuk-table__cell">19/07/2021, FAO27, ABBA II (J407)</td>
+            <td class="govuk-table__cell">10.00</td>
+            <td class="govuk-table__cell">
+              <button class="govuk-button govuk-button--secondary" data-module="govuk-button" onclick="addProduct(this)" id="add-1">Match product</button>
+              <button class="govuk-button govuk-button--secondary" data-module="govuk-button" onclick="removeProduct(this)" id="remove-1">Clear product</button>
+            </td>
+          </tr>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">3</td>
+            <td class="govuk-table__cell">European lobster (LBE), Frozen, Whole, 03061210</td>
+            <td class="govuk-table__cell">19/07/2021, FAO27, CALAMARI (BS16)</td>
+            <td class="govuk-table__cell">30.00</td>
+            <td class="govuk-table__cell">
+              <button class="govuk-button govuk-button--secondary" data-module="govuk-button" onclick="addProduct(this)" id="add-2">Match product</button>
+              <button class="govuk-button govuk-button--secondary" data-module="govuk-button" onclick="removeProduct(this)" id="remove-2">Clear product</button>
+            </td>
+          </tr>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">4</td>
+            <td class="govuk-table__cell">European lobster (LBE), Frozen, Whole, 03061210</td>
+            <td class="govuk-table__cell">19/07/2021, FAO27, DORADO (E146)</td>
+            <td class="govuk-table__cell">40.00</td>
+            <td class="govuk-table__cell">
+              <button class="govuk-button govuk-button--secondary" data-module="govuk-button" onclick="addProduct(this)" id="add-3">Match product</button>
+              <button class="govuk-button govuk-button--secondary" data-module="govuk-button" onclick="removeProduct(this)" id="remove-3">Clear product</button>
+            </td>
+          </tr>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">5</td>
+            <td class="govuk-table__cell"></td>
+            <td class="govuk-table__cell">19/07/2021, FAO27, EEL DO (E21)</td>
+            <td class="govuk-table__cell">50.00</td>
+            <td class="govuk-table__cell">
+              <button class="govuk-button govuk-button--secondary" data-module="govuk-button" onclick="addProduct(this)" id="add-4">Match product</button>
+              <button class="govuk-button govuk-button--secondary" data-module="govuk-button" onclick="removeProduct(this)" id="remove-4">Clear product</button>
+            </td>
+          </tr>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">7</td>
+            <td class="govuk-table__cell"></td>
+            <td class="govuk-table__cell">19/07/2021, FAO27, GREY DAWN (GU64)</td>
+            <td class="govuk-table__cell">70.00</td>
+            <td class="govuk-table__cell">
+              <button class="govuk-button govuk-button--secondary" data-module="govuk-button" onclick="addProduct(this)" id="add-5">Match product</button>
+              <button class="govuk-button govuk-button--secondary" data-module="govuk-button" onclick="removeProduct(this)" id="remove-5">Clear product</button>
+            </td>
+          </tr>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">8</td>
+            <td class="govuk-table__cell"></td>
+            <td class="govuk-table__cell">19/07/2021, FAO27, HANNA (LI56)</td>
+            <td class="govuk-table__cell">80.00</td>
+            <td class="govuk-table__cell">
+              <button class="govuk-button govuk-button--secondary" data-module="govuk-button" onclick="addProduct(this)" id="add-6">Match product</button>
+              <button class="govuk-button govuk-button--secondary" data-module="govuk-button" onclick="removeProduct(this)" id="remove-6">Clear product</button>
+            </td>
+          </tr>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">10</td>
+            <td class="govuk-table__cell"></td>
+            <td class="govuk-table__cell">19/07/2021, FAO27, WIRON 5 (PH1100)</td>
+            <td class="govuk-table__cell">100.00</td>
+            <td class="govuk-table__cell">
+              <button class="govuk-button govuk-button--secondary" data-module="govuk-button" onclick="addProduct(this)" id="add-7">Match product</button>
+              <button class="govuk-button govuk-button--secondary" data-module="govuk-button" onclick="removeProduct(this)" id="remove-7">Clear product</button>
+            </td>
+          </tr>
+        </thead>
+      </table>
+      
+    </form>
+		
+		<button class="govuk-button govuk-button--secondary" data-module="govuk-button" onclick="window.location='landings-entry.html'">Cancel</button>&nbsp;
+		<button class="govuk-button" data-module="govuk-button" onclick="window.location='add-landings.html'">Continue</button>
+
+	  </div>
+  </div>
+
+	{% include "../includes/help.html" %}
+{% endblock %}
+

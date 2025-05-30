@@ -1,0 +1,576 @@
+
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+	{% include "../includes/phase.html" %}
+
+<style>
+	.govuk-inset-text {background-color:#e6eeff}
+	#add-landings {margin-bottom:100px;}
+	#landing-form {margin-bottom:50px;background-color:#f8f8f8;border:1px #f3f2f1 solid;padding:10px;}
+  #date-button {margin-bottom:2px;vertical-align:bottom}
+  #update-button {display:none;}
+  #your-products {margin-bottom:50px;}
+  #product-filter {margin-bottom:0;}
+  #your-landings {margin-bottom:50px;}
+  #your-landings tbody tr td:last-child {white-space:nowrap;}
+  .govuk-table__caption {display:none;}
+  .govuk-table tr th:last-child, .govuk-table tr td:last-child {text-align:right;}
+	#total {font-weight:bold;}
+  #upload-button {margin-bottom:100px;}
+</style>
+
+<!-- Font awesome -->
+<script src="https://use.fontawesome.com/a73a334cb1.js"></script>
+
+<!-- JQuery -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<script>
+  
+  // TEST
+  //document.getElementById("test").innerHTML = "Success!";
+  
+  // FUNCTION: Datepicker
+  document.addEventListener("DOMContentLoaded", function (event) {
+    if (document.querySelectorAll('.date-picker-container').length) {
+      SmDatePicker('#date-picker', '#date-day', '#date-month', '#date-year').init()
+    }
+  });
+
+  // FUNCTION: Sum product weights
+  function sumWeights() {
+    
+    // Define the variables
+    var ptable = document.getElementById("your-products");
+    var ltable = document.getElementById("your-landings");
+    var lproduct;
+    var p1 = "Haddock (HAD), Fresh, Filleted, 03044490";
+    var p2 = "Lemon Sole (LEM), Fresh, Whole, 03022980";
+    var p3 = "Edible crab (CRE), Fresh, Claws only, 16051000";
+    var lweight;
+    var p1Weight = 0;
+    var p2Weight = 0;
+    var p3Weight = 0;
+    var totalWeight = 0;
+    
+    // Count the weights for each product
+    for(var i = 1; i < (ltable.rows.length)-1; i++) {
+      
+      // Extract the landing product and weight
+      lproduct = ltable.rows[i].cells[0].innerHTML;
+      lweight = ltable.rows[i].cells[2].innerHTML;
+        
+      // Increase the correct product weight
+      if (lproduct == p1) {
+        p1Weight = Number(p1Weight) + Number(lweight);
+      };
+
+      if (lproduct == p2) {
+        p2Weight = Number(p2Weight) + Number(lweight);
+      };
+
+      if (lproduct == p3) {
+        p3Weight = Number(p3Weight) + Number(lweight);
+      };
+
+    };
+    
+    // Update the product weights
+    document.getElementById("p1-weight").innerHTML = p1Weight;
+    document.getElementById("p2-weight").innerHTML = p2Weight;
+    document.getElementById("p3-weight").innerHTML = p3Weight;
+    
+    // Sum the product weights in the export weight column
+    for(var i = 1; i < (ptable.rows.length)-1; i++) {
+      totalWeight = totalWeight + parseInt(ptable.rows[i].cells[1].innerHTML);
+    };
+    
+    // Output the total export weight
+    document.getElementById("total-weight").innerHTML = "<strong>" + totalWeight + "kg</strong>";
+    
+    // Stop the page refreshing
+    return false;
+    
+  }
+  
+  // FUNCTION: Sum no. of landings
+  function sumLandings() {
+    
+    // Define the variables
+    var ltable = document.getElementById("your-landings");
+    var totalLandings;
+    var visibleLandings;
+    var plural;
+    
+    // Count the total landings and the number of visible landings
+    totalLandings = ltable.rows.length - 2;
+    visibleLandings = $("#your-landings tr:visible").length - 2;
+    
+    // Determine if the output text is a plural
+    if (totalLandings == 1) {
+      plural = "";
+    } else {
+      plural = "s";
+    };
+    
+    // Output the total number of visible landings
+    if (visibleLandings == totalLandings) {
+    
+      document.getElementById("total-landings").innerHTML = "<strong>" + totalLandings + " landing" + plural + "</strong>";
+      
+    } else {
+      
+      document.getElementById("total-landings").innerHTML = "<strong>" + visibleLandings + "/" + totalLandings + " landing" + plural + "</strong>";
+      
+    };
+    
+    // Stop the page refreshing
+    return false;
+    
+  }
+  
+  // FUNCTION: Add a landing
+  function addLanding() {
+      
+    // Check if a <tbody> tag exists. If not, add one
+    if ($("#your-landings tbody").length == 0) {
+        $("#your-landings").append("<tbody></tbody>");
+    };
+
+    // Append the landing to the Your landings table
+    $("#your-landings tbody").append("<tr class='govuk-table__row'>" +
+        "<td class='govuk-table__cell'>" + $("#product").val() + "</td>" +
+        "<td class='govuk-table__cell'>" + $("#date-day").val() + "/" + $("#date-month").val() + "/" + $("#date-year").val() + ", " + $("#area").val() + ", " + $("#vessel").val() + "</td>" + 
+        "<td class='govuk-table__cell'>" + $("#weight").val() + "</td>" + 
+        "<td class='govuk-table__cell'><button class='govuk-button govuk-button--secondary' data-module='govuk-button' style='margin-bottom:0;' onclick='editLanding(this);'>Edit</button>&nbsp;&nbsp;<button class='govuk-button govuk-button--secondary' data-module='govuk-button' style='margin-bottom:0;' onclick='deleteLanding(this);'>Remove</button></td>" +
+        "</tr>");
+    
+    // Sum the weights
+    sumWeights();
+    
+    // Sum the landings
+    sumLandings();
+
+    // Reset the form fields
+    //$("#landing-form")[0].reset();
+    $('#date-day').val('');
+    $('#date-month').val('');
+    $('#date-year').val('');
+    $('#vessel').val('');
+    $('#weight').val('');
+    
+    // Stop the page refreshing
+    return false;
+
+	}
+  
+  // FUNCTION: Edit a landing
+  function editLanding(btn) {
+      
+    // Define the variables
+    var row = btn.parentNode.parentNode;
+    var product = btn.parentNode.parentNode.cells[0].innerHTML;
+    var landing = btn.parentNode.parentNode.cells[1].innerHTML;
+    var weight = btn.parentNode.parentNode.cells[2].innerHTML;
+    var p1 = "Haddock (HAD), Fresh, Filleted, 03044490";
+    var p2 = "Lemon Sole (LEM), Fresh, Whole, 03022980";
+    var p3 = "Edible crab (CRE), Fresh, Claws only, 16051000";
+
+    // Get the row index and use as an ID
+    document.getElementById("lid").value = row.rowIndex;
+    
+    // Extract the landing into separate variables
+    var landingArr = landing.split(', ');
+    var dateArr = landingArr[0].split('/');
+    
+    // Populate the date inputs
+    document.getElementById("date-day").value = dateArr[0];
+    document.getElementById("date-month").value = dateArr[1];
+    document.getElementById("date-year").value = dateArr[2];
+    
+    // Populate the catch area
+    document.getElementById("area").value = landingArr[1];
+    
+    // Populate the vessel
+    document.getElementById("vessel").value = landingArr[2];
+    
+    // Choose the correct product select value
+    for (var option of document.getElementById("product").options) {
+      
+      if (option.value === product) {
+        option.selected = true;
+      };
+      
+    };
+    
+    // Populate the weight input
+    document.getElementById("weight").value = weight;
+    
+    // Switch form buttons
+    document.getElementById("add-button").style.display = 'none';
+    document.getElementById("update-button").style.display = 'inline';
+
+    // Stop the page refreshing
+    return false;
+
+	}
+  
+  // FUNCTION: Update a landing
+  function updateLanding() {
+      
+    // Define the variables
+    var rowId = document.getElementById("lid").value;
+    var day = document.getElementById("date-day").value;
+    var month = document.getElementById("date-month").value;
+    var year = document.getElementById("date-year").value;
+    var area = document.getElementById("area").value;
+    var vessel = document.getElementById("vessel").value;
+    var product = document.getElementById("product").value;
+    var weight = document.getElementById("weight").value;
+    var ltable = document.getElementById("your-landings");
+        
+    // Update the table cells
+    ltable.rows[rowId].cells[0].innerHTML = product;
+    ltable.rows[rowId].cells[1].innerHTML = day + "/" + month + "/" + year + ", " + area + ", " + vessel;
+    ltable.rows[rowId].cells[2].innerHTML = weight;
+    
+    
+    // Sum the weights
+    sumWeights();
+    
+    // Sum the landings
+    sumLandings();
+
+    // Reset the form fields
+    $("#landing-form")[0].reset();
+    
+    // Return form buttons to default
+    document.getElementById("add-button").style.display = 'inline';
+    document.getElementById("update-button").style.display = 'none';
+    
+    // Stop the page refreshing
+    return false;
+
+	}
+	
+  // FUNCTION: Remove a landing
+	function deleteLanding(btn) {
+  		
+    // Define the variables
+		var row = btn.parentNode.parentNode;
+    
+    // Remove the row
+    row.parentNode.removeChild(row);
+		
+		// Sum the weights
+    sumWeights();
+    
+    // Sum the landings
+    sumLandings();
+    
+    // Stop the page refreshing
+    return false;
+		
+	}
+  
+  // FUNCTION: Remove a product
+	function deleteProduct(btn) {
+  		
+    // Define the variables
+		var row = btn.parentNode.parentNode;
+    var product = btn.parentNode.parentNode.cells[0].innerHTML;
+    var ltable = document.getElementById("your-landings");
+    var lrow;
+    var lproduct;
+    
+    // Remove the landings that have the same product as the one being removed
+    for(var i = 1; i < (ltable.rows.length)-1; i++) {
+      
+      lrow = ltable.rows[i];
+      lproduct = ltable.rows[i].cells[0].innerHTML;
+      if (product == lproduct) {
+        lrow.parentNode.removeChild(lrow);
+        i = i - 1;
+      };
+
+    };
+		
+		// Sum the weights
+    sumWeights();
+    
+    // Sum the landings
+    sumLandings();
+    
+    // Remove the row
+    row.parentNode.removeChild(row);
+    
+    // Stop the page refreshing
+    return false;
+		
+	}
+  
+  // FUNCTION: Filter landings
+	function filterLandings() {
+  		
+    // Define the variables
+    var filter = document.getElementById("product-filter").value;
+    var ltable = document.getElementById("your-landings");
+    var lrow;
+    var lproduct;
+    
+    // If the filter set to all products
+    if (filter == '') {
+
+      // Loop through the landings making sure each row is displayed
+      for(var i = 1; i < (ltable.rows.length)-1; i++) {
+
+        lrow = ltable.rows[i];
+        lrow.style.display = 'table-row';
+
+      };
+      
+    // Else the filter is set to a specific product
+    } else {
+      
+      // Loop through the landings
+      for(var i = 1; i < (ltable.rows.length)-1; i++) {
+
+        lrow = ltable.rows[i];
+        lproduct = ltable.rows[i].cells[0].innerHTML;
+        
+        // If the filter matches the product in the landing
+        if (filter == lproduct) {
+        
+          lrow.style.display = 'table-row';
+          
+        } else {
+          
+          lrow.style.display = 'none';
+          
+        };
+
+      };
+    
+      
+    };
+    
+    // Sum the landings
+    sumLandings();
+    
+    // Stop the page refreshing
+    return false;
+		
+	}
+	
+</script>
+
+  
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      
+		<a href="add-products.html" class="govuk-back-link">Back</a>
+		
+    <!-- Guidance -->
+		<div class="govuk-inset-text">
+			<p>Please note:</p>
+			<ul class="govuk-list govuk-list--bullet">
+				<li>A landing date is required before selecting a vessel</li>
+				<li>Landing dates can be up to 7 days in the future in draft documents but only up to 3 days in the future in final submitted catch certificates</li>
+				<li>All landings should have been made in accordance with the relevant conservation and management measures</li>
+				<li>Multiple landings can take up to 30 minutes to validate</li>
+        <li>A maximum of 100 landings is allowed per certificate</li>
+			</ul>
+		</div>
+		
+		<h1 class="govuk-heading-xl">Add landings for each product</h1>{{releaseVersion | log }}
+      
+    <!-- FOR TESTING ONLY -->
+    <div id="test" style="color:red;font-size:18pt;text-align:center;"></div>
+      
+		<!-- Form -->
+    <form id="landing-form" method="post">
+			
+		  <!-- RowId when editing a landing -->
+      <input class="govuk-input" id="lid" name="lid" type="hidden" value="">
+      
+			<!-- Product -->
+      <div class="govuk-form-group">
+				<label class="govuk-label govuk-label--s" for="product">Product</label>
+				<select class="govuk-select govuk-!-width-one-half" id="product" name="product">
+					<option value="">Select a product</option>
+					<option value="Haddock (HAD), Fresh, Filleted, 03044490">Haddock (HAD), Fresh, Filleted, 03044490</option>
+					<option value="Lemon Sole (LEM), Fresh, Whole, 03022980">Lemon Sole (LEM), Fresh, Whole, 03022980</option>
+					<option value="Edible crab (CRE), Fresh, Claws only, 16051000">Edible crab (CRE), Fresh, Claws only, 16051000</option>
+				</select>
+			</div>
+        
+			<!-- Date landed -->
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" role="group">
+          <legend class="govuk-fieldset__legend govuk-label--s">Date landed</legend>
+          <div class="govuk-hint">For example, 01 04 2020</div>
+          <div class="govuk-date-input" id="date-landed">
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="date-day">Day</label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="date-day" name="date-day" type="text" pattern="[0-9]*" inputmode="numeric">
+               </div>
+            </div>
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="date-month">Month</label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="date-month" name="date-month" type="text" pattern="[0-9]*" inputmode="numeric">
+              </div>
+            </div>
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="date-year">Year</label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="date-year" name="date-year" type="text" pattern="[0-9]*" inputmode="numeric"></div>
+            </div>
+            
+            <!-- Date picker -->
+            <input type="hidden" id="date-picker" name="date-picker">
+            <button class="govuk-button govuk-button--secondary" data-module="govuk-button" id="date-button">
+              <i class="fa fa-calendar fa-lg" aria-hidden="true"></i>
+            </button>
+
+          </div>
+        </fieldset>
+			</div>
+			
+      <!-- Catch area -->
+			<div class="govuk-form-group">
+				<label class="govuk-label govuk-label--s" for="area">Catch area</label>
+				<input class="govuk-input govuk-!-width-one-quarter" id="area" name="area" type="text" value="FAO27">
+			</div>
+			
+			<!-- Vessel name or PLN -->
+      <div class="govuk-form-group">
+				<label class="govuk-label govuk-label--s" for="vessel">Vessel name or PLN</label>
+				<input class="govuk-input govuk-!-width-one-half" id="vessel" name="vessel" type="text">
+			</div>
+
+			<details class="govuk-details" data-module="govuk-details">
+				<summary class="govuk-details__summary">
+					<span class="govuk-details__summary-text">I cannot find the vessel</span>
+				</summary>
+				<div class="govuk-details__text">If the vessel you need cannot be found, search for and select 'Vessel not found (N/A)'.</div>
+			</details>
+      
+      <!-- Export weight -->
+			<div class="govuk-form-group">
+				<label class="govuk-label govuk-label--s" for="weight">Export weight</label>
+        <div class="govuk-hint">For example, 175.25</div>
+				<div class="govuk-input__wrapper">
+					<input class="govuk-input govuk-!-width-one-quarter" id="weight" name="weight" type="text">
+    				<div class="govuk-input__suffix" aria-hidden="true">kg</div>
+  				</div>
+			</div>
+
+      <!-- Form controls -->
+			<button class="govuk-button govuk-button--secondary" data-module="govuk-button" type="reset">Cancel</button>&nbsp;
+      <button class="govuk-button" data-module="govuk-button" id="add-button" onclick="return addLanding()">Add landing</button>
+      <button class="govuk-button" data-module="govuk-button" id="update-button" onclick="return updateLanding()">Update landing</button>
+			
+		</form>
+      
+    <!-- Upload button -->  
+    <button class="govuk-button" data-module="govuk-button"  onclick="window.location = 'upload-file.html'">Upload products and landings</button><br><br>
+		
+    <!-- Your products -->
+    <h2 class="govuk-heading-l">Your products</h2>
+		
+		<table class="govuk-table" id="your-products">
+			<caption class="govuk-table__caption">Your products</caption>
+			<thead class="govuk-table__head">
+				<tr class="govuk-table__row">
+					<th scope="col" class="govuk-table__header">Product</th>
+					<th scope="col" class="govuk-table__header">Export weight (kg)</th>
+					<th scope="col" class="govuk-table__header">Action</th>
+				</tr>
+        <tr class="govuk-table__row">
+					<td class="govuk-table__cell">Haddock (HAD), Fresh, Filleted, 03044490</td>
+					<td class="govuk-table__cell" id="p1-weight">0</td>
+					<td class="govuk-table__cell">
+              <button class="govuk-button govuk-button--secondary" data-module="govuk-button" style="margin-bottom:0;" onclick="deleteProduct(this);">Remove</button>
+          </td>
+				</tr>
+        <tr class="govuk-table__row">
+					<td class="govuk-table__cell">Lemon Sole (LEM), Fresh, Whole, 03022980</td>
+					<td class="govuk-table__cell" id="p2-weight">0</td>
+					<td class="govuk-table__cell">
+              <button class="govuk-button govuk-button--secondary" data-module="govuk-button" style="margin-bottom:0;" onclick="deleteProduct(this);">Remove</button>
+          </td>
+				</tr>
+        <tr class="govuk-table__row">
+					<td class="govuk-table__cell">Edible crab (CRE), Fresh, Claws only, 16051000</td>
+					<td class="govuk-table__cell" id="p3-weight">0</td>
+					<td class="govuk-table__cell">
+              <button class="govuk-button govuk-button--secondary" data-module="govuk-button" style="margin-bottom:0;" onclick="deleteProduct(this);">Remove</button>
+          </td>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr class="govuk-table__row">
+      		<td class="govuk-table__cell"><strong>Total export weight</strong></td>
+					<td class="govuk-table__cell" id="total-weight"><strong>0kg</strong></td>
+					<td class="govuk-table__cell"></td>
+    		</tr>
+			</tfoot>
+		</table>
+     
+    <!-- Your landings -->  
+    <h2 class="govuk-heading-l">Your landings</h2>
+      
+    <!-- Product filter -->
+    <div class="govuk-form-group">
+      <label class="govuk-label govuk-label--s" for="product-filter">Product filter</label>
+      <select class="govuk-select govuk-!-width-one-half" id="product-filter" name="product-filter" onchange="filterLandings()">
+        <option value="">All products</option>
+        <option value="Haddock (HAD), Fresh, Filleted, 03044490">Haddock (HAD), Fresh, Filleted, 03044490</option>
+        <option value="Lemon Sole (LEM), Fresh, Whole, 03022980">Lemon Sole (LEM), Fresh, Whole, 03022980</option>
+        <option value="Edible crab (CRE), Fresh, Claws only, 16051000">Edible crab (CRE), Fresh, Claws only, 16051000</option>
+      </select>
+    </div>
+		
+		<table class="govuk-table" id="your-landings">
+			<caption class="govuk-table__caption govuk-table__caption--m">Your landings</caption>
+			<thead class="govuk-table__head">
+				<tr class="govuk-table__row">
+					<th scope="col" class="govuk-table__header">Product</th>
+					<th scope="col" class="govuk-table__header">Landing</th>
+					<th scope="col" class="govuk-table__header">Export weight (kg)</th>
+					<th scope="col" class="govuk-table__header">Action</th>
+				</tr>
+			</thead>
+      <tbody>
+      </tbody>
+			<tfoot>
+				<tr class="govuk-table__row">
+      		<td class="govuk-table__cell" id="total-landings"><strong>0 landings</strong></td>
+					<td class="govuk-table__cell"></td>
+					<td class="govuk-table__cell"></td>
+					<td class="govuk-table__cell"></td>
+    			</tr>
+			</tfoot>
+		</table>
+		
+     <!-- Form controls -->
+			<div class="govuk-button-group">
+        <button class="govuk-button govuk-button--secondary" data-module="govuk-button" onclick="window.location = 'progress.html'">Save as draft</button>&nbsp;
+		    <button class="govuk-button" data-module="govuk-button" onclick="window.location = 'catch-waters.html'">Save and continue</button>
+      </div>
+
+	  </div>
+  </div>
+
+	{% include "../includes/help.html" %}
+{% endblock %}
+

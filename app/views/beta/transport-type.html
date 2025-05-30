@@ -1,0 +1,106 @@
+
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+	{% include "../includes/phase.html" %}
+
+<style>
+	.govuk-fieldset {margin-bottom:30px;}
+  .govuk-fieldset__legend {font-weight:bold;}
+  .black {color:#0b0c0c;}
+  .govuk-button-group {margin-top:50px;}
+</style>
+
+<script>
+		
+  	// Navigate to form chosen in options
+    function navigateOption() {
+        
+      if (document.getElementById('transport-type-truck').checked) {
+        
+        // Navigate to cmr page
+        window.location = 'cmr.html';
+        
+      };
+      
+      if (document.getElementById('transport-type-plane').checked) {
+        
+        // Navigate to Plane transport page
+        window.location = 'transport-plane.html';
+        
+      };
+      
+      if (document.getElementById('transport-type-train').checked) {
+        
+        // Navigate to train transport page
+        window.location = 'transport-train.html';
+        
+      };
+      
+      if (document.getElementById('transport-type-container-vessel').checked) {
+        
+        // Navigate to container vessel transport page
+        window.location = 'transport-container-vessel.html';
+        
+      };
+      
+		  // Stop page refreshing
+		  return false;
+
+    }
+	
+</script>
+
+  
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+      
+		<a href="export-journey.html" class="govuk-back-link">Back</a>
+		
+		<h1 class="govuk-heading-xl">How does the export leave the UK?</h1>{{releaseVersion | log }}
+		
+		<form id="options-form" method="post">
+			
+			<!-- Transport type -->
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend">Select the type of transport</legend>
+          <div class="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="transport-type-truck" name="transport-type" type="radio" value="Truck">
+              <label class="govuk-label govuk-radios__label" for="transport-type-truck">Truck</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="transport-type-plane" name="transport-type" type="radio" value="Plane">
+              <label class="govuk-label govuk-radios__label" for="transport-type-plane">Plane</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="transport-type-train" name="transport-type" type="radio" value="Train">
+              <label class="govuk-label govuk-radios__label" for="transport-type-train">Train</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="transport-type-container-vessel" name="transport-type" type="radio" value="Container vessel">
+              <label class="govuk-label govuk-radios__label" for="transport-type-container-vessel">Container vessel</label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      
+      <!-- Form controls -->
+			<div class="govuk-button-group">
+        <button class="govuk-button govuk-button--secondary" data-module="govuk-button" formaction="progress">Save as draft</button>&nbsp;
+		    <button class="govuk-button" data-module="govuk-button" onclick="return navigateOption()">Save and continue</button>
+		  </div>
+			
+		</form>
+
+	 </div>
+</div>
+
+	{% include "../includes/help.html" %}
+{% endblock %}
+

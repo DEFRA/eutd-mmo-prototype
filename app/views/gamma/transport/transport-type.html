@@ -1,0 +1,64 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+  {% include "../../includes/phase.html" %}
+
+<style>
+  .govuk-fieldset { margin-bottom: 30px; }
+  .govuk-fieldset__legend { font-weight: bold; }
+  .black { color: #0b0c0c; }
+  .govuk-button-group { margin-top: 50px; }
+</style>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <a href="../export-journey.html" class="govuk-back-link">Back</a>
+
+    <h1 class="govuk-heading-xl">How does the export leave the departure country?</h1>{{ releaseVersion | log }}
+
+    <form method="post" action="/gamma/transport/transport-type">
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend">Select the type of transport</legend>
+          <div class="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="transport-type-truck" name="transport-type" type="radio" value="Truck">
+              <label class="govuk-label govuk-radios__label" for="transport-type-truck">Truck</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="transport-type-plane" name="transport-type" type="radio" value="Plane">
+              <label class="govuk-label govuk-radios__label" for="transport-type-plane">Plane</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="transport-type-train" name="transport-type" type="radio" value="Train">
+              <label class="govuk-label govuk-radios__label" for="transport-type-train">Train</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="transport-type-container-vessel" name="transport-type" type="radio" value="Container vessel">
+              <label class="govuk-label govuk-radios__label" for="transport-type-container-vessel">Container vessel</label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <!-- Form controls -->
+      <div class="govuk-button-group">
+        <button class="govuk-button govuk-button--secondary" data-module="govuk-button" formaction="progress">Save as draft</button>&nbsp;
+        <button class="govuk-button" data-module="govuk-button" type="submit">
+          Save and continue
+        </button>
+      </div>
+      
+    </form>
+
+  </div>
+</div>
+
+{% include "../../includes/help.html" %}
+{% endblock %}

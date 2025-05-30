@@ -1,0 +1,144 @@
+
+{% extends "layouts/main.html" %}
+
+{% set pageName="Home" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-full">
+		<h1 class="govuk-heading-xl">{{ serviceName }}</h1>{{ releaseVersion | log }}
+
+		<h2 class="govuk-heading-m">Disclaimer</h2>
+
+		<p>This site contains prototype versions of features for the Fish Exports Service.<br>
+      Services and functionality may be restricted or reduced, and live data will not be available!!</p>
+    
+    <table class="govuk-table">
+      <caption class="govuk-table__caption govuk-table__caption--m">Prototypes</caption>
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header">Alpha (Designers)</th>
+          <th scope="col" class="govuk-table__header">Beta (Users)</th>
+          <th scope="col" class="govuk-table__header">Gamma (Developers)</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">
+            
+            <!-- alpha (designers) -->
+            <ul class="govuk-list govuk-list--bullet">
+              <li>
+                <a href="alpha/landings-entry.html">Landings entry</a>
+              </li>
+              <li>
+                <a href="alpha/landings-entry-confirmation.html">Landings entry confirmation</a>
+              </li>
+              <li>
+                <a href="alpha/upload-file.html">Data upload</a>
+              </li>
+              <li>
+                <a href="alpha/upload-guidance.html">Data upload guidance</a>
+              </li>
+              <li>
+                <a href="alpha/progress.html">Progress</a>
+              </li>
+            </ul>
+            
+          </td>
+          <td class="govuk-table__cell">
+            
+            <!-- beta (users) -->
+            <ul class="govuk-list govuk-list--bullet">
+              <li>
+                <a href="beta/landings-entry.html">Landings entry</a>
+              </li>
+              <li>
+                <a href="beta/landings-entry-confirmation.html">Landings entry confirmation</a>
+              </li>
+              <li>
+                <a href="beta/upload-file.html">Data upload</a>
+              </li>
+              <li>
+                <a href="beta/upload-guidance.html">Data upload guidance</a>
+              </li>
+              <li>
+                <a href="beta/progress.html">Progress</a>
+              </li>
+            </ul>
+            
+          </td>
+          <td class="govuk-table__cell">
+            
+            <!-- gamma (developers) -->
+            <ul class="govuk-list govuk-list--bullet">
+              <li>
+                <a href="gamma/log-in.html">Log in</a>
+              </li>
+                <a href="gamma/landings-entry.html">Landings entry</a>
+              </li>
+              <li>
+                <a href="gamma/landings-entry-confirmation.html">Landings entry confirmation</a>
+              </li>
+              <li>
+                <a href="gamma/upload-file.html">Data upload</a>
+              </li>
+              <li>
+                <a href="gamma/upload-guidance.html">Data upload guidance</a>
+              </li>
+              <li>
+                <a href="gamma/progress.html">Progress</a>
+              </li>
+            </ul>
+            
+          </td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">
+            
+            <!-- alpha (designers) -->
+            <ul class="govuk-list govuk-list--bullet">
+              <li>
+                <a href="alpha/ps/progress.html">PS: Progress</a>
+              </li>
+              <li>
+                <a href="alpha/sd/progress.html">SD: Progress</a>
+              </li>
+            </ul>
+            
+          </td>
+          <td class="govuk-table__cell">
+            
+            <!-- beta (users) -->
+            <ul class="govuk-list govuk-list--bullet">
+              <li>
+                <a href="beta/ps/progress.html">PS: Progress</a>
+              </li>
+              <li>
+                <a href="beta/sd/progress.html">SD: Progress</a>
+              </li>
+            </ul>
+            
+          </td>
+          <td class="govuk-table__cell">
+            
+            <!-- gamma (developers) -->
+            <ul class="govuk-list govuk-list--bullet">
+              <li>
+                <a href="gamma/ps/progress.html">PS: Progress</a>
+              </li>
+              <li>
+                <a href="gamma/sd/progress.html">SD: Progress</a>
+              </li>
+            </ul>
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+{% endblock %}

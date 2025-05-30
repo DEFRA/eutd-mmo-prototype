@@ -1,0 +1,197 @@
+
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+	{% include "../includes/phase.html" %}
+
+<style>
+	.govuk-fieldset {margin-bottom:30px;}
+  .govuk-fieldset__legend {font-weight:bold;}
+  .black {color:#0b0c0c;}
+  .govuk-button-group {margin-top:50px;}
+</style>
+
+<script>
+		
+
+	
+</script>
+
+  
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+      
+		<a href="catch-waters.html" class="govuk-back-link">Back</a>
+		
+		<h1 class="govuk-heading-xl">What journey does the export take?</h1>{{releaseVersion | log }}
+		
+    <form method="post" action="/gamma/export-journey">
+
+			
+			<!-- Departure country -->
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="departure-country-hint">
+          <legend class="govuk-fieldset__legend">Select the departure country</legend>
+          <div id="departure-country-hint" class="govuk-hint">
+            This is also known as the country of exportation
+          </div>
+          <div class="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="departure-country-uk" name="departure-country" type="radio" value="United Kingdom">
+              <label class="govuk-label govuk-radios__label" for="departure-country-uk">United Kingdom</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="departure-country-g" name="departure-country" type="radio" value="Guernsey">
+              <label class="govuk-label govuk-radios__label" for="departure-country-g">Guernsey</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="departure-country-iom" name="departure-country" type="radio" value="Isle of Man">
+              <label class="govuk-label govuk-radios__label" for="departure-country-iom">Isle of Man</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="departure-country-j" name="departure-country" type="radio" value="Jersey">
+              <label class="govuk-label govuk-radios__label" for="departure-country-j">Jersey</label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      
+<!-- Destination country -->
+<div class="govuk-form-group">
+  <div class="govuk-form-group govuk-!-width-two-thirds ">
+    <div style="position:relative">
+  <fieldset class="govuk-fieldset" aria-describedby="destination-country-hint">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+      Select the destination country
+    </legend>
+
+    <div id="destination-country-hint" class="govuk-hint">
+      Enter the main destination country for the export. Do not include countries the goods are passing through.
+    </div>
+
+    <div style="position: relative;">
+      <input name="destination-country" type="text"
+  class="govuk-input govuk-!-width-full"
+        id="destination-country" autocomplete="off"
+        aria-expanded="false" role="combobox" aria-autocomplete="list"
+        aria-owns="destination-country-listbox" aria-activedescendant="">
+      <ul id="destination-country-listbox" role="listbox"
+        class="govuk-list"
+        style="display: none; border: 1px solid #b1b4b6; padding: 0.5em; background: white; position: absolute; z-index: 1000; width: 100%;">
+      <script>
+const countries = [
+  "Belgium",
+  "China",
+  "Denmark",
+  "Estonia",
+  "Finland",
+  "France",
+  "Germany",
+  "Greece",
+  "Iceland",
+  "Ireland",
+  "Italy",
+  "Latvia",
+  "Lithuania",
+  "Netherlands",
+  "Norway",
+  "Northern Ireland",
+  "Poland",
+  "Portugal",
+  "Republic of Ireland",
+  "South Korea",
+  "Spain",
+  "Sweden",
+  "United Kingdom",
+  "United States",
+  "Vietnam"
+];
+
+
+
+  const input = document.getElementById("destination-country");
+  const listbox = document.getElementById("destination-country-listbox");
+
+  input.addEventListener("input", () => {
+    const value = input.value.toLowerCase();
+    listbox.innerHTML = "";
+
+    if (value.length < 2) {
+      listbox.style.display = "none";
+      return;
+    }
+
+    const matches = countries.filter(country => country.toLowerCase().includes(value));
+    if (matches.length === 0) {
+      listbox.style.display = "none";
+      return;
+    }
+
+    matches.forEach((country, index) => {
+      const option = document.createElement("li");
+      option.setAttribute("role", "option");
+      option.setAttribute("id", `destination-country-option-${index}`);
+      option.textContent = country;
+      option.style.cursor = "pointer";
+      option.style.padding = "0.25em 0";
+      option.onclick = () => {
+        input.value = country;
+        listbox.style.display = "none";
+      };
+      listbox.appendChild(option);
+    });
+
+    listbox.style.display = "block";
+  });
+
+  // Optional: hide listbox when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!input.contains(e.target) && !listbox.contains(e.target)) {
+      listbox.style.display = "none";
+    }
+  });
+</script>
+      </ul>
+    </div>
+
+    <div class="govuk-warning-text" style="margin-top: 1em;">
+      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+      <strong class="govuk-warning-text__text">
+        <span class="govuk-warning-text__assistive"></span>
+        This information will not appear on the catch certificate.
+      </strong>
+
+            <!-- Form controls -->
+<div class="govuk-button-group">
+  <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button" formaction="/gamma/progress">
+    Save as draft
+  </button>
+  <button type="submit" class="govuk-button" data-module="govuk-button" formaction="/gamma/transport/transport-type">
+    Save and continue
+  </button>
+</div>
+
+              <p class="govuk-body"><a href="../gamma/progress.html" class="govuk-link">Back to your progress</a></p>
+		
+    </div>
+  </fieldset>
+</div>
+
+      
+
+			
+		</form>
+		
+	
+
+	 </div>
+</div>
+
+{% include "../includes/help.html" %}
+
+{% endblock %}
+

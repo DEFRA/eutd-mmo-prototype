@@ -1,0 +1,144 @@
+{% extends "layouts/main.html" %}
+
+{% block head %}
+
+{{ super() }}
+<link rel="stylesheet" href="/build-v2/_assets/govuk-frontend.min-5TZSCRBE.css">
+<link rel="stylesheet" href="/build-v2/_assets/language-MWHIHAGR.css">
+<link rel="stylesheet" href="/build-v2/_assets/help-link-B3BPNIA5.css">
+<link rel="stylesheet" href="/build-v2/_assets/banner-7FVKMX46.css">
+<link rel="stylesheet" href="/build-v2/_assets/dashboard-PJVMVE46.css">
+<link rel="stylesheet" href="/build-v2/_assets/app-task-GZRNR5JK.css">
+<link rel="stylesheet" href="/build-v2/_assets/autocomplete-LSXXNNXN.css">
+<link rel="stylesheet" href="/build-v2/_assets/upload-guidance-AP3HH7Z6.css">
+<link rel="stylesheet" href="/build-v2/_assets/directLanding-5P6VBAUJ.css">
+<link rel="stylesheet" href="/build-v2/_assets/react-datepicker-TBH2VA4Q.css">
+<link rel="stylesheet" href="/build-v2/_assets/utils-QP7FJSJ4.css">
+{% endblock %}
+
+{% block content %}
+<main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing">
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds" id="content">
+
+      <div data-token-endpoint-page="https://your-account.cpdev.cui.defra.gov.uk/idphub/token"
+        data-user-relationships-page="https://your-account.cpdev.cui.defra.gov.uk/idphub/auth/user-relationships"
+        data-b2c-tenant-domain="azdcuidev1.onmicrosoft.com"
+        data-idp-hub-domain="your-account.cpdev.cui.defra.gov.uk/idphub" hidden=""></div>
+
+      <div id="api" data-name="SelfAsserted">
+        <div class="buttons govuk-button-group"></div>
+
+        <form id="attributeVerification" action="JavaScript:void(0);">
+          <div id="passwordEntryMismatch" class="error pageLevel govuk-error-summary" style="display: none;"
+            aria-hidden="true" aria-labelledby="error-summary-title">
+            <p></p>
+          </div>
+          <div id="requiredFieldMissing" class="error pageLevel govuk-error-summary govuk-error-message"
+            style="display: none;" aria-hidden="true" aria-labelledby="error-summary-title">
+            <p></p>
+          </div>
+          <div id="fieldIncorrect" class="error pageLevel govuk-error-summary" style="display: none;" aria-hidden="true"
+            aria-labelledby="error-summary-title">
+            <p></p>
+          </div>
+          <div id="claimVerificationServerError" class="error pageLevel govuk-error-summary govuk-error-message"
+            style="display: none;" aria-hidden="true" aria-labelledby="error-summary-title">
+            <p></p>
+          </div>
+          <div class="intro">
+            <div id="pickerHeader">
+              <h1 class="govuk-heading-xl" id="header">Who do you want to represent?</h1>
+            </div>
+          </div>
+
+          <div class="govuk-radios">
+            <div class="govuk-radios__item"><input type="radio" class="govuk-radios__input" id="business"
+                name="business" value="business-1"><label class="govuk-label govuk-radios__label break-word"
+                for="business">Aqua Seafood Specials</label></div>
+            <div class="govuk-radios__item"><input type="radio" class="govuk-radios__input" id="business"
+                name="business" value="business-2"><label class="govuk-label govuk-radios__label break-word"
+                for="business">UK Lobsters Limited</label></div>
+          </div>
+
+
+
+        </form>
+
+      </div>
+
+      <form id="attributeVerificationReplacement" action="javascript:void(0);">
+        <div id="introReplacement" hidden=""></div>
+        <div id="resultsContainer" class="govuk-body govuk-!-margin-bottom-6" aria-live="polite"
+          data-is-vetsvisits="False">
+          <div class="govuk-!-margin-bottom-0 govuk-form-group" id="resultsTable">
+            <p class="govuk-body-l govuk-body" id="NoOrganisationsMessage" hidden="">There are no organisations
+              associated with your account</p>
+
+            <fieldset class="govuk-fieldset govuk-!-margin-bottom-0" hidden="" style="display: block;">
+
+          </div>
+        </div>
+        <div id="addNewOrganisationContainer" style="display: block;">
+          <p class="govuk-body govuk-!-margin-bottom-6">
+
+          </p>
+        </div>
+        <div class="buttons govuk-button-group govuk-!-margin-bottom-6">
+          <button id="continueReplacement" type="button" class="govuk-button govuk-!-margin-bottom-0">Continue</button>
+
+
+          <a id="addOrganisationLink" class="govuk-link"
+            href="https://your-account.cpdev.cui.defra.gov.uk/content/error/new-tab?p=eyJzZXJ2aWNlTmFtZSI6IkZpc2ggRXhwb3J0cyBTZXJ2aWNlIn0%3D">
+            An organisation not listed
+          </a>
+        </div>
+      </form>
+
+      <script>
+        document.getElementById('continueReplacement').addEventListener('click', function() {
+          const radios = document.querySelectorAll('input[name="business"]');
+          let selected = false;
+      
+          radios.forEach(radio => {
+            if (radio.checked) {
+              selected = true;
+            }
+          });
+      
+          if (selected) {
+            window.location.href = '../gamma/catch-certificates';
+          } else {
+            alert('Please select an organisation before continuing.');
+          }
+        });
+      </script>
+
+      <details id="help-with-this-page" class="govuk-details" data-module="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">Need more help?</span>
+        </summary>
+        <div class="govuk-details__text">
+          <div id="Service-Contact-Details" class="govuk-details" data-module="govuk-details">
+
+
+            <p class="govuk-body"><span>Contact</span> Fish Exports Service <span>by phone or email.</span></p>
+            <p class="govuk-body"><span>Email:</span> <br><a class="govuk-link"
+                href="mailto:ukiuuslo@marinemanagement.org.uk">ukiuuslo@marinemanagement.org.uk</a></p>
+            <p class="govuk-body"><span>Telephone:</span> <br>+44330 159 1989</p>
+            <p class="govuk-body govuk-!-margin-top-5"><a class="govuk-link" href="https://www.gov.uk/call-charges"
+                rel="noreferrer noopener" target="_blank"><span>Find out about call charges (opens in new
+                  tab)</span></a></p>
+
+          </div>
+        </div>
+      </details>
+
+
+    </div>
+  </div>
+</main>
+
+
+{% endblock %}

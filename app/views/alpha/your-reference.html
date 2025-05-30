@@ -1,0 +1,63 @@
+
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+	{% include "../includes/phase.html" %}
+
+<style>
+	.govuk-button-group {margin-top:50px;}
+</style>
+
+<!-- Font awesome -->
+<script src="https://use.fontawesome.com/a73a334cb1.js"></script>
+
+<!-- JQuery -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<script>
+	
+  
+	
+</script>
+
+  
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      
+		<a href="progress.html" class="govuk-back-link">Back</a>
+		
+		<h1 class="govuk-heading-xl">Add your reference for this export</h1>{{releaseVersion | log }}
+		
+		<form id="form" method="post">
+			
+      <!-- Your reference -->
+			<div class="govuk-form-group">
+				<label class="govuk-label govuk-label--s" for="your-reference">Your reference (optional)</label>
+        <div id="reference-hint" class="govuk-hint">
+          Enter a reference to help you identify this catch certificate within the service.<br>
+          This reference is for your own use and will not appear on the final certificate.<br>
+          For example, you could choose a reference number from your organisation.
+        </div>
+				<input class="govuk-input govuk-!-width-three-quarters" id="your-reference" name="your-reference" type="text">
+			</div>
+      
+      <!-- Form controls -->
+			<div class="govuk-button-group">
+        <button class="govuk-button govuk-button--secondary" data-module="govuk-button" formaction="progress">Save as draft</button>&nbsp;
+		    <button class="govuk-button" data-module="govuk-button" formaction="exporter-details">Save and continue</button>
+      </div>
+			
+		</form>
+
+	  </div>
+  </div>
+
+	{% include "../includes/help.html" %}
+{% endblock %}
+

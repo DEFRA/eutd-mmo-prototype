@@ -1,0 +1,142 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Progress - Catch Certificates
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      
+      <!-- Back link -->
+      <a href="../" class="govuk-back-link">Back</a>
+      
+      <h1 class="govuk-heading-xl">
+        Catch Certificate application:<br>GBR-2021-CC-C81EB3DFA
+      </h1>
+
+      <h2 class="govuk-heading-s govuk-!-margin-bottom-2">Application incomplete</h2>
+      <p class="govuk-body govuk-!-margin-bottom-7">You have completed 0 of 7 required sections.</p>
+
+      <ol class="app-task-list">
+        
+        <!-- Section 1 - Exporter-->
+        <li>
+          <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">1. </span>Exporter
+          </h2>
+          <ul class="app-task-list__items">
+            
+            <!-- Your reference -->
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="your-reference.html" aria-describedby="your-reference-status">Your reference (optional)</a>
+              </span>
+              <strong class="govuk-tag app-task-list__tag govuk-tag--grey" id="your-reference-status">Optional</strong>
+            </li>
+            
+            <!-- Exporter details -->
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="exporter-details.html" aria-describedby="exporter-details-status">Exporter details</a>
+              </span>
+              <strong class="govuk-tag app-task-list__tag govuk-tag--blue" id="exporter-details-status">Incomplete</strong>
+              <strong class="govuk-tag app-task-list__tag" id="exporter-details-status" style="display:none;">Completed</strong>
+            </li>
+          </ul>
+        </li>
+        
+        <!-- Section 2 - Products/Landings -->
+        <li>
+          <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">2. </span>Products/Landings
+          </h2>
+          <ul class="app-task-list__items">
+            
+            <!-- Data upload -->
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="upload-file.html">Data upload</a>
+              </span>
+            </li>
+            
+            <!-- Products details -->
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="add-products.html" aria-describedby="product-details-status">Products details</a>
+              </span>
+              <strong class="govuk-tag app-task-list__tag govuk-tag--blue" id="product-details-status">Incomplete</strong>
+              <strong class="govuk-tag app-task-list__tag" id="product-details-status" style="display:none;">Completed</strong>
+            </li>
+            
+            <!-- Landings details -->
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <span aria-describedby="landings-details-status">Landings details</span>
+              </span>
+              <strong class="govuk-tag app-task-list__tag govuk-tag--grey" id="landings-details-status">Cannot start yet</strong>
+              <strong class="govuk-tag app-task-list__tag govuk-tag--blue" id="landings-details-status" style="display:none;">Incomplete</strong>
+              <strong class="govuk-tag app-task-list__tag" id="landings-details-status" style="display:none;">Completed</strong>
+              <strong class="govuk-tag app-task-list__tag govuk-tag--red" id="landings-details-status" style="display:none;">Submission failed</strong>
+            </li>
+            
+            <!-- Catch waters -->
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="catch-waters.html" aria-describedby="catch-waters-status">Catch waters</a>
+              </span>
+              <strong class="govuk-tag app-task-list__tag govuk-tag--blue" id="catch-waters-status">Incomplete</strong>
+              <strong class="govuk-tag app-task-list__tag" id="catch-waters-status" style="display:none;">Completed</strong>
+            </li>
+            
+          </ul>
+        </li>
+        
+        <!-- Section 3 - Transportation -->
+        <li>
+          <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">3. </span>Transportation
+          </h2>
+          <ul class="app-task-list__items">
+            
+            <!-- Export journey -->
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="export-journey.html" aria-describedby="export-journey-status">Export journey</a>
+              </span>
+              <strong class="govuk-tag app-task-list__tag govuk-tag--blue" id="export-journey-status">Incomplete</strong>
+              <strong class="govuk-tag app-task-list__tag" id="export-journey-status" style="display:none;">Completed</strong>
+            </li>
+            
+            <!-- Transport type -->
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="transport-type.html" aria-describedby="transport-type-status">Transport type</a>
+              </span>
+              <strong class="govuk-tag govuk-tag--blue app-task-list__tag" id="transport-type-status">Incomplete</strong>
+              <strong class="govuk-tag app-task-list__tag" id="transport-type-status" style="display:none;">Completed</strong>
+            </li>
+            
+            <!-- Transport details -->
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <span aria-describedby="transport-details-status">Transport details</span>
+              </span>
+              <strong class="govuk-tag app-task-list__tag govuk-tag--grey" id="transport-details-status">Cannot start yet</strong>
+              <strong class="govuk-tag app-task-list__tag govuk-tag--blue" id="transport-details-status" style="display:none;">Incomplete</strong>
+              <strong class="govuk-tag app-task-list__tag" id="transport-details-status" style="display:none;">Completed</strong>
+            </li>
+            
+          </ul>
+        </li>
+      </ol>
+      
+      <!-- Page navigation -->
+      <button class="govuk-button govuk-button--secondary" data-module="govuk-button" onclick="window.location = '../'">Return to your dashboard</button>&nbsp;
+		  <button class="govuk-button" data-module="govuk-button" onclick="window.location = 'export-summary.html'" style="display:none;">Check your answers and submit</button>
+      
+    </div>
+  </div>
+
+{% endblock %}
