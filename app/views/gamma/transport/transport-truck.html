@@ -46,17 +46,34 @@
 
       <form id="details-form" method="post" action="/gamma/transport/transport-truck">
         <div class="govuk-form-group">
-          <legend class="govuk-fieldset__legend govuk-fieldset__legend--s" for="truck-nationality">Truck nationality</legend>
+          <label class="govuk-label govuk-label--s" for="truck-nationality">Truck nationality</label>
           <div id="truck-nationality-hint" class="govuk-hint">
-            For example, Vietnamese
+            For example, United Kingdom
           </div>
-          <input class="govuk-input govuk-input--width-20" id="truck-nationality" name="truck-nationality" type="text" aria-describedby="truck-nationality-hint">
+          <select class="govuk-select govuk-input--width-20" id="truck-nationality" name="truck-nationality" aria-describedby="truck-nationality-hint">
+            <option value="">Select nationality</option>
+            <option value="United Kingdom">United Kingdom</option>
+            <option value="France">France</option>
+            <option value="Germany">Germany</option>
+            <option value="Netherlands">Netherlands</option>
+            <option value="Spain">Spain</option>
+            <option value="Italy">Italy</option>
+            <option value="Belgium">Belgium</option>
+            <option value="Poland">Poland</option>
+            <option value="Ireland">Ireland</option>
+            <option value="Denmark">Denmark</option>
+            <option value="Sweden">Sweden</option>
+            <option value="Norway">Norway</option>
+            <option value="Portugal">Portugal</option>
+            <option value="Finland">Finland</option>
+            <option value="Other">Other</option>
+          </select>
         </div>
 
         <div class="govuk-form-group">
           <label class="govuk-label govuk-label--s" for="registration-number">Registration number</label>
           <div id="registration-number-hint" class="govuk-hint">
-            For example, BD51SMR
+            For example, A123 4567 or BD51SMR
           </div>
           <input class="govuk-input govuk-input--width-10" id="registration-number" name="registration-number" type="text" aria-describedby="registration-number-hint">
         </div>

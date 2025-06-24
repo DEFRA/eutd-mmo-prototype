@@ -1,0 +1,96 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Check your answers - GOV.UK
+{% endblock %}
+
+{% block content %}
+
+{% include "../includes/phase.html" %}
+
+<div class="govuk-grid-row">
+    <main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
+
+    <a href="javascript:history.back()" class="govuk-back-link">Back</a>
+
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+          <div class="govuk-panel govuk-panel--confirmation">
+            <h1 class="govuk-panel__title">The catch certificate has been created</h1>
+            <div class="govuk-panel__body">Catch certificate number<br><strong>GBR-2025-CC-DB9443BBF</strong></div>
+          </div>
+        </div>
+      </div>
+      <div class="govuk-grid-row govuk-!-margin-top-8">
+        <div class="govuk-grid-column-full">
+          <h2 class="govuk-heading-m">What you need to do next</h2>
+          
+          <h3 class="govuk-heading-m"><a class="govuk-link" href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/570855/uk-catch-certificate.pdf">1. Download the catch certificate</a></h3>
+
+
+<ul class="govuk-list govuk-list--bullet">
+  <li>If you are using Firefox as an internet browser, please ensure JavaScript is enabled in order to view and download the certificate.</li>
+  <li>If you are using a mobile device, please ensure you have installed a PDF viewer.</li>
+</ul>
+
+<div class="govuk-warning-text">
+  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+  <strong class="govuk-warning-text__text">
+    <span class="govuk-visually-hidden">Warning</span>
+    Do not amend the catch certificate.
+  </strong>
+</div>
+
+
+<h3 class="govuk-heading-m">2. Email the catch certificate to the importer</h3>
+
+
+<ul class="govuk-list govuk-list--bullet">
+  <li>It is the importer's responsibility to submit it to the import control authority where your export will enter the EU.</li>
+  <li>The importing authority will complete and sign their section of the document at the Border Inspection Post (BIP).</li>
+</ul>
+
+          
+
+          <h3 class="govuk-heading-s">
+  <a class="govuk-link" href="../poc/catch-certificates-complete.html">
+    View completed catch certificates or create a new export document
+  </a>
+</h3>
+
+        </div>
+      </div>
+<div class="govuk-!-margin-bottom-6 govuk-!-margin-top-8">
+  <hr class="horizontal-line">
+  <h2 class="govuk-heading-l">Need help?</h2>
+  <p class="govuk-body">
+    <a class="govuk-link" href="https://www.gov.uk/guidance/exporting-and-importing-fish-if-theres-no-brexit-deal" target="_blank" rel="noopener noreferrer">
+      Get help exporting fish from the UK (gov.uk)
+      <span class="govuk-visually-hidden">(opens in new tab)</span>
+    </a>
+  </p>
+  <p class="govuk-body">
+    <a class="govuk-link" href="https://www.gov.uk/guidance/eu-iuu-regulation-2026-changes" target="_blank" rel="noopener noreferrer">
+      EU 2026 Changes Guidance (gov.uk)
+      <span class="govuk-visually-hidden">(opens in new tab)</span>
+    </a>
+  </p>
+</div>
+
+<div class="govuk-!-margin-bottom-6">
+  <hr class="horizontal-line">
+  <h2 class="govuk-heading-l">Can you spare 2 minutes?</h2>
+  <p class="govuk-body">
+    <a class="govuk-link" href="https://defragroup.eu.qualtrics.com/jfe/form/SV_734LbtQfQMrBoEu" target="_blank" rel="noopener noreferrer">
+      Take a 2 minute survey
+      <span class="govuk-visually-hidden">(opens in new tab)</span>
+    </a> to help us improve this service.
+  </p>
+</div>
+
+    </main>
+
+    {% endblock %}
+
+    {% include "../includes/help.html" %}

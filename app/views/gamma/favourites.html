@@ -1,4 +1,3 @@
-
 {% extends "layouts/main.html" %}
 
 {% block pageTitle %}
@@ -69,15 +68,11 @@
 		<h1 class="govuk-heading-xl">Product favourites</h1>{{releaseVersion | log }}
       
     <!-- Guidance: Missing species -->
-    <details class="govuk-details" data-module="govuk-details">
-      <summary class="govuk-details__summary">
-        <span class="govuk-details__summary-text">What are product favourites?</span>
-      </summary>
-      <div class="govuk-details__text">
-        <p>Product favourites are essential to enable the uploading of products and can also be used to speed up the process of adding products manually.</p>
-        <p>When a product favourite is saved, it generates a product ID which can then be used to identify products during the uploading of landings. Product IDs are only used internally by the FES service and have no relevance to the final catch certificate.</p>
-      </div>
-    </details>
+    
+  <p class="govuk-body">Product favourites let you upload products and add them quickly when filling in your catch certificate.</p>
+  <p class="govuk-body">Each product favourite has a product ID. This ID is only used by the FES service to help you upload landings. 
+	
+
       
     <!-- Form -->
 		<form id="product-form" method="post">

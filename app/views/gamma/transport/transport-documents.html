@@ -33,13 +33,15 @@ GOV.UK Prototype Kit
   }
 </style>
 
+
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <a href="javascript:history.back()" class="govuk-back-link">Back</a>
 
     <h1 class="govuk-heading-xl">Truck documents</h1>
 
-<form method="post" action="/gamma/transport/transport-additional">
+<form method="post" action="/gamma/transport/transport-documents">
   {% if editIndex is defined %}
     <input type="hidden" name="editIndex" value="{{ editIndex }}">
   {% endif %}
@@ -47,19 +49,24 @@ GOV.UK Prototype Kit
   <!-- Add this wrapper -->
   <div id="document-fields">
     <div class="govuk-form-group document-field" id="document-field-1">
-      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s" for="document-name-1">Document name (optional)</legend>
+      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s" for="document-name-1">Document name</legend>
       <div id="document-name-hint-1" class="govuk-hint">
-        For example, an invoice, packing list or certificate of origin.
+        For example, a bill of lading or CMR note.
       </div>
-      <input class="govuk-input govuk-input--width-20" id="document-name-1" name="documentName" type="text" aria-describedby="document-name-hint-1">
+      <input class="govuk-input govuk-input--width-20" id="document-name-1" name="documentName[]" type="text" aria-describedby="document-name-hint-1">
 
-      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s" for="reference-number-1">Document reference (optional)</legend>
+                       <div style="margin-bottom: 2rem;"></div>
+
+
+      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s" for="reference-number-1">Document reference</legend>
       <div id="reference-number-hint-1" class="govuk-hint">
-        For example, INV00001
+        For example, CMR-20250612-001
       </div>
-      <input class="govuk-input govuk-input--width-10" id="reference-number-1" name="referenceNumber" type="text" aria-describedby="reference-number-hint-1">
+      <input class="govuk-input govuk-input--width-10" id="reference-number-1" name="referenceNumber[]" type="text" aria-describedby="reference-number-hint-1">
     </div>
   </div>
+
+
 
 
       <!-- "Add another" and "Delete document" Links -->
@@ -88,12 +95,18 @@ GOV.UK Prototype Kit
     const documentFieldsContainer = document.getElementById('document-fields');
     let fieldCount = documentFieldsContainer.querySelectorAll('.document-field').length;
 
+    // Hide delete button initially if only one field
+    if (fieldCount <= 1) {
+      deleteButton.style.display = 'none';
+    }
+
     addAnotherButton.addEventListener('click', function () {
       fieldCount++;
 
       const newDocumentField = document.createElement('div');
-      newDocumentField.classList.add('govuk-form-group', 'document-field');
+      newDocumentField.classList.add ('govuk-form-group', 'document-field');
       newDocumentField.id = `document-field-${fieldCount}`;
+   
 
       const newDocumentNameLabel = document.createElement('legend');
       newDocumentNameLabel.classList.add('govuk-fieldset__legend', 'govuk-fieldset__legend--s');
@@ -137,6 +150,11 @@ GOV.UK Prototype Kit
       newDocumentField.appendChild(newReferenceNumberInput);
 
       documentFieldsContainer.appendChild(newDocumentField);
+
+      // Show delete button if more than one field
+      if (fieldCount > 1) {
+        deleteButton.style.display = 'inline-block';
+      }
     });
 
     deleteButton.addEventListener('click', function (event) {
@@ -148,7 +166,13 @@ GOV.UK Prototype Kit
           fieldCount--;
         }
       }
+
+      // Hide delete button if only one field remains
+      if (fieldCount <= 1) {
+        deleteButton.style.display = 'none';
+      }
     });
   });
 </script>
+
 {% endblock %}

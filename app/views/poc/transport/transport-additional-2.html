@@ -24,7 +24,7 @@
 
     if (document.getElementById('additional-modes-no').checked) {
       // No page yet – leave this blank or show a placeholder message
-      window.location = 'gamma/progress-complete';
+      window.location = 'progress';
     }
 
     return false;
@@ -38,14 +38,6 @@
 		<a href="javascript:history.back()" class="govuk-back-link">Back</a>
 		
 		<h1 class="govuk-heading-xl">Transport details</h1>
-
-      <div class="govuk-warning-text">
-  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-  <strong class="govuk-warning-text__text">
-    <span class="govuk-visually-hidden">Warning</span>
-    Only the transport entry marked “PDF” will appear on the catch certificate.
-  </strong>
-</div>
 
 <table class="govuk-table govuk-table--small-text-until-tablet">
   <thead class="govuk-table__head">
@@ -63,20 +55,7 @@
     <td class="govuk-table__cell">Invoice</td>
     <td class="govuk-table__cell">INV00001</td>
     <td class="govuk-table__cell">
-      <strong class="govuk-tag govuk-tag--blue">PDF</strong>
-    </td>
-    <td class="govuk-table__cell">
-      <a href="transport-type.html" class="govuk-button govuk-button--secondary" data-module="govuk-button">Edit</a>
-      <button type="button" class="govuk-button govuk-button--secondary remove-row-button" data-module="govuk-button">Remove</button>
-    </td>
-  </tr>
-</tbody>
-<tbody class="govuk-table__body">
-  <tr class="govuk-table__row">
-    <th scope="row" class="govuk-table__header">Plane</th>
-    <td class="govuk-table__cell">Certificate of origin</td>
-    <td class="govuk-table__cell">CO-GB-2024-001234</td>
-    <td class="govuk-table__cell">
+      <strong class="govuk-tag govuk-tag--blue">Primary</strong>
     </td>
     <td class="govuk-table__cell">
       <a href="transport-type.html" class="govuk-button govuk-button--secondary" data-module="govuk-button">Edit</a>
@@ -88,9 +67,12 @@
 </table>
 
 
+
+
+
     
 		
-    <form method="post" action="/gamma/transport/transport-additional">
+    <form method="post" action="/poc/transport/transport-additional">
       <!-- Transport type -->
       <div class="govuk-form-group">
         <fieldset class="govuk-fieldset" aria-describedby="additional-modes">
@@ -111,14 +93,17 @@
           </div>
         </fieldset>
       </div>
+
+  <div class="govuk-inset-text">
+  Only the transport details marked as 'primary' will appear on the catch certificate.
+</div>
     
       <!-- Form controls -->
       <div class="govuk-button-group">
         <button class="govuk-button govuk-button--secondary" data-module="govuk-button" formaction="../catch-certificates-reference.html">Save as draft</button>
-  <button class="govuk-button" data-module="govuk-button" type="submit">
+          <button class="govuk-button" data-module="govuk-button" type="submit">
   Save and continue
 </button>
-
       </div>
     </form>
     
@@ -136,7 +121,7 @@
       button.addEventListener('click', function () {
         const row = button.closest('tr');
         const tbody = row.closest('tbody');
-        const wasPDF = row.querySelector('.govuk-tag--blue');
+        const wasPrimary = row.querySelector('.govuk-tag--blue');
 
         // Get the next sibling <tbody>
         let nextTbody = tbody.nextElementSibling;
@@ -147,22 +132,18 @@
         // Remove the current row's tbody
         tbody.remove();
 
-        // If the removed row was PDF, assign PDF to the next row
-        if (wasPDF && nextTbody) {
+        // If the removed row was Primary, assign Primary to the next row
+        if (wasPrimary && nextTbody) {
           const nextRow = nextTbody.querySelector('tr');
           if (nextRow) {
             const tagCell = nextRow.children[3]; // 4th cell
-            tagCell.innerHTML = '<strong class="govuk-tag govuk-tag--blue">PDF</strong>';
+            tagCell.innerHTML = '<strong class="govuk-tag govuk-tag--blue">Primary</strong>';
           }
         }
       });
     });
   });
 </script>
-
-
-
-
 
 {% include "../../includes/help.html" %}
 {% endblock %}

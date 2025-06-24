@@ -9,7 +9,8 @@ GOV.UK Prototype Kit
 
 <style>
 
- 
+
+
   .govuk-table {
     margin-top: 30px;
   }
@@ -32,13 +33,15 @@ GOV.UK Prototype Kit
   }
 </style>
 
+
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <a href="javascript:history.back()" class="govuk-back-link">Back</a>
 
     <h1 class="govuk-heading-xl">Plane documents</h1>
 
-<form id="document-form" method="post" action="/gamma/transport/transport-additional">
+<form method="post" action="/gamma/transport/transport-documents-plane">
   {% if editIndex is defined %}
     <input type="hidden" name="editIndex" value="{{ editIndex }}">
   {% endif %}
@@ -52,6 +55,8 @@ GOV.UK Prototype Kit
       </div>
       <input class="govuk-input govuk-input--width-20" id="document-name-1" name="documentName[]" type="text" aria-describedby="document-name-hint-1">
 
+     <div style="margin-bottom: 2rem;"></div>
+
       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s" for="reference-number-1">Document reference</legend>
       <div id="reference-number-hint-1" class="govuk-hint">
         For example, INV00001
@@ -59,6 +64,8 @@ GOV.UK Prototype Kit
       <input class="govuk-input govuk-input--width-10" id="reference-number-1" name="referenceNumber[]" type="text" aria-describedby="reference-number-hint-1">
     </div>
   </div>
+
+
 
 
       <!-- "Add another" and "Delete document" Links -->
@@ -70,7 +77,9 @@ GOV.UK Prototype Kit
       <!-- Form controls -->
       <div class="govuk-button-group">
         <button class="govuk-button govuk-button--secondary" data-module="govuk-button" formaction="/gamma/progress">Save as draft</button>
-        <button class="govuk-button" data-module="govuk-button" formaction="/gamma/transport/transport-additional-plane" type="submit">Save and continue</button>
+                <button class="govuk-button" data-module="govuk-button" type="submit">
+          Save and continue
+        </button>
       </div>
     </form>
   </div>
@@ -85,12 +94,18 @@ GOV.UK Prototype Kit
     const documentFieldsContainer = document.getElementById('document-fields');
     let fieldCount = documentFieldsContainer.querySelectorAll('.document-field').length;
 
+    // Hide delete button initially if only one field
+    if (fieldCount <= 1) {
+      deleteButton.style.display = 'none';
+    }
+
     addAnotherButton.addEventListener('click', function () {
       fieldCount++;
 
       const newDocumentField = document.createElement('div');
-      newDocumentField.classList.add('govuk-form-group', 'document-field');
+      newDocumentField.classList.add ('govuk-form-group', 'document-field');
       newDocumentField.id = `document-field-${fieldCount}`;
+   
 
       const newDocumentNameLabel = document.createElement('legend');
       newDocumentNameLabel.classList.add('govuk-fieldset__legend', 'govuk-fieldset__legend--s');
@@ -134,24 +149,29 @@ GOV.UK Prototype Kit
       newDocumentField.appendChild(newReferenceNumberInput);
 
       documentFieldsContainer.appendChild(newDocumentField);
+
+      // Show delete button if more than one field
+      if (fieldCount > 1) {
+        deleteButton.style.display = 'inline-block';
+      }
     });
 
-deleteButton.addEventListener('click', function (event) {
-  event.preventDefault();
-  const fields = documentFieldsContainer.querySelectorAll('.document-field');
-  if (fields.length > 1) {
-    const lastField = fields[fields.length - 1];
-    lastField.remove();
-    fieldCount = fields.length - 1;
-  }
-});
+    deleteButton.addEventListener('click', function (event) {
+      event.preventDefault();
+      if (fieldCount > 1) {
+        const lastField = document.getElementById(`document-field-${fieldCount}`);
+        if (lastField) {
+          lastField.remove();
+          fieldCount--;
+        }
+      }
 
+      // Hide delete button if only one field remains
+      if (fieldCount <= 1) {
+        deleteButton.style.display = 'none';
+      }
+    });
   });
 </script>
-
-
-
-
-
 
 {% endblock %}

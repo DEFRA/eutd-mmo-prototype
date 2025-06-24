@@ -1,0 +1,74 @@
+{% extends "layouts/main.html" %}
+
+{% block head %}
+
+
+
+{{ super() }}
+<link rel="stylesheet" href="/build-v2/_assets/govuk-frontend.min-5TZSCRBE.css">
+<link rel="stylesheet" href="/build-v2/_assets/language-MWHIHAGR.css">
+<link rel="stylesheet" href="/build-v2/_assets/help-link-B3BPNIA5.css">
+<link rel="stylesheet" href="/build-v2/_assets/banner-7FVKMX46.css">
+<link rel="stylesheet" href="/build-v2/_assets/dashboard-PJVMVE46.css">
+<link rel="stylesheet" href="/build-v2/_assets/app-task-GZRNR5JK.css">
+<link rel="stylesheet" href="/build-v2/_assets/autocomplete-LSXXNNXN.css">
+<link rel="stylesheet" href="/build-v2/_assets/upload-guidance-AP3HH7Z6.css">
+<link rel="stylesheet" href="/build-v2/_assets/directLanding-5P6VBAUJ.css">
+<link rel="stylesheet" href="/build-v2/_assets/react-datepicker-TBH2VA4Q.css">
+<link rel="stylesheet" href="/build-v2/_assets/utils-QP7FJSJ4.css">
+{% endblock %}
+
+{% block content %}
+<main class="govuk-main-wrapper govuk-!-padding-top-0" id="skip-target">
+  <div class="govuk-grid-row">
+   <div class="govuk-grid-column-two-thirds">
+    <script nonce="">gg.profile("h.online-metrix.net", "ddoc1u9w", "7abc633b9198aeb30d40befe7d9d2deee00d5339035764a2555f3938f7159ed1", 1);</script>
+    <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner" data-govuk-notification-banner-init="">
+     <div class="govuk-notification-banner__header">
+      <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">Keeping your information secure</h2>
+     </div>
+     <div class="govuk-notification-banner__content">
+      <p class="govuk-body">Do not share your Government Gateway user ID and password with anyone else.</p>
+     </div>
+    </div>
+    <h1 class="govuk-heading-xl">Sign in using Government Gateway</h1>
+     <input type="hidden" name="tes" value="csrfToken,user_id,password,profile:7624192649876324242::lvOhCTI3vaG/07wuufWFokty7YkRVtIOh0Q1Rn2YpltmIEhRt839WPitxgQ6HOUPaskkdPEsXasu85N8IXufYw=="> <input type="hidden" name="csrfToken" value="b5c8cf17897cf6f1cba8721bd1da433fd445c50a-1744718278836-b10305983a63ee5fc56fae08">
+     <div class="govuk-form-group">
+      <label for="user_id" class="govuk-label"> Government Gateway user ID </label>
+      <div class="govuk-hint" id="user_id-hint">
+       This could be up to 12 characters.
+      </div><input type="text" name="user_id" id="user_id" class="govuk-input govuk-!-width-one-half" value="" maxlength="22" aria-describedby="user_id-hint" autocomplete="username">
+     </div>
+     <div class="govuk-form-group govuk-password-input" data-module="govuk-password-input" data-i18n.show-password="Show" data-i18n.hide-password="Hide" data-i18n.show-password-aria-label="Show password" data-i18n.hide-password-aria-label="Hide password" data-i18n.password-shown-announcement="Your password is visible" data-i18n.password-hidden-announcement="Your password is hidden" data-govuk-password-input-init="">
+      <label for="password" class="govuk-label"> Password </label>
+      <div class="govuk-input__wrapper govuk-password-input__wrapper">
+       <input type="password" name="password" id="password" class="govuk-input govuk-password-input__input govuk-js-password-input-input" spellcheck="false" autocapitalize="none" autocomplete="current-password"><div class="govuk-password-input__sr-status govuk-visually-hidden" aria-live="polite"></div>
+       <button type="button" class="govuk-button govuk-button--secondary govuk-password-input__toggle govuk-js-password-input-toggle" data-module="govuk-button" aria-controls="password" aria-label="Show password" data-govuk-button-init="">Show</button>
+      </div>
+     </div>
+
+<a href="../poc/business.html" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+  Sign in
+</a>
+
+
+     <script src="/assets/javascripts/device-profile.js"></script>
+    
+    <h2 class="govuk-heading-m">New users of Government Gateway</h2>
+    <div class="govuk-body">
+     <a class="govuk-link" id="no-account" href="/login/create-account">Create sign in details</a>
+    </div>
+    <h2 class="govuk-heading-m">Problems signing in</h2>
+    <ul class="govuk-list">
+     <li><a class="govuk-link" href="/login/forgot-password" id="forgotten-password">I have forgotten my password</a></li>
+     <li><a class="govuk-link" href="/login/forgot-userid" id="forgotten-user-id">I have forgotten my Government Gateway user ID</a></li>
+     <li><a class="govuk-link" href="/login/forgot-userid-password" id="forgotten-user-id-password">I have forgotten my Government Gateway user ID and password</a></li>
+    </ul>
+   </div>
+  </div>
+  <div class="govuk-body govuk-!-margin-top-6">
+   <a class="govuk-link" href="/help?referrerUrl=%2Flogin%2Fsignin%2Fcreds%3Faoc%3DN" id="getHelp">Get help with this page</a>
+  </div>
+ </main>
+
+{% endblock %}

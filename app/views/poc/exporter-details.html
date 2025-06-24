@@ -1,0 +1,87 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+{% include "../includes/phase.html" %}
+
+
+<!-- Font awesome -->
+<script src="https://use.fontawesome.com/a73a334cb1.js"></script>
+
+<!-- JQuery -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<script>
+
+
+
+</script>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <a href="your-reference.html" class="govuk-back-link">Back</a>
+
+    <h1 class="govuk-heading-xl">Add exporter details</h1>
+
+    <div class="govuk-warning-text">
+      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+      <strong class="govuk-warning-text__text">
+        <span class="govuk-visually-hidden"></span>
+        This information will appear on the final catch certificate.
+      </strong>
+    </div>
+
+    <form method="post" action="../poc/add-products">
+      <!-- Exporter name -->
+      <div class="govuk-form-group">
+        <label class="govuk-label govuk-label--s" for="exporter-name">Full name of responsible person</label>
+        <div id="responsible-person-hint" class="govuk-hint">
+          This should be the person overseeing the export process or company name.
+        </div>
+        <input class="govuk-input govuk-!-width-three-quarters" id="exporter-name" name="exporter-name" type="text" value="Alex Morgan">
+      </div>
+
+      <!-- Company name -->
+      <div class="govuk-form-group">
+        <label class="govuk-label govuk-label--s" for="company-name">Company name</label>
+        <div id="company-name-hint" class="govuk-hint">
+          Enter the company name, or the full name of the person responsible for the export.
+        </div>
+        <input class="govuk-input govuk-!-width-three-quarters" id="company-name" name="company-name" type="text" value="Aqua Seafood Specials">
+      </div>
+
+      <!-- Address -->
+      <label class="govuk-label govuk-label--s">Address</label>
+      <p class="govuk-body">
+        45 Leopold Street<br>
+        Derby<br>
+        DE1 2HF
+      </p>
+      <a href="#" role="button" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+        Change
+      </a>
+
+      <!-- Form controls -->
+      <div class="govuk-button-group">
+        <button type="button" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+          Save as draft
+        </button>
+
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+
+{% include "../includes/help.html" %}
+{% endblock %}

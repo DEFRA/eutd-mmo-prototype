@@ -1,0 +1,173 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+{% include "../../includes/phase.html" %}
+
+<style>
+
+
+
+  .govuk-table {
+    margin-top: 30px;
+  }
+
+  .govuk-form-group {
+    margin-bottom: 20px;
+  }
+
+  .govuk-button-group {
+    margin-top: 30px;
+  }
+
+  .document-field {
+    position: relative;
+    padding-bottom: 20px;
+  }
+
+  .delete-link {
+    margin-left: 10px;
+  }
+</style>
+
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <a href="javascript:history.back()" class="govuk-back-link">Back</a>
+
+    <h1 class="govuk-heading-xl">Train documents</h1>
+
+<form method="post" action="/gamma/transport/transport-documents-train">
+  {% if editIndex is defined %}
+    <input type="hidden" name="editIndex" value="{{ editIndex }}">
+  {% endif %}
+  <div id="document-fields">
+    <div class="govuk-form-group document-field" id="document-field-1">
+      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s" for="document-name-1">Document name</legend>
+      <div id="document-name-hint-1" class="govuk-hint">
+        For example, an invoice, packing list or certificate of origin.
+      </div>
+      <input class="govuk-input govuk-input--width-20" id="document-name-1" name="documentName[]" type="text" aria-describedby="document-name-hint-1">
+      <div style="margin-bottom: 2rem;"></div>
+      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s" for="reference-number-1">Document reference</legend>
+      <div id="reference-number-hint-1" class="govuk-hint">
+        For example, INV00001
+      </div>
+      <input class="govuk-input govuk-input--width-10" id="reference-number-1" name="referenceNumber[]" type="text" aria-describedby="reference-number-hint-1">
+    </div>
+  </div>
+
+
+
+
+      <!-- "Add another" and "Delete document" Links -->
+      <div class="govuk-button-group">
+        <button type="button" class="govuk-button govuk-button--secondary" data-module="govuk-button" id="add-another-button">Add another document</button>
+        <a class="govuk-link delete-link" href="#" id="delete-button">Delete document</a>
+      </div>
+
+      <!-- Form controls -->
+      <div class="govuk-button-group">
+        <button class="govuk-button govuk-button--secondary" data-module="govuk-button" formaction="/gamma/progress">Save as draft</button>
+                <button class="govuk-button" data-module="govuk-button" type="submit">
+          Save and continue
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% include "../../includes/help.html" %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const addAnotherButton = document.getElementById('add-another-button');
+    const deleteButton = document.getElementById('delete-button');
+    const documentFieldsContainer = document.getElementById('document-fields');
+    let fieldCount = documentFieldsContainer.querySelectorAll('.document-field').length;
+
+    // Hide delete button initially if only one field
+    if (fieldCount <= 1) {
+      deleteButton.style.display = 'none';
+    }
+
+    addAnotherButton.addEventListener('click', function () {
+      fieldCount++;
+
+      const newDocumentField = document.createElement('div');
+      newDocumentField.classList.add ('govuk-form-group', 'document-field');
+      newDocumentField.id = `document-field-${fieldCount}`;
+   
+
+      const newDocumentNameLabel = document.createElement('legend');
+      newDocumentNameLabel.classList.add('govuk-fieldset__legend', 'govuk-fieldset__legend--s');
+      newDocumentNameLabel.setAttribute('for', `document-name-${fieldCount}`);
+      newDocumentNameLabel.textContent = 'Document name';
+
+      const newDocumentNameHint = document.createElement('div');
+      newDocumentNameHint.id = `document-name-hint-${fieldCount}`;
+      newDocumentNameHint.classList.add('govuk-hint');
+      newDocumentNameHint.textContent = 'For example, an invoice, packing list or certificate of origin.';
+
+      const newDocumentNameInput = document.createElement('input');
+      newDocumentNameInput.classList.add('govuk-input', 'govuk-input--width-20');
+      newDocumentNameInput.id = `document-name-${fieldCount}`;
+      newDocumentNameInput.name = 'documentName[]';
+      newDocumentNameInput.type = 'text';
+      newDocumentNameInput.setAttribute('aria-describedby', `document-name-hint-${fieldCount}`);
+
+      const newReferenceNumberLabel = document.createElement('legend');
+      newReferenceNumberLabel.classList.add('govuk-fieldset__legend', 'govuk-fieldset__legend--s');
+      newReferenceNumberLabel.setAttribute('for', `reference-number-${fieldCount}`);
+      newReferenceNumberLabel.textContent = 'Document reference';
+
+      const newReferenceNumberHint = document.createElement('div');
+      newReferenceNumberHint.id = `reference-number-hint-${fieldCount}`;
+      newReferenceNumberHint.classList.add('govuk-hint');
+      newReferenceNumberHint.textContent = 'For example, INV00001';
+
+      const newReferenceNumberInput = document.createElement('input');
+      newReferenceNumberInput.classList.add('govuk-input', 'govuk-input--width-10');
+      newReferenceNumberInput.id = `reference-number-${fieldCount}`;
+      newReferenceNumberInput.name = 'referenceNumber[]';
+      newReferenceNumberInput.type = 'text';
+      newReferenceNumberInput.setAttribute('aria-describedby', `reference-number-hint-${fieldCount}`);
+
+      newDocumentField.appendChild(newDocumentNameLabel);
+      newDocumentField.appendChild(newDocumentNameHint);
+      newDocumentField.appendChild(newDocumentNameInput);
+      newDocumentField.appendChild(newReferenceNumberLabel);
+      newDocumentField.appendChild(newReferenceNumberHint);
+      newDocumentField.appendChild(newReferenceNumberInput);
+
+      documentFieldsContainer.appendChild(newDocumentField);
+
+      // Show delete button if more than one field
+      if (fieldCount > 1) {
+        deleteButton.style.display = 'inline-block';
+      }
+    });
+
+    deleteButton.addEventListener('click', function (event) {
+      event.preventDefault();
+      if (fieldCount > 1) {
+        const lastField = document.getElementById(`document-field-${fieldCount}`);
+        if (lastField) {
+          lastField.remove();
+          fieldCount--;
+        }
+      }
+
+      // Hide delete button if only one field remains
+      if (fieldCount <= 1) {
+        deleteButton.style.display = 'none';
+      }
+    });
+  });
+</script>
+
+{% endblock %}

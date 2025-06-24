@@ -29,8 +29,13 @@
 		
 		<h1 class="govuk-heading-xl">Plane details</h1>{{releaseVersion | log }}
 		
-		<form id="options-form" method="post" action="/gamma/transport/plane-details">
+		<form id="details-form" method="post" action="/gamma/transport/transport-plane">
 
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="airway-bill"><b>Air Waybill number</b></label>
+       <div id="plane-departure-hint" class="govuk-hint">For example, 123-45678901</div>
+        <input class="govuk-input govuk-input--width-10" id="airway-bill" name="airway-bill" type="text">
+      </div>
 			
 			<!-- plane nationality -->
       <div class="govuk-form-group">
@@ -49,6 +54,7 @@
 <div id="container-fields">
   <div class="govuk-form-group container-field">
     <label class="govuk-label" for="container-identification-1"><b>Container identification number</b></label>
+    <div id="plane-departure-hint" class="govuk-hint">For example, ABCD1234567.</div>
     <input class="govuk-input govuk-!-width-one-third" id="container-identification-1" name="container-identification" type="text">
   </div>
 </div>
@@ -108,19 +114,18 @@
         <label class="govuk-label" for="freight-bill"><b>Freight bill number</b></label>
         <input class="govuk-input govuk-!-width-one-quarter" id="freight-bill" name="freight-bill" type="text">
       </div>
-      
-
+  
       
      <!-- Form controls -->
-<div class="govuk-button-group">
-  <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button" formaction="/gamma/progress">
-    Save as draft
-  </button>
-  <button type="submit" class="govuk-button" data-module="govuk-button" formaction="/gamma/transport/transport-documents-plane">
-    Save and continue
-  </button>
-</div>
-
+        <div class="govuk-button-group">
+          <button class="govuk-button govuk-button--secondary" data-module="govuk-button" formaction="/gamma/progress" type="submit">
+            Save as draft
+          </button>
+          <button class="govuk-button" data-module="govuk-button" type="submit">
+            Save and continue
+          </button>
+        </div>
+      </form>
    
 		
 		

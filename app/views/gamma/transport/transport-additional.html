@@ -1,4 +1,3 @@
-
 {% extends "layouts/main.html" %}
 
 {% block pageTitle %}
@@ -43,7 +42,7 @@
   <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
   <strong class="govuk-warning-text__text">
     <span class="govuk-visually-hidden">Warning</span>
-    Only the transport entry marked “PDF” will appear on the catch certificate.
+   Only the transport type with the ‘PDF’ tag will appear on your catch certificate.
   </strong>
 </div>
 
@@ -58,18 +57,54 @@
     </tr>
   </thead>
 <tbody class="govuk-table__body">
-  <tr class="govuk-table__row">
-    <th scope="row" class="govuk-table__header">Truck</th>
-    <td class="govuk-table__cell">Invoice</td>
-    <td class="govuk-table__cell">INV00001</td>
-    <td class="govuk-table__cell">
-      <strong class="govuk-tag govuk-tag--blue">PDF</strong>
-    </td>
-    <td class="govuk-table__cell">
-      <a href="transport-type.html" class="govuk-button govuk-button--secondary" data-module="govuk-button">Edit</a>
-      <button type="button" class="govuk-button govuk-button--secondary remove-row-button" data-module="govuk-button">Remove</button>
-    </td>
-  </tr>
+  {% if groupedTransportTypes %}
+    {% for type, entries in groupedTransportTypes %}
+      <tr class="govuk-table__row">
+        <td class="govuk-table__cell">{{ type or 'Not provided' }}</td>
+        <td class="govuk-table__cell">
+          {% set docNames = [] %}
+          {% for entry in entries %}
+            {% if entry.documentName is iterable and entry.documentName is not string %}
+              {% for doc in entry.documentName %}
+                {% set docNames = docNames.concat([doc]) %}
+              {% endfor %}
+            {% else %}
+              {% set docNames = docNames.concat([entry.documentName or 'Not provided']) %}
+            {% endif %}
+          {% endfor %}
+          {{ docNames | join(', ') }}
+        </td>
+        <td class="govuk-table__cell">
+          {% set refNumbers = [] %}
+          {% for entry in entries %}
+            {% if entry.referenceNumber is iterable and entry.referenceNumber is not string %}
+              {% for ref in entry.referenceNumber %}
+                {% set refNumbers = refNumbers.concat([ref]) %}
+              {% endfor %}
+            {% else %}
+              {% set refNumbers = refNumbers.concat([entry.referenceNumber or 'Not provided']) %}
+            {% endif %}
+          {% endfor %}
+          {{ refNumbers | join(', ') }}
+        </td>
+        <td class="govuk-table__cell">
+          {# Only the first row should have the PDF tag. Ensure your backend logic always assigns the PDF tag to the first row after any removal. #}
+          {% if loop.first %}
+            <strong class="govuk-tag govuk-tag--blue">PDF</strong>
+          {% endif %}
+        </td>
+        <td class="govuk-table__cell">
+          <a href="/gamma/transport/transport-type?edit={{ entries[0]._originalIndex }}" class="govuk-button govuk-button--secondary" data-module="govuk-button">Edit</a>
+          <form method="post" action="/gamma/transport/transport-additional" style="display:inline">
+            <input type="hidden" name="removeIndex" value="{{ entries[0]._originalIndex }}">
+            <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove</button>
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+  {% else %}
+    <tr><td class="govuk-table__cell" colspan="5">No transport types added yet.</td></tr>
+  {% endif %}
 </tbody>
 
 </table>
@@ -100,6 +135,16 @@
             </div>
           </div>
         </fieldset>
+        <details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Why add another transport mode?
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    You may need to add another transport mode if the catch is moved between locations before export — for example, by road to a port and then by sea.
+  </div>
+</details>
       </div>
     
       <!-- Form controls -->
@@ -118,35 +163,7 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const removeButtons = document.querySelectorAll('.remove-row-button');
-
-    removeButtons.forEach(function (button) {
-      button.addEventListener('click', function () {
-        const row = button.closest('tr');
-        const tbody = row.closest('tbody');
-        const wasPDF = row.querySelector('.govuk-tag--blue');
-
-        // Get the next sibling <tbody>
-        let nextTbody = tbody.nextElementSibling;
-        while (nextTbody && nextTbody.tagName !== 'TBODY') {
-          nextTbody = nextTbody.nextElementSibling;
-        }
-
-        // Remove the current row's tbody
-        tbody.remove();
-
-        // If the removed row was PDF, assign PDF to the next row
-        if (wasPDF && nextTbody) {
-          const nextRow = nextTbody.querySelector('tr');
-          if (nextRow) {
-            const tagCell = nextRow.children[3]; // 4th cell
-            tagCell.innerHTML = '<strong class="govuk-tag govuk-tag--blue">PDF</strong>';
-          }
-        }
-      });
-    });
-  });
+// Removed broken JS for row removal and PDF tag assignment. This logic should be handled server-side.
 </script>
 
 {% include "../../includes/help.html" %}

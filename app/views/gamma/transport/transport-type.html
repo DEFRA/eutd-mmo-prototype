@@ -19,18 +19,24 @@
 
     <a href="../export-journey.html" class="govuk-back-link">Back</a>
 
-    <h1 class="govuk-heading-xl">How does the export leave the departure country?</h1>{{ releaseVersion | log }}
-
+    <h1 class="govuk-heading-xl">How does the export leave the departure country?</h1>
+         
     <form method="post" action="/gamma/transport/transport-type">
 
       <div class="govuk-form-group">
         <fieldset class="govuk-fieldset">
           <legend class="govuk-fieldset__legend">Select the type of transport</legend>
+               <div id="transport-hint" class="govuk-hint">
+                    Select the main mode of transport. You can add another later if needed.
+              </div
+
           <div class="govuk-radios">
             <div class="govuk-radios__item">
               <input class="govuk-radios__input" id="transport-type-truck" name="transport-type" type="radio" value="Truck">
               <label class="govuk-label govuk-radios__label" for="transport-type-truck">Truck</label>
-            </div>
+                      <div id="signIn-item-hint" class="govuk-hint govuk-radios__hint">
+                    Select truck if your vehicle travels by ferry or through the Eurotunnel.</div></div>
+
             <div class="govuk-radios__item">
               <input class="govuk-radios__input" id="transport-type-plane" name="transport-type" type="radio" value="Plane">
               <label class="govuk-label govuk-radios__label" for="transport-type-plane">Plane</label>
@@ -45,20 +51,35 @@
             </div>
           </div>
         </fieldset>
+
+              <details class="govuk-details govuk-!-margin-top-6 govuk-!-margin-bottom-6">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            Why can I add more than one mode of transport?
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          <p class="govuk-body">
+            From 10 January 2026, new EU regulations allow you to include more than one mode of transport in your catch certificate. This helps improve traceability when your catch is moved using different types of transport, such as by sea, road, or air.
+          </p>
+        </div>
+      </details>
       </div>
 
       <!-- Form controls -->
       <div class="govuk-button-group">
-        <button class="govuk-button govuk-button--secondary" data-module="govuk-button" formaction="progress">Save as draft</button>&nbsp;
+        <button class="govuk-button govuk-button--secondary" data-module="govuk-button" formaction="../progress.html">Save as draft</button>
         <button class="govuk-button" data-module="govuk-button" type="submit">
           Save and continue
         </button>
       </div>
-      
+
+{% include "../../includes/help.html" %}
+
     </form>
 
   </div>
 </div>
 
-{% include "../../includes/help.html" %}
+
 {% endblock %}

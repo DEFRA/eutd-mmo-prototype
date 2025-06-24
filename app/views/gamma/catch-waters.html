@@ -1,4 +1,3 @@
-
 {% extends "layouts/main.html" %}
 
 {% block pageTitle %}
@@ -55,9 +54,19 @@
               <input class="govuk-checkboxes__input" id="waters-2" name="waters" type="checkbox" value="EU">
               <label class="govuk-label govuk-checkboxes__label" for="waters-2">EU</label>
             </div>
+            <div class="govuk-checkboxes__divider">or</div>
             <div class="govuk-checkboxes__item">
-              <input class="govuk-checkboxes__input" id="waters-3" name="waters" type="checkbox" value="Other">
+              <input class="govuk-checkboxes__input" id="waters-3" name="waters" type="checkbox" value="Other" data-aria-controls="conditional-waters-3">
               <label class="govuk-label govuk-checkboxes__label" for="waters-3">Other</label>
+            </div>
+            <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden" id="conditional-waters-3">
+              <div class="govuk-form-group">
+                <label class="govuk-label" for="other-waters-detail"><b>Enter the name of the other waters</b></label>
+                <div id="other-waters-detail-hint" class="govuk-hint">
+                  The details entered here will appear on your document and must be legible in English.
+                </div>
+                <input class="govuk-input govuk-input--width-20" id="other-waters-detail" name="other-waters-detail" type="text" aria-describedby="other-waters-detail-hint">
+              </div>
             </div>
           </div>
 

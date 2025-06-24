@@ -1,0 +1,227 @@
+
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+  {% include "../../includes/phase.html" %}
+
+<style>
+	.govuk-fieldset {margin-bottom:30px;}
+  .govuk-fieldset__legend {font-weight:bold;}
+  #cmr-hint {margin-bottom:50px;}
+  .black {color:#0b0c0c;}
+  .govuk-button-group {margin-top:50px;}
+</style>
+
+<script>
+  function navigateOption() {
+    if (document.getElementById('additional-modes-yes').checked) {
+      window.location = 'transport/transport-type';
+    }
+
+    if (document.getElementById('additional-modes-no').checked) {
+      // No page yet – leave this blank or show a placeholder message
+      window.location = 'progress';
+    }
+
+    return false;
+  }
+</script>
+
+  
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+      
+		<a href="javascript:history.back()" class="govuk-back-link">Back</a>
+		
+		<h1 class="govuk-heading-xl">Transport details</h1>
+
+      <div class="govuk-warning-text">
+  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+  <strong class="govuk-warning-text__text">
+    <span class="govuk-visually-hidden">Warning</span>
+    Only the transport entry marked “PDF” will appear on the catch certificate.
+  </strong>
+</div>
+
+<table class="govuk-table govuk-table--small-text-until-tablet">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header app-custom-class">Transport type</th>
+      <th scope="col" class="govuk-table__header app-custom-class">Documents</th>
+      <th scope="col" class="govuk-table__header app-custom-class">References</th>
+      <th scope="col" class="govuk-table__header app-custom-class"></th>
+      <th scope="col" class="govuk-table__header app-custom-class"></th>
+    </tr>
+  </thead>
+<tbody class="govuk-table__body">
+{% if data['transport-type'] == 'Truck' %}
+<tr class="govuk-table__row" id="truck-row">
+<td class="govuk-table__cell">Truck</td>
+
+  <td class="govuk-table__cell">
+    {% if data['documentName'] %}
+      {% if data['documentName'] is string %}
+        {{ data['documentName'] }}
+      {% else %}
+        <ul class="govuk-list govuk-list--spaced no-bullets">
+          {% for doc in data['documentName'] %}
+            <li>{{ doc }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% else %}
+      Not provided
+    {% endif %}
+  </td>
+  <td class="govuk-table__cell">
+    {% if data['referenceNumber'] %}
+      {% if data['referenceNumber'] is string %}
+        {{ data['referenceNumber'] }}
+      {% else %}
+        <ul class="govuk-list govuk-list--spaced no-bullets">
+          {% for ref in data['referenceNumber'] %}
+            <li>{{ ref }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% else %}
+      Not provided
+    {% endif %}
+  </td>
+  <td class="govuk-table__cell">
+    <strong class="govuk-tag govuk-tag--blue">PDF</strong>
+  </td>
+  <td class="govuk-table__cell">
+    <a href="transport-type.html" class="govuk-button govuk-button--secondary" data-module="govuk-button">Edit</a>
+    <button type="button" class="govuk-button govuk-button--secondary remove-row-button" data-module="govuk-button">Remove</button>
+  </td>
+</tr>
+{% elif data['transport-type'] == 'Plane' %}
+<tr class="govuk-table__row" id="plane-row">
+  <td class="govuk-table__cell">Plane</td>
+  <td class="govuk-table__cell">{{ data['plane-document'] or 'Not provided' }}</td>
+  <td class="govuk-table__cell">{{ data['plane-referenceNumber'] or 'Not provided' }}</td>
+  <td class="govuk-table__cell">
+    <strong class="govuk-tag govuk-tag--blue">PDF</strong>
+  </td>
+  <td class="govuk-table__cell">
+    <a href="transport-type.html" class="govuk-button govuk-button--secondary" data-module="govuk-button">Edit</a>
+    <button type="button" class="govuk-button govuk-button--secondary remove-row-button" data-module="govuk-button">Remove</button>
+  </td>
+</tr>
+{% elif data['transport-type'] == 'Train' %}
+<tr class="govuk-table__row" id="train-row">
+  <td class="govuk-table__cell">Train</td>
+  <td class="govuk-table__cell">{{ data['train-document'] or 'Not provided' }}</td>
+  <td class="govuk-table__cell">{{ data['train-referenceNumber'] or 'Not provided' }}</td>
+  <td class="govuk-table__cell">
+    <strong class="govuk-tag govuk-tag--blue">PDF</strong>
+  </td>
+  <td class="govuk-table__cell">
+    <a href="transport-type.html" class="govuk-button govuk-button--secondary" data-module="govuk-button">Edit</a>
+    <button type="button" class="govuk-button govuk-button--secondary remove-row-button" data-module="govuk-button">Remove</button>
+  </td>
+</tr>
+{% elif data['transport-type'] == 'Container vessel' %}
+<tr class="govuk-table__row" id="vessel-row">
+  <td class="govuk-table__cell">Container vessel</td>
+  <td class="govuk-table__cell">{{ data['vessel-document'] or 'Not provided' }}</td>
+  <td class="govuk-table__cell">{{ data['vessel-referenceNumber'] or 'Not provided' }}</td>
+  <td class="govuk-table__cell">
+    <strong class="govuk-tag govuk-tag--blue">PDF</strong>
+  </td>
+  <td class="govuk-table__cell">
+    <a href="transport-type.html" class="govuk-button govuk-button--secondary" data-module="govuk-button">Edit</a>
+    <button type="button" class="govuk-button govuk-button--secondary remove-row-button" data-module="govuk-button">Remove</button>
+  </td>
+</tr>
+
+
+ 
+{% endif %}
+
+</tbody>
+
+</table>
+
+
+
+
+
+    
+		
+    <form method="post" action="/poc/transport/transport-additional">
+      <!-- Transport type -->
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="additional-modes">
+         <legend class="govuk-fieldset__legend govuk-fieldset__legend--s" for="additional-modes">Do you have more transport modes to add?</legend>
+
+          <div id="transport-mode-hint" class="govuk-hint">
+            For example, if goods are moved by both truck and train, select ‘Yes’.
+          </div>
+          <div class="govuk-radios govuk-radios--inline">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="additional-modes-yes" name="additional-modes" type="radio" value="Yes">
+              <label class="govuk-label govuk-radios__label" for="additional-modes-yes">Yes</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="additional-modes-no" name="additional-modes" type="radio" value="No">
+              <label class="govuk-label govuk-radios__label" for="additional-modes-no">No</label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    
+      <!-- Form controls -->
+      <div class="govuk-button-group">
+        <button class="govuk-button govuk-button--secondary" data-module="govuk-button" formaction="../catch-certificates-reference.html">Save as draft</button>
+          <button class="govuk-button" data-module="govuk-button" type="submit">
+  Save and continue
+</button>
+      </div>
+    </form>
+    
+		
+		
+
+	 </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const removeButtons = document.querySelectorAll('.remove-row-button');
+
+    removeButtons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        const row = button.closest('tr');
+        const tbody = row.closest('tbody');
+        const wasPDF = row.querySelector('.govuk-tag--blue');
+
+        // Get the next sibling <tbody>
+        let nextTbody = tbody.nextElementSibling;
+        while (nextTbody && nextTbody.tagName !== 'TBODY') {
+          nextTbody = nextTbody.nextElementSibling;
+        }
+
+        // Remove the current row's tbody
+        tbody.remove();
+
+        // If the removed row was PDF, assign PDF to the next row
+        if (wasPDF && nextTbody) {
+          const nextRow = nextTbody.querySelector('tr');
+          if (nextRow) {
+            const tagCell = nextRow.children[3]; // 4th cell
+            tagCell.innerHTML = '<strong class="govuk-tag govuk-tag--blue">PDF</strong>';
+          }
+        }
+      });
+    });
+  });
+</script>
+
+{% include "../../includes/help.html" %}
+{% endblock %}

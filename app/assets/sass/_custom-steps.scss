@@ -1,0 +1,28 @@
+.gem-c-govspeak .steps {
+  list-style: none;
+  counter-reset: step;
+  padding-left: 0;
+
+  > li {
+    counter-increment: step;
+    position: relative;
+    padding-left: 2.5em;
+    margin-bottom: 1em;
+
+    &::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0.1em;
+      width: 1.8em;
+      height: 1.8em;
+      background: #1d70b8;
+      color: #fff;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 1.8em;
+      font-weight: bold;
+      font-family: "GDS Transport", arial, sans-serif;
+    }
+  }
+}

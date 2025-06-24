@@ -1,0 +1,105 @@
+{% extends "includes/guidance.html" %}
+
+{% block head %}
+{% include "includes/head.html" %}
+<link rel="stylesheet" href="/assets/stylesheets/application.css">
+{% endblock %}
+
+{% block pageTitle %}
+How to upload products and landings for catch certificates
+{% endblock %}
+
+{% block content %}
+<main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <a href="/create-catch-certificate/GBR-2025-CC-F9B59AA1D/progress" class="govuk-back-link">Back</a>
+
+      <h1 class="govuk-heading-xl">Upload products and landings</h1>
+
+      <div class="govuk-!-margin-bottom-6">
+        <p class="govuk-body">Before you can upload your products and landings using a CSV file, you need to:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>read and understand the <a class="govuk-link"
+              href="../gamma/upload-guidance-2.html">upload guidance</a></li>
+          <li>create your <a class="govuk-link"
+              href="../gamma/favourites.html">product favourites</a></li>
+        </ul>
+      </div>
+
+
+
+      <h2 class="govuk-heading-m">1. File upload</h2>
+
+      <form method="post" action="/create-catch-certificate/GBR-2025-CC-F9B59AA1D/upload-file" id="upload-form"
+        enctype="multipart/form-data" novalidate>
+        <div class="govuk-form-group govuk-!-margin-bottom-6">
+          <label class="govuk-label" for="file-upload">Upload the CSV file from your device</label>
+          <div id="file-upload-hint" class="govuk-hint">Must be a CSV file. Only one file can be uploaded at a time.
+          </div>
+          <input class="govuk-file-upload" id="file-upload" name="productCsvFile" type="file" accept=".csv"
+            onchange="handleFileUpload(event)">
+          <span id="file-upload-label" class="govuk-body govuk-!-margin-top-2">No file chosen</span>
+        </div>
+
+        <button class="govuk-button govuk-button--secondary govuk-!-margin-bottom-6" onclick="clearUpload(event)">Clear
+          upload</button>
+        
+
+
+        <h2 class="govuk-heading-m govuk-!-margin-top-6">2. Upload results</h2>
+        <p class="govuk-body">If any rows fail validation:</p>
+        <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-6">
+          <li>Fix the errors in your CSV file, clear the upload, and try again</li>
+          <li>Note the failed landings, select save and continue, then add them manually</li>
+          <li>Upload a new CSV file</li>
+        </ul>
+
+        <div class="govuk-!-margin-bottom-6">
+          <table class="govuk-table" id="data-table">
+            <thead class="govuk-table__head">
+              <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Row</th>
+                <th scope="col" class="govuk-table__header">Data</th>
+                <th scope="col" class="govuk-table__header">Result</th>
+              </tr>
+            </thead>
+            <tbody class="govuk-table__body" id="data-table-body">
+              <!-- Dynamic rows will appear here -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="govuk-button-group govuk-!-margin-bottom-6">
+          <button type="submit" name="_action" class="govuk-button govuk-button--secondary" value="cancel"
+            data-module="govuk-button">Cancel</button>
+          <button type="submit" name="_action" class="govuk-button" value="saveAndContinue" id="continue"
+            data-module="govuk-button">Save and continue</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+
+<div id="get-help"></div>
+
+{% include "../includes/help.html" %}
+
+<script>
+  function handleFileUpload(event) {
+    const fileInput = event.target;
+    const label = document.getElementById("file-upload-label");
+    if (fileInput.files.length === 0) {
+      label.textContent = "No file chosen";
+    } else {
+      label.textContent = fileInput.files.length === 1 ? fileInput.files[0].name : `${fileInput.files.length} files selected`;
+    }
+  }
+  function clearUpload(event) {
+    event.preventDefault();
+    document.getElementById("file-upload").value = "";
+    document.getElementById("file-upload-label").textContent = "No file chosen";
+    document.getElementById("data-table-body").innerHTML = "";
+  }
+</script>
+{% endblock %}

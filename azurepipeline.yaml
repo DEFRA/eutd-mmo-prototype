@@ -1,0 +1,21 @@
+trigger:
+  branches:
+    include:
+      - "*"
+  batch: True
+
+pr:
+  branches:
+    include:
+      - "*"
+
+resources:
+  repositories:
+    - repository: MMOPipelineCommon
+      name: "DEFRA/eutd-mmo-fes-pipeline-common"
+      endpoint: DEFRA
+      type: git
+      ref: refs/heads/main
+
+extends:
+  template: /includes/prototype-deployment.yaml@MMOPipelineCommon

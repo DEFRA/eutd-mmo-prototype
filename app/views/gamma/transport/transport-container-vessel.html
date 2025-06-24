@@ -29,7 +29,7 @@
 		
 		<h1 class="govuk-heading-xl">Container vessel details</h1>{{releaseVersion | log }}
 		
-		<form id="options-form" method="post">
+      <form id="details-form" method="post" action="/gamma/transport/transport-container-vessel">
 			
 			<!-- container vessel nationality -->
       <div class="govuk-form-group">
@@ -47,10 +47,60 @@
 
             <!-- Registration number -->
       <div class="govuk-form-group">
-        <label class="govuk-label" for="container-vessel-registration"><b>Container identification number</b></label>
+        <label class="govuk-label" for="vessel-container-identifcation"><b>Container identification number</b></label>
                 <div id="container vessel-departure-hint" class="govuk-hint">For example, ABCD1234567</div>
-        <input class="govuk-input govuk-input govuk-input--width-10" id="flag-state" name="flat-state" type="text">
+        <input class="govuk-input govuk-input govuk-input--width-10" id="vessel-container-identifcation" name="vessel-container-identifcation" type="text">
       </div>
+
+   
+
+      <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const containerFields = document.getElementById('container-fields');
+    const addButton = document.getElementById('add-container-button');
+    let containerCount = 1;
+
+    addButton.addEventListener('click', function () {
+      containerCount++;
+
+      const wrapper = document.createElement('div');
+      wrapper.classList.add('govuk-form-group', 'container-field');
+      wrapper.id = `container-field-${containerCount}`;
+
+      const label = document.createElement('label');
+      label.classList.add('govuk-label');
+      label.setAttribute('for', `container-identification-${containerCount}`);
+      label.innerHTML = '<b>Container identification number</b>';
+
+      const input = document.createElement('input');
+      input.classList.add('govuk-input', 'govuk-!-width-one-third');
+      input.id = `container-identification-${containerCount}`;
+      input.name = 'container-identification[]';
+      input.type = 'text';
+
+      const buttonWrapper = document.createElement('div');
+      buttonWrapper.classList.add('govuk-!-margin-top-2');
+
+      const removeButton = document.createElement('button');
+      removeButton.type = 'button';
+      removeButton.classList.add('govuk-button', 'govuk-button--secondary');
+      removeButton.textContent = 'Remove';
+      removeButton.addEventListener('click', function () {
+        wrapper.remove();
+      });
+
+      buttonWrapper.appendChild(removeButton);
+      wrapper.appendChild(label);
+      wrapper.appendChild(input);
+      wrapper.appendChild(buttonWrapper);
+      containerFields.appendChild(wrapper);
+    });
+  });
+</script>
+
+   <div class="govuk-button-group govuk-!-margin-top-2">
+  <button type="button" class="govuk-button govuk-button--secondary" id="add-container-button">Add another container</button>
+</div>
       
       <!-- Place leaving UK -->
       <div class="govuk-form-group">
@@ -63,19 +113,20 @@
       <div class="govuk-form-group">
         <label class="govuk-label" for="container-vessel-departure"><b>Freight bill number</b></label>
         <div id="container vessel-departure-hint" class="govuk-hint">For example, AA1234567</div>
-        <input class="govuk-input govuk-input govuk-input--width-10" id="freight-bill" name="freight-bill" type="text">
+        <input class="govuk-input govuk-input govuk-input--width-10" id="vessel-freight-bill" name="vessel-freight-bill" type="text">
       </div>
       
       
      <!-- Form controls -->
-     <div class="govuk-button-group">
-      <button class="govuk-button govuk-button--secondary" data-module="govuk-button" formaction="progress" type="submit">
-        Save as draft
-      </button>
-      <button class="govuk-button" data-module="govuk-button" type="button" onclick="location.href=' transport-additional-modes.html'">
-        Save and continue
-      </button>      
-    </div>
+        <div class="govuk-button-group">
+          <button class="govuk-button govuk-button--secondary" data-module="govuk-button" formaction="/gamma/progress" type="submit">
+            Save as draft
+          </button>
+          <button class="govuk-button" data-module="govuk-button" type="submit">
+            Save and continue
+          </button>
+        </div>
+      </form>
    
 		
 		

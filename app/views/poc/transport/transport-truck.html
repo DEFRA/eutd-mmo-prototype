@@ -1,0 +1,97 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+  {% include "../../includes/phase.html" %}
+
+  <style>
+    .govuk-table {
+      margin-top: 30px;
+    }
+
+    .govuk-form-group {
+      margin-bottom: 20px;
+    }
+
+    .govuk-button-group {
+      margin-top: 30px;
+    }
+
+    .document-field {
+      position: relative;
+      padding-bottom: 20px;
+    }
+
+    .delete-link {
+      margin-left: 10px;
+    }
+
+    .govuk-label--m {
+      font-size: 16px; /* Adjusted font size */
+    }
+
+    .govuk-input {
+      font-size: 16px; /* Adjusted font size */
+    }
+  </style>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <a href="javascript:history.back()" class="govuk-back-link">Back</a>
+
+      <h1 class="govuk-heading-xl">Truck details</h1>
+
+      <form id="details-form" method="post" action="/poc/transport/transport-truck">
+        <div class="govuk-form-group">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--s" for="truck-nationality">Truck nationality</legend>
+          <div id="truck-nationality-hint" class="govuk-hint">
+            For example, Vietnamese
+          </div>
+          <input class="govuk-input govuk-input--width-20" id="truck-nationality" name="truck-nationality" type="text" aria-describedby="truck-nationality-hint">
+        </div>
+
+        <div class="govuk-form-group">
+          <label class="govuk-label govuk-label--s" for="registration-number">Registration number</label>
+          <div id="registration-number-hint" class="govuk-hint">
+            For example, BD51SMR
+          </div>
+          <input class="govuk-input govuk-input--width-10" id="registration-number" name="registration-number" type="text" aria-describedby="registration-number-hint">
+        </div>
+
+        <div class="govuk-form-group">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--s" for="export-place">Place export leaves the departure country</legend>
+          <div id="export-place-hint" class="govuk-hint">
+            For example, Hull
+          </div>
+          <input class="govuk-input govuk-input--width-20" id="export-place" name="export-place" type="text" aria-describedby="export-place-hint">
+        </div>
+
+        <div class="govuk-form-group">
+          <label class="govuk-label govuk-label--s" for="freight-number">Freight bill number</label>
+          <div id="freight-number-hint" class="govuk-hint">
+            For example, AA1234567
+          </div>
+          <input class="govuk-input govuk-input--width-10" id="freight-number" name="freight-number" type="text" aria-describedby="freight-number-hint">
+        </div>
+
+        <!-- Form controls -->
+        <div class="govuk-button-group">
+          <button class="govuk-button govuk-button--secondary" data-module="govuk-button" formaction="/poc/progress" type="submit">
+            Save as draft
+          </button>
+          <button class="govuk-button" data-module="govuk-button" type="submit">
+            Save and continue
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  {% include "../../includes/help.html" %}
+{% endblock %}
+
+
+

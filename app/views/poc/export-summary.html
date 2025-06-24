@@ -1,0 +1,63 @@
+
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+	{% include "../includes/phase.html" %}
+
+<style>
+	.govuk-fieldset {margin-bottom:30px;}
+  .govuk-fieldset__legend {font-weight:bold;}
+  #cmr-hint {margin-bottom:50px;}
+  .black {color:#0b0c0c;}
+  .placeholder {color:#d4351c;font-size:48pt;height:200px;}
+  .govuk-warning-text__icon {margin-top:70px;}
+  .govuk-button-group {margin-top:50px;}
+</style>
+
+<script>
+		
+
+	
+</script>
+
+  
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+      
+		<a href="../" class="govuk-back-link">Back</a>
+		
+		<h1 class="govuk-heading-xl">Check your information before you create the catch certificate</h1>{{releaseVersion | log }}
+		
+		<form id="options-form" method="post">
+			
+			<!-- Content -->
+      <p class="govuk-body placeholder">Summary goes here</p>
+      
+      <!-- Legal warning -->
+      <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+          <span class="govuk-warning-text__assistive">Warning</span>
+          In submitting the information in this catch certificate, I acknowledge that I understand that I am under a duty not to knowingly submit information which I know to be false or otherwise inaccurate. The fisheries administrations may undertake checks on the accuracy and validity of the data and may cross reference it with data held and submitted by others in the supply chain, and may exchange data with other relevant fisheries administrations, including those in the country of export. I understand that I may be liable to investigation and potentially to enforcement action, including prosecution if I knowingly submit false, misleading or otherwise inaccurate data.
+        </strong>
+      </div>
+      
+      <!-- Form controls -->
+			<div class="govuk-button-group">
+		    <button class="govuk-button" data-module="govuk-button">Accept and create the catch certificate</button>
+      </div>
+			
+		</form>
+		
+		
+
+	 </div>
+</div>
+
+	{% include "../includes/help.html" %}
+{% endblock %}
+

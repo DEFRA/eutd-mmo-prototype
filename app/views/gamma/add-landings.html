@@ -6,11 +6,131 @@ GOV.UK Prototype Kit
 
 {% block head %}
 
+
+  {% include "includes/head.html" %}
+  
+<style>
+.secondary-button-style {
+  display: inline-block;
+  position: relative;
+  padding: 6px 10px 5px;
+  margin: 0 10px 20px 0; /* Adds spacing between buttons */
+  min-width: 80px;
+  width: auto; /* Prevents full-width stretching */
+  font-family: "GDS Transport", arial, sans-serif;
+  font-size: 1.1875rem;
+  font-weight: 400;
+  line-height: 1.3157894737;
+  color: #0b0c0c;
+  background: rgba(0, 0, 0, 0);
+  border: 1px solid #0b0c0c;
+  box-shadow: 0 3px 0 #0b0c0c;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: top;
+  cursor: pointer;
+  border-radius: 0;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.secondary-button-style:hover {
+  background-color: #f3f2f1;
+  color: #0b0c0c;
+}
+
+.secondary-button-style:focus {
+  outline: 3px solid #fd0;
+  outline-offset: 0;
+  box-shadow: inset 0 0 0 1px #0b0c0c;
+}
+
+.secondary-button-style:active {
+  top: 2px;
+  box-shadow: 0 1px 0 #0b0c0c;
+}
+</style>
+
+
+
 <style>
   .govuk-radios__input:checked+.govuk-radios__label::before,
   .govuk-radios__input+.govuk-radios__label::before {
     background-color: #ffffff !important;
   }
+
+  .govuk-icon {
+  vertical-align: middle;
+  margin-left: 4px;
+}
+
+.govuk-date-input__item button {
+  margin-top: -27px; /* Adjust this value as needed */
+  vertical-align: top;
+}
+
+.moj-date-button {
+    height: 40px;
+    padding-top: 6px;
+    border: none;
+    border-bottom: 4px solid rgba(0, 0, 0, 0);
+    outline: 3px solid rgba(0, 0, 0, 0);
+    outline-offset: -3px;
+    color: #fff;
+    background-color: #0b0c0c;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    box-shadow: none;
+    margin: 0;
+    padding-left: 12px;
+    padding-right: 12px;
+    transition: background 0.2s, border-bottom 0.2s;
+  }
+  .moj-date-button:focus {
+    border-bottom: 4px solid #0b0c0c;
+    color: #0b0c0c;
+    background-color: #ffdd00;
+    outline: none;
+  }
+  .moj-date-button:hover {
+    border-bottom: 4px solid #1d70b8;
+    color: #0b0c0c;
+    background-color: #1d70b8;
+  }
+  .moj-date-button:focus:hover {
+    border-bottom: 4px solid #0b0c0c;
+    color: #0b0c0c;
+    background-color: #1d70b8;
+  }
+  .moj-date-button svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    stroke: #fff;
+    fill: none;
+    display: block;
+  }
+
+  .govuk-date-input {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+  }
+  .govuk-date-input__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .moj-date-input {
+  width: 180px !important;
+  min-width: 0;
+  max-width: 100%;
+}
+
 </style>
 
 
@@ -18,17 +138,6 @@ GOV.UK Prototype Kit
 
 
 
-<link rel="stylesheet" href="/build-v2/_assets/govuk-frontend.min-5TZSCRBE.css">
-<link rel="stylesheet" href="/build-v2/_assets/language-MWHIHAGR.css">
-<link rel="stylesheet" href="/build-v2/_assets/help-link-B3BPNIA5.css">
-<link rel="stylesheet" href="/build-v2/_assets/banner-7FVKMX46.css">
-<link rel="stylesheet" href="/build-v2/_assets/dashboard-PJVMVE46.css">
-<link rel="stylesheet" href="/build-v2/_assets/app-task-GZRNR5JK.css">
-<link rel="stylesheet" href="/build-v2/_assets/autocomplete-LSXXNNXN.css">
-<link rel="stylesheet" href="/build-v2/_assets/upload-guidance-AP3HH7Z6.css">
-<link rel="stylesheet" href="/build-v2/_assets/directLanding-5P6VBAUJ.css">
-<link rel="stylesheet" href="/build-v2/_assets/react-datepicker-TBH2VA4Q.css">
-<link rel="stylesheet" href="/build-v2/_assets/utils-QP7FJSJ4.css">
 
 {% endblock %}
 
@@ -38,70 +147,33 @@ GOV.UK Prototype Kit
 <main class="govuk-main-wrapper" id="main-content" role="main">
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-      <div class="govuk-inset-text" id="directLandingsGuidanceMessage">
-        <label class="govuk-label govuk-label--s">Please note:</label>
-        <ul class="govuk-list govuk-list--bullet">
-          <li>A landing date is required before selecting a vessel</li>
-          <li>Landing dates can be up to 7 days in the future in draft documents but only up to 3 days in the future
-            in final submitted catch certificates</li>
-          <li>All landings should have been made in accordance with the relevant conservation and management measures
-          </li>
-        </ul>
-      </div>
+
       <h1 class="govuk-heading-xl ">Add your trip</h1>
       <div class="govuk-warning-text">
         <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
         <strong class="govuk-warning-text__text">
           <span class="govuk-visually-hidden">Warning</span>
-          Under new EU regulations, it will be mandatory to provide detailed catch area and gear type information for
-          all fishing activities.
+          From 10 January 2026, start date, catch area and gear type fields will be mandatory under new EU regulations.
         </strong>
       </div>
 
 
-      <div style="background-color: #f8f8f8; width: 100%; padding: 2rem; border-radius: 2;">
-      <form method="post" action="/gamma/catch-waters">
+  <div style="background-color: #f8f8f8; width: 100%; padding: 2rem; border-radius: 2;">
+  <form method="post" action="/gamma/catch-waters">
+    
 
- 
-  
+
 
           <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset" role="group" aria-describedby="date-hint">
-              <legend class="govuk-fieldset__legend govuk-fieldset__legend"><b>Start date of fishing trip (optional)</b>
+            <fieldset class="govuk-fieldset" role="group" aria-describedby="start-date-hint">
+              <legend class="govuk-fieldset__legend govuk-fieldset__legend"><b>Start date</b>
               </legend>
-              <div id="date-hint" class="govuk-hint">For example, 31 03 1980</div>
-              <div class="govuk-date-input">
-                <div class="govuk-date-input__item">
-                  <div class="govuk-form-group">
-                    <label class="govuk-label govuk-date-input__label" for="startDate-day">Day</label>
-                    <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="startDate-day"
-                      name="startDateDay" type="number" inputmode="numeric" value="">
-                  </div>
-                </div>
-                <div class="govuk-date-input__item">
-                  <div class="govuk-form-group">
-                    <label class="govuk-label govuk-date-input__label" for="startDate-month">Month</label>
-                    <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="startDate-month"
-                      name="startDateMonth" type="number" inputmode="numeric" value="">
-                  </div>
-                </div>
-                <div class="govuk-date-input__item">
-                  <div class="govuk-form-group">
-                    <label class="govuk-label govuk-date-input__label" for="startDate-year">Year</label>
-                    <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="startDate-year"
-                      name="startDateYear" type="number" inputmode="numeric" value="">
-                  </div>
-                </div>
-                <!-- Calendar Icon -->
-                <div class="govuk-date-input__item">
-                  <div class="govuk-form-group govuk-!-margin-top-6">
-                    <!-- Button to trigger the calendar popup -->
-                    <button type="button" id="calendarButtonStart" aria-label="Choose Date"
-                      style="padding-top: 2px; border: none; box-shadow: 0 2px #929191; background-color: #efefef; cursor: pointer;">
-                      <img alt="calendar" src="/assets/images/calendar.png" style="width: 20px; height: 20px;">
-                    </button>
-                  </div>
-                </div>
+              <div id="start-date-hint" class="govuk-hint">For example, 31/03/1980</div>
+              <div class="govuk-date-input moj-date-input-group">
+                <input class="govuk-input moj-date-input govuk-input--width-10" id="startDate" name="startDate" type="text" autocomplete="off" inputmode="text" aria-describedby="start-date-hint" placeholder="DD/MM/YYYY">
+                <button type="button" id="calendarButtonStart" class="moj-date-button" aria-label="Choose date for start date">
+                  <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2" stroke-width="2"/><line x1="16" y1="3" x2="16" y2="7" stroke-width="2"/><line x1="8" y1="3" x2="8" y2="7" stroke-width="2"/><line x1="3" y1="9" x2="21" y2="9" stroke-width="2"/></svg>
+                </button>
               </div>
             </fieldset>
           </div>
@@ -109,74 +181,59 @@ GOV.UK Prototype Kit
           <details class="govuk-details">
             <summary class="govuk-details__summary">
               <span class="govuk-details__summary-text">
-                Start date
+                What is a start date?
               </span>
             </summary>
             <div class="govuk-details__text">
-              This is the date the vessel left port on the trip when the fish was landed.
-
+              <p class="govuk-body">The start date is the date the vessel departed from port to begin the fishing trip during which the catch was made.</p>
+             <p class="govuk-body">The start date is not:</p> 
+              <ul class="govuk-list govuk-list--bullet">
+                <li>The date the catch was landed (see Date Landed)</li>
+                <li>The date the catch was sold or processed</li>
+              </ul>
             </div>
           </details>
 
 
           <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset" role="group" aria-describedby="date-hint">
+            <fieldset class="govuk-fieldset" role="group" aria-describedby="date-landed-hint">
               <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend">
-                  <h1 class="govuk-fieldset__heading"><b>Date Landed</b></h1>
+                  <h1 class="govuk-fieldset__heading"><b>Date landed</b></h1>
                 </legend>
-                <div id="date-hint" class="govuk-hint">For example, 31 03 1980</div>
-
-                <div class="govuk-date-input" id="dateLanded">
-                  <!-- Day -->
-                  <div class="govuk-date-input__item">
-                    <div class="govuk-form-group">
-                      <label class="govuk-label govuk-date-input__label" for="dateLanded-day">Day</label>
-                      <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="dateLanded-day"
-                        name="dateLandedDay" type="number" inputmode="numeric">
-                    </div>
-                  </div>
-                  <!-- Month -->
-                  <div class="govuk-date-input__item">
-                    <div class="govuk-form-group">
-                      <label class="govuk-label govuk-date-input__label" for="dateLanded-month">Month</label>
-                      <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="dateLanded-month"
-                        name="dateLandedMonth" type="number" inputmode="numeric">
-                    </div>
-                  </div>
-                  <!-- Year -->
-                  <div class="govuk-date-input__item">
-                    <div class="govuk-form-group">
-                      <label class="govuk-label govuk-date-input__label" for="dateLanded-year">Year</label>
-                      <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="dateLanded-year"
-                        name="dateLandedYear" type="number" inputmode="numeric">
-                    </div>
-                  </div>
-
-                  <!-- Calendar Icon -->
-                  <div class="govuk-date-input__item">
-                    <div class="govuk-form-group govuk-!-margin-top-6">
-                      <!-- Button to trigger the calendar popup -->
-                      <button type="button" id="calendarButtonLanded" aria-label="Choose Date"
-                        style="padding: 4px; border: none; box-shadow: 0 2px #929191; background-color: #efefef; cursor: pointer; display: flex; align-items: center; justify-content: center; border-radius: 4px;">
-                        <img src="/assets/images/calendar.png" alt="calendar" style="width: 20px; height: 20px;">
-
-                      </button>
-
-
-                      <!-- Hidden input field for date picker -->
-                      <input type="text" id="datepicker" placeholder="Select a date" style="display:none;">
-                    </div>
-                  </div>
+                <div id="date-landed-hint" class="govuk-hint">For example, 31/03/1980</div>
+                <div class="govuk-date-input moj-date-input-group">
+                  <input class="govuk-input moj-date-input govuk-input--width-10" id="dateLanded" name="dateLanded" type="text" autocomplete="off" inputmode="text" aria-describedby="date-landed-hint" placeholder="DD/MM/YYYY">
+                  <button type="button" id="calendarButtonLanded" class="moj-date-button" aria-label="Choose date for date landed">
+                    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2" stroke-width="2"/><line x1="16" y1="3" x2="16" y2="7" stroke-width="2"/><line x1="8" y1="3" x2="8" y2="7" stroke-width="2"/><line x1="3" y1="9" x2="21" y2="9" stroke-width="2"/></svg>
+                  </button>
                 </div>
             </fieldset>
           </div>
+
+                    <div style="margin-bottom: -1rem;"></div>
+
+             <details class="govuk-details">
+            <summary class="govuk-details__summary">
+              <span class="govuk-details__summary-text">
+                What is a date landed?
+              </span>
+            </summary>
+            <div class="govuk-details__text">
+              <p class="govuk-body">The date landed is the date the vessel finishes its fishing trip and unloads its catch at port.</p>
+             <p class="govuk-body">You can enter a landing date:</p> 
+              <ul class="govuk-list govuk-list--bullet">
+                <li>up to 7 days in the future in draft documents</li>
+                <li>up to 3 days in the future in final submitted catch certificates</li>
+              </ul>
+            </div>
+          </details>
 
 
           <div class="govuk-form-group">
             <label for="select-faoArea" class="govuk-label"><b>Catch area</b></label>
             <select class="govuk-select" id="select-faoArea" name="faoArea">
-              <option value="">Select catch area</option>
+              <option value="">FAO 27</option>
               <option value="FAO 27">FAO 27</option>
               <option value="FAO 37">FAO 37</option>
               <option value="FAO 41">FAO 41</option>
@@ -195,82 +252,26 @@ GOV.UK Prototype Kit
             </select>
           </div>
 
-          <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset" aria-describedby="high-seas-hint">
-              <label class="govuk-label"><b>High seas area (optional)</b></label>
-              <div id="high-seas-hint" class="govuk-hint">
-                Select yes if the product was caught in international waters.
-              </div>
-              <div class="govuk-radios" data-module="govuk-radios" id="high-seas-radio">
-                <div class="govuk-radios__item">
-                  <input class="govuk-radios__input" id="high-seas-yes" name="highSeas" type="radio" value="yes"
-                    style="background-color: white;">
-                  <label class="govuk-label govuk-radios__label" for="high-seas-yes">Yes</label>
-                </div>
-                <div class="govuk-radios__item">
-                  <input class="govuk-radios__input" id="high-seas-no" name="highSeas" type="radio" value="no"
-                    style="background-color: white;">
-                  <label class="govuk-label govuk-radios__label" for="high-seas-no">No</label>
-                </div>
-              </div>
-            </fieldset>
-          </div>
+<div class="govuk-form-group">
+  <fieldset class="govuk-fieldset" aria-describedby="high-seas-hint">
+    <label class="govuk-label"><b>High seas area</b></label>
+    <div id="high-seas-hint" class="govuk-hint">
+      Select yes if the product was caught in international waters
+    </div>
+    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios" id="high-seas-radio">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="highSeas" name="highSeas" type="radio" value="yes">
+        <label class="govuk-label govuk-radios__label" for="highSeas">Yes</label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="highSeas-2" name="highSeas" type="radio" value="no">
+        <label class="govuk-label govuk-radios__label" for="highSeas-2">No</label>
+      </div>
+    </div>
+  </fieldset>
+</div>
 
 
-          <div class="govuk-form-group" id="eez-group" style="display: none;">
-            <label for="select-eez" class="govuk-label" id="eez-label"><b>Exclusive economic zone <span
-                  id="eez-status">(optional)</span></b>
-              <div class="govuk-hint">
-                This will be required from January 2026 under EU regulations.
-              </div>
-            </label>
-            <select class="govuk-select" id="select-eez" name="eez">
-              <option value="">Select country</option>
-              <option value="Australia">Australia</option>
-              <option value="Canada">Canada</option>
-              <option value="Chile">Chile</option>
-              <option value="China">China</option>
-              <option value="European Union">European Union</option>
-              <option value="India">India</option>
-              <option value="Indonesia">Indonesia</option>
-              <option value="Japan">Japan</option>
-              <option value="New Zealand">New Zealand</option>
-              <option value="Norway">Norway</option>
-              <option value="Russia">Russia</option>
-              <option value="South Africa">South Africa</option>
-              <option value="United Kingdom">United Kingdom</option>
-              <option value="United States">United States</option>
-            </select>
-          </div>
-
-          <script>
-            document.addEventListener('DOMContentLoaded', function () {
-              const yesRadio = document.getElementById('high-seas-yes');
-              const noRadio = document.getElementById('high-seas-no');
-              const eezGroup = document.getElementById('eez-group');
-              const eezSelect = document.getElementById('select-eez');
-              const eezStatus = document.getElementById('eez-status');
-
-              function updateEEZVisibility() {
-                if (noRadio.checked) {
-                  eezGroup.style.display = 'block';
-                  eezSelect.setAttribute('required', 'required');
-                  eezStatus.textContent = '(required)';
-                } else if (yesRadio.checked) {
-                  eezGroup.style.display = 'block';
-                  eezSelect.removeAttribute('required');
-                  eezStatus.textContent = '(optional)';
-                } else {
-                  eezGroup.style.display = 'none';
-                  eezSelect.removeAttribute('required');
-                  eezStatus.textContent = '(optional)';
-                }
-              }
-
-              yesRadio.addEventListener('change', updateEEZVisibility);
-              noRadio.addEventListener('change', updateEEZVisibility);
-            });
-          </script>
 
           <details class="govuk-details">
             <summary class="govuk-details__summary">
@@ -279,12 +280,12 @@ GOV.UK Prototype Kit
               </span>
             </summary>
             <div class="govuk-details__text">
-              <p>A high seas area is any part of the sea that is <strong>not</strong>:</p>
+              <p class="govuk-body">A high seas area is any part of the sea that is not:</p>
               <ul class="govuk-list govuk-list--bullet">
                 <li>within a country’s territorial sea (up to 12 nautical miles from the coast), or</li>
                 <li>part of a country’s internal waters (like bays or estuaries)</li>
               </ul>
-              <p>High seas are <strong>international waters</strong>. No country owns them. All countries have the right
+              <p class="govuk-body">High seas are international waters. No country owns them. All countries have the right
                 to use the high seas for things like:</p>
               <ul class="govuk-list govuk-list--bullet">
                 <li>navigation</li>
@@ -292,28 +293,124 @@ GOV.UK Prototype Kit
                 <li>laying submarine cables and pipelines</li>
                 <li>flying over the sea</li>
               </ul>
-              <p>These rights must be used with respect for other countries and international law.</p>
+              <p class="govuk-body">These rights must be used with respect for other countries and international law.</p>
+
+              <p class="govuk-body">
+                <a class="govuk-link" href="https://www.fao.org/fishery/en/area/search" target="_blank" rel="noopener noreferrer">
+                  Find maps and codes for high seas fishing areas on the FAO website (opens in new tab)
+                </a>
+                <span class="govuk-visually-hidden">(opens in new tab)</span>
+              </p>
+
+
             </div>
           </details>
+
+
+          <div class="govuk-form-group" id="eez-group">
+            <label for="select-eez" class="govuk-label" id="eez-label"><b>Exclusive economic zone</b>
+              <div class="govuk-hint">
+              The area of sea where the fish were caught
+              </div>
+            </label>
+            <select class="govuk-select" id="select-eez" name="eez">
+  <option value="">Select country</option>
+  <option value="Australia">Australia</option>
+  <option value="Canada">Canada</option>
+  <option value="Chile">Chile</option>
+  <option value="China">China</option>
+  <option value="European Union">European Union</option>
+  <option value="India">India</option>
+  <option value="Indonesia">Indonesia</option>
+  <option value="Japan">Japan</option>
+  <option value="New Zealand">New Zealand</option>
+  <option value="Norway">Norway</option>
+  <option value="Russia">Russia</option>
+  <option value="South Africa">South Africa</option>
+  <option value="United Kingdom">United Kingdom</option>
+  <option value="United States">United States</option>
+  <option value="Not applicable">Not applicable – outside EEZ</option>
+</select>
+          </div>
+
+          <details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      What is an exclusive economic zone (EEZ)?
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    <p>An exclusive economic zone (EEZ) is a sea area where a country has special rights to explore, manage and use marine resources.</p>
+    <p>It starts beyond the country’s territorial sea (12 nautical miles from the coast) and can extend up to 200 nautical miles.</p>
+    <p>Within its EEZ, a country can:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>fish and manage fish stocks</li>
+      <li>explore and extract oil, gas and minerals</li>
+      <li>generate energy from wind, currents and tides</li>
+      <li>protect the marine environment</li>
+    </ul>
+    <p>Other countries can still pass through or fly over the EEZ, but they must respect the laws of the coastal state and international law.</p>
+    <p class="govuk-body">
+      <a class="govuk-link" href="https://www.britannica.com/topic/exclusive-economic-zone" target="_blank" rel="noopener noreferrer">
+        Find maps and codes for EEZs on the FAO website (opens in new tab)
+      </a>
+      <span class="govuk-visually-hidden">(opens in new tab)</span>
+    </p>
+  </div>
+</details>
+
+
+        
+
 
 
 
           <div class="govuk-form-group">
             <label for="select-rfmo" class="govuk-label"><b>Regional fisheries management organisation
-                (optional)</b></label>
-            <select class="govuk-select" id="select-rfmo" name="rfmo">
-              <option value="">Select RFMO</option>
-              <option value="CCAMLR">CCAMLR – Commission for the Conservation of Antarctic Marine Living Resources
-              </option>
-              <option value="ICCAT">ICCAT – International Commission for the Conservation of Atlantic Tunas</option>
-              <option value="IOTC">IOTC – Indian Ocean Tuna Commission</option>
-              <option value="IATTC">IATTC – Inter-American Tropical Tuna Commission</option>
-              <option value="NAFO">NAFO – Northwest Atlantic Fisheries Organization</option>
-              <option value="NEAFC">NEAFC – North East Atlantic Fisheries Commission</option>
-              <option value="SPRFMO">SPRFMO – South Pacific Regional Fisheries Management Organisation</option>
-              <option value="WCPFC">WCPFC – Western and Central Pacific Fisheries Commission</option>
-            </select>
+                </b></label>
+                              <div class="govuk-hint">
+                The organisation responsible for managing fishing in the area where the fish were caught
+              </div>
+<select class="govuk-select" id="select-rfmo" name="rfmo">
+  <option value="">Select RFMO</option>
+  <option value="CCAMLR">Commission for the Conservation of Antarctic Marine Living Resources (CCAMLR)</option>
+  <option value="ICCAT">International Commission for the Conservation of Atlantic Tunas (ICCAT)</option>
+  <option value="IOTC">Indian Ocean Tuna Commission (IOTC)</option>
+  <option value="IATTC">Inter-American Tropical Tuna Commission (IATTC)</option>
+  <option value="NAFO">Northwest Atlantic Fisheries Organization (NAFO)</option>
+  <option value="NEAFC">North East Atlantic Fisheries Commission (NEAFC)</option>
+  <option value="SPRFMO">South Pacific Regional Fisheries Management Organisation (SPRFMO)</option>
+  <option value="WCPFC">Western and Central Pacific Fisheries Commission (WCPFC)</option>
+  <option value="Not applicable">Not applicable – outside RFMO-managed area (N/A)</option>
+</select>
           </div>
+
+          <details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      What is a regional fisheries management organisation (RFMO)?
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    <p>A regional fisheries management organisation (RFMO) is an international body that manages fish stocks in a specific area of the ocean.</p>
+    <p>RFMOs are made up of countries that have fishing interests in that region. They work together to:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>monitor fish populations</li>
+      <li>set catch limits and conservation rules</li>
+      <li>coordinate scientific research</li>
+      <li>promote sustainable fishing practices</li>
+    </ul>
+    <p>Some RFMOs focus on specific species, like tuna, while others manage all fish stocks in a region.</p>
+    <p>You only need to select an RFMO if the product was caught in an area covered by one.</p>
+    <p class="govuk-body">
+      <a class="govuk-link" href="https://www.fao.org/in-action/vulnerable-marine-ecosystems/background/regional-fishery-bodies/en/" target="_blank" rel="noopener noreferrer">
+        Find out more about RFMOs on the FAO website (opens in new tab)
+      </a>
+      <span class="govuk-visually-hidden">(opens in new tab)</span>
+    </p>
+  </div>
+</details>
+
 
 
           <div class="govuk-form-group">
@@ -321,7 +418,7 @@ GOV.UK Prototype Kit
               <b>Vessel name or port letter and number (PLN)</b>
             </label>
             <span class="govuk-hint" id="vessel-select-hint">
-              Type at least two characters to load the list.
+              Type at least two characters to load the list
             </span>
             <div class="dcx-form-input dcx-form-input--filled">
               <input name="vessel" type="text" class="govuk-input govuk-input--width-20" autocomplete="off" id="vessel"
@@ -334,7 +431,7 @@ GOV.UK Prototype Kit
           </div>
 
           <script>
-            const vessels = [ "MIKKEL LOUISE (PD344)", "OCEAN SPIRIT (AB123)", "SEA VENTURE (FR456)", "NORTH STAR (LK789)",
+            const vessels = ["MIKKEL LOUISE (PD344)", "OCEAN SPIRIT (AB123)", "SEA VENTURE (FR456)", "NORTH STAR (LK789)",
               "WAVE RIDER (BF101)", "HORIZON CHASER (KY202)", "TIDE HUNTER (OB303)", "STORM BREAKER (PL404)",
               "DEEP EXPLORER (TT505)", "AQUA MARINER (UL606)", "CORAL SEEKER (WD707)", "SUNSET VOYAGER (XY808)",
               "ISLAND NAVIGATOR (ZQ909)", "COASTAL GUARDIAN (MN010)", "OCEAN WANDERER (PQ111)", "SEA RANGER (RS212)",
@@ -346,7 +443,7 @@ GOV.UK Prototype Kit
               "ISLAND SEEKER (GH333)", "COASTAL SCOUT (IJ434)", "OCEAN NAVIGATOR (KL535)", "SEA EXPLORER (MN636)",
               "WAVE NAVIGATOR (OP737)", "HORIZON SEEKER (QR838)", "TIDE EXPLORER (ST939)", "STORM SEEKER (UV040)",
               "DEEP NAVIGATOR (WX141)", "AQUA SEEKER (YZ242)", "CORAL EXPLORER (AB343)", "SUNSET NAVIGATOR (CD444)",
-              "ISLAND EXPLORER (EF545)", "COASTAL SEEKER (GH646)",];
+              "ISLAND EXPLORER (EF545)", "COASTAL SEEKER (GH646)","Vessel not listed – select if not available (N/A)"];
             const input = document.getElementById('vessel');
             const listbox = document.getElementById('vessel-listbox');
 
@@ -385,17 +482,18 @@ GOV.UK Prototype Kit
           </script>
 
 
-          <details class="govuk-details">
-            <summary class="govuk-details__summary">
-              <span class="govuk-details__summary-text">
-                I cannot find vessel
-              </span>
-            </summary>
-            <div class="govuk-details__text">
-              If the vessel you need cannot be found, search for and select 'Vessel not found (N/A)'.
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      I cannot find the vessel
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    <p>If the vessel you need is not listed, select “Vessel not listed – select if not available (N/A)” from the dropdown.</p>
+    <p>This option is for cases where the vessel is not in the system or cannot be found using the search.</p>
+  </div>
+</details>
 
-            </div>
-          </details>
 
 
           <div class="govuk-form-group">
@@ -409,10 +507,10 @@ GOV.UK Prototype Kit
 
           <fieldset class="govuk-fieldset">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-              Gear details (optional)
+              Gear details
             </legend>
             <div class="govuk-hint">
-              This will be required from January 2026 under EU regulations.
+              The type of gear used to catch the fish
             </div>
 
             <div class="govuk-form-group">
@@ -429,7 +527,6 @@ GOV.UK Prototype Kit
                 <option value="Traps">Traps</option>
                 <option value="Hooks and lines">Hooks and lines</option>
                 <option value="Miscellaneous gear">Miscellaneous gear</option>
-                <option value="Gear not known">Gear not known</option>
               </select>
             </div>
 
@@ -440,6 +537,26 @@ GOV.UK Prototype Kit
               </select>
             </div>
           </fieldset>
+
+          <details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      What are gear details?
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    <p>Gear categories describe the general method used to catch fish, such as trawls or nets.</p>
+    <p>Gear types are more specific, like “Beam trawls” or “Set gillnets”.</p>
+    <p>Select the most accurate option based on how the fish were caught. If you're unsure, contact your fisheries authority.</p>
+    <p class="govuk-body">
+      <a class="govuk-link" href="https://www.fao.org/cwp-on-fishery-statistics/handbook/capture-fisheries-statistics/fishing-gear-classification/en/" target="_blank" rel="noopener noreferrer">
+        Find standard gear types and codes on the FAO website (opens in new tab)
+      </a>
+      <span class="govuk-visually-hidden">(opens in new tab)</span>
+    </p>
+  </div>
+</details>
+
 
           <script>
             const gearTypes = {
@@ -521,9 +638,6 @@ GOV.UK Prototype Kit
                 { value: "MDR", text: "Drive-in-nets (MDR)" },
                 { value: "MDV", text: "Diving (MDV)" },
                 { value: "MIS", text: "Gear nei (MIS)" }
-              ],
-              "Gear not known": [
-                { value: "NK", text: "Gear not known (NK)" }
               ]
             };
 
@@ -547,99 +661,39 @@ GOV.UK Prototype Kit
             });
           </script>
 
-
-
-
-
-          <div class="govuk-button-group">
-            <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
-              Cancel
-            </button>
-            <button type="button" id="addLandingButton" class="govuk-button">Add landing</button>
-        
-      </div>
-
-          <h2 class="govuk-heading-l">Your landings</h2>
-    <table class="govuk-table" id="landingsTable">
-      <thead>
-        <tr class="govuk-table__row">
-          <th class="govuk-table__header">Product</th>
-          <th class="govuk-table__header">Details</th>
-          <th class="govuk-table__header">Weight (kg)</th>
-          <th class="govuk-table__header govuk-!-text-align-right">Actions</th>
-        </tr>
-      </thead>
-      <tbody id="landingsTableBody">
-        <!-- New rows will be inserted here -->
-      </tbody>
-    </table>
-
-    <div class="govuk-button-group">
-      <button type="submit" name="_action" class="dcx-button govuk-button govuk-button--secondary" value="saveAsDraft"
-        id="saveAsDraft" data-module="govuk-button" data-testid="save-draft-button" onclick="location.href='catch-certificates.html'">Save as draft</button>
-       <button class="govuk-button" data-module="govuk-button" type="submit">
-          Save and continue
-        </button>
-    </div>
-          
- 
-     </form>
-
-        
-    </div>
-
-
-
-   
-
-    <p class="govuk-body">
-      <a class="govuk-link" href="../gamma/progress.html">
-        Back to Your Progress
-      </a>
-    </p>
-    
-  </div>
-  </div>
-
-  <div class="govuk-!-margin-bottom-6 govuk-!-margin-top-8 govuk-!-margin-bottom-6">
-    <hr class="horizontal-line">
-    <h2 class="govuk-heading-l">Need help?</h2>
-    <p class="govuk-body">
-      <a class="govuk-link" href="https://www.gov.uk/guidance/exporting-and-importing-fish-if-theres-no-brexit-deal"
-        target="_blank" rel="noopener noreferrer">
-        Get help exporting fish from the UK (opens in new tab)
-      </a>
-      <span class="govuk-visually-hidden">(opens in new tab)</span>
-    </p>
-  </div>
-  </div>
-  </div>
-</main>
-
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   const form = document.getElementById('landingForm');
   const tableBody = document.getElementById('landingsTableBody');
   const addButton = document.getElementById('addLandingButton');
-  let editIndex = -1;
 
   addButton.addEventListener('click', function () {
-    const landedDay = document.getElementById('dateLanded-day').value;
-    const landedMonth = document.getElementById('dateLanded-month').value;
-    const landedYear = document.getElementById('dateLanded-year').value;
-    const dateLanded = `${landedDay}/${landedMonth}/${landedYear}`;
+    const product = localStorage.getItem('selectedProduct') || '—';
+
+ const startDate = document.getElementById('startDate').value;
+    const dateLanded = document.getElementById('dateLanded').value;
     const faoArea = document.getElementById('select-faoArea').value;
+    const highSeasRaw = document.querySelector('input[name="highSeas"]:checked')?.value || '';
+const highSeas = highSeasRaw.charAt(0).toUpperCase() + highSeasRaw.slice(1);
+    const eez = document.getElementById('select-eez').value
+    const rfmo = document.getElementById('select-rfmo').value;
     const vessel = document.getElementById('vessel').value;
     const weight = document.getElementById('weight').value;
     const gear1 = document.getElementById('gear1').value;
-    const gear2 = document.getElementById('gear2').value;
+    const gear2Select = document.getElementById('gear2');
+    const gear2 = gear2Select.options[gear2Select.selectedIndex].value;
+
 
     const newRow = `
       <tr class="govuk-table__row">
-        <td class="govuk-table__cell">Product</td>
+        <td class="govuk-table__cell">${product}</td>
         <td class="govuk-table__cell">
-          <b>Date Landed:</b> ${dateLanded}<br>
+          <b>Start date:</b> ${startDate}<br>
+          <b>Date landed:</b> ${dateLanded}<br>
           <b>Catch area:</b> ${faoArea}<br>
+          <b>High seas:</b> ${highSeas}<br>
+          <b>EEZ:</b> ${eez}<br>
+          <b>RFMO:</b> ${rfmo}<br>
           <b>Vessel:</b> ${vessel}<br>
           <b>Gear category:</b> ${gear1}<br>
           <b>Gear type:</b> ${gear2}
@@ -654,143 +708,244 @@ document.addEventListener('DOMContentLoaded', function () {
 
     tableBody.insertAdjacentHTML('beforeend', newRow);
     form.reset();
-  });
-
-  // ✅ Event delegation for edit/remove buttons
-  tableBody.addEventListener('click', function (e) {
-    const row = e.target.closest('tr');
-    if (!row) return;
-
-    if (e.target.classList.contains('edit-button')) {
-      const details = row.cells[1].innerText.split('\n');
-      const date = details[0].replace('Date Landed: ', '').split('/');
-      const area = details[1].replace('Catch area: ', '');
-      const vessel = details[2].replace('Vessel: ', '');
-      const gear1 = details[3].replace('Gear category: ', '');
-      const gear2 = details[4].replace('Gear type: ', '');
-
-      document.getElementById('dateLanded-day').value = date[0];
-      document.getElementById('dateLanded-month').value = date[1];
-      document.getElementById('dateLanded-year').value = date[2];
-      document.getElementById('select-faoArea').value = area;
-      document.getElementById('vessel').value = vessel;
-      document.getElementById('gear1').value = gear1;
-      document.getElementById('gear2').value = gear2;
-      document.getElementById('weight').value = row.cells[2].innerText;
-
-      row.remove(); // Remove the row so it can be re-added after editing
-    }
-
-    if (e.target.classList.contains('remove-button')) {
-      row.remove();
-    }
+    localStorage.removeItem('selectedProduct'); // Clear after use
   });
 });
 </script>
 
 
+          <div class="govuk-button-group">
+<button type="submit" class="secondary-button-style" data-module="govuk-button">
+  Cancel
+</button>
+
+            <button type="button" id="addLandingButton" class="govuk-button">Add landing</button>
+
+          </div>
+          
+</div>
+
+
+
+  <h2 class="govuk-heading-l">Your landings</h2>
+  <table class="govuk-table" id="landingsTable">
+    <thead>
+      <tr class="govuk-table__row">
+        <th class="govuk-table__header">Product</th>
+        <th class="govuk-table__header">Details</th>
+        <th class="govuk-table__header">Weight (kg)</th>
+        <th class="govuk-table__header govuk-!-text-align-right">Actions</th>
+      </tr>
+    </thead>
+    <tbody id="landingsTableBody">
+      <!-- New rows will be inserted here -->
+    </tbody>
+  </table>
+
+  <div class="govuk-button-group">
+    <button type="submit" name="_action" class="dcx-button govuk-button govuk-button--secondary"
+      value="saveAsDraft" id="saveAsDraft" data-module="govuk-button" data-testid="save-draft-button"
+      onclick="location.href='catch-certificates.html'">Save as draft</button>
+    <button class="govuk-button" data-module="govuk-button" type="submit">
+      Save and continue
+    </button>
+  </div>
+</form>
+
+          <div class="govuk-!-margin-bottom-6 govuk-!-margin-top-8 govuk-!-margin-bottom-6">
+    <hr class="horizontal-line">
+    <h2 class="govuk-heading-l">Need help?</h2>
+    <p class="govuk-body">
+      <a class="govuk-link" href="https://www.gov.uk/guidance/exporting-and-importing-fish-if-theres-no-brexit-deal"
+        target="_blank" rel="noopener noreferrer">
+        Get help exporting fish from the UK (opens in new tab)
+      </a>
+      <span class="govuk-visually-hidden">(opens in new tab)</span>
+    </p>
+  </div>
+  </div>
+  </div>
+</main>
 
 
 
 
-<!-- Include flatpickr library -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
-<script>
-  // START DATE PICKER
-  flatpickr("#startDatepicker", {
-    dateFormat: "d-m-Y",
-    onChange: function (selectedDates, dateStr) {
-      const [day, month, year] = dateStr.split('-');
-      document.getElementById('startDate-day').value = day;
-      document.getElementById('startDate-month').value = month;
-      document.getElementById('startDate-year').value = year;
-    }
-  });
-
-  document.getElementById('calendarButtonStart').addEventListener('click', function () {
-    document.getElementById('startDatepicker').click();
-  });
-</script>
-
-<script>
-  // DATE LANDED PICKER
-  flatpickr("#datepicker", {
-    dateFormat: "d-m-Y",
-    onChange: function (selectedDates, dateStr) {
-      const [day, month, year] = dateStr.split('-');
-      document.getElementById('dateLanded-day').value = day;
-      document.getElementById('dateLanded-month').value = month;
-      document.getElementById('dateLanded-year').value = year;
-    }
-  });
-
-  document.getElementById('calendarButtonLanded').addEventListener('click', function () {
-    document.getElementById('datepicker').click();
-  });
-</script>
+    
 
 
 
 
-
-
-
-
-<!-- JS (your app JS that includes GOVUKFrontend) -->
 <script src="/assets/javascripts/application.js"></script>
 <script>
   window.GOVUKFrontend?.initAll?.()
 </script>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const calendarButton = document.getElementById('calendarButton');
-    const dayInput = document.getElementById('dateLanded');
-    const monthInput = document.getElementById('dateLanded-month');
-    const yearInput = document.getElementById('dateLanded-year');
+  const startButton = document.getElementById('calendarButtonStart');
+const startInput = document.getElementById('startDate-day');
 
-    // Initialize the GOV.UK Datepicker on the inputs
-    const dateInput = new window.GOVUKFrontend.DateInput({
-      dayInput: dayInput,
-      monthInput: monthInput,
-      yearInput: yearInput
-    });
+if (startButton && startInput) {
+  startButton.addEventListener('click', function () {
+    startInput.focus();
 
-    // When calendar button is clicked, focus the first date input field
-    calendarButton.addEventListener('click', function () {
-      dayInput.focus();
-    });
+    // Add a class to simulate GDS focus style
+    startInput.classList.add('gds-focus');
+
+    // Optional: remove the class after a short delay
+    setTimeout(() => {
+      startInput.classList.remove('gds-focus');
+    }, 2000); // Adjust timing as needed
   });
+}
+
+const landedButton = document.getElementById('calendarButtonLanded');
+const landedInput = document.getElementById('dateLanded-day');
+
+if (landedButton && landedInput) {
+  landedButton.addEventListener('click', function () {
+    landedInput.focus();
+
+    // Add GDS-style focus class
+    landedInput.classList.add('gds-focus');
+
+    // Optional: remove the class after a short delay
+    setTimeout(() => {
+      landedInput.classList.remove('gds-focus');
+    }, 2000);
+  });
+}
+
+
+  document.addEventListener('DOMContentLoaded', function () {
+    // Initialize GOV.UK DateInput for Start Date
+    new window.GOVUKFrontend.DateInput({
+      dayInput: document.getElementById('startDate-day'),
+      monthInput: document.getElementById('startDate-month'),
+      yearInput: document.getElementById('startDate-year')
+    });
+
+    // Initialize GOV.UK DateInput for Date Landed
+    new window.GOVUKFrontend.DateInput({
+      dayInput: document.getElementById('dateLanded-day'),
+      monthInput: document.getElementById('dateLanded-month'),
+      yearInput: document.getElementById('dateLanded-year')
+    });
+
+    // Focus handlers for calendar buttons
+    const startButton = document.getElementById('calendarButtonStart');
+    const landedButton = document.getElementById('calendarButtonLanded');
+
+    if (startButton) {
+      startButton.addEventListener('click', function () {
+        document.getElementById('startDate-day')?.focus('calendarButtonStart');
+      });
+    }
+
+    if (landedButton) {
+      landedButton.addEventListener('click', function () {
+        document.getElementById('dateLanded-day')?.focus('calendarButtonLanded');
+      });
+    }
+  });
+
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    const calendarButton = document.getElementById('calendarButton');
-    const dayInput = document.getElementById('startDate');
-    const monthInput = document.getElementById('startDate-month');
-    const yearInput = document.getElementById('startDate-year');
-
-    // Initialize the GOV.UK Datepicker on the inputs
-    const dateInput = new window.GOVUKFrontend.DateInput({
-      dayInput: dayInput,
-      monthInput: monthInput,
-      yearInput: yearInput
-    });
-
-    // When calendar button is clicked, focus the first date input field
-    calendarButton.addEventListener('click', function () {
-      dayInput.focus();
-    });
+    // MoJ-style date picker using flatpickr for both date fields
+    if (window.flatpickr) {
+      flatpickr("#startDate", {
+        dateFormat: "d/m/Y",
+        allowInput: true,
+        clickOpens: false
+      });
+      flatpickr("#dateLanded", {
+        dateFormat: "d/m/Y",
+        allowInput: true,
+        clickOpens: false
+      });
+      document.getElementById('calendarButtonStart').addEventListener('click', function () {
+        document.getElementById('startDate')._flatpickr.open();
+      });
+      document.getElementById('calendarButtonLanded').addEventListener('click', function () {
+        document.getElementById('dateLanded')._flatpickr.open();
+      });
+    }
   });
 </script>
 
-
-
-
-
-
-
-
-{% endblock %}</form>
+<style>
+/* --- MoJ/GOV.UK style overrides for flatpickr calendar pop-up --- */
+  .flatpickr-calendar {
+    font-family: "GDS Transport", Arial, sans-serif !important;
+    background: #fff !important;
+    border: 2px solid #0b0c0c !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    color: #0b0c0c !important;
+    z-index: 9999;
+  }
+  .flatpickr-months .flatpickr-month {
+    background: #f3f2f1 !important;
+    color: #0b0c0c !important;
+    border-bottom: 1px solid #b1b4b6 !important;
+  }
+  .flatpickr-weekdays {
+    background: #f3f2f1 !important;
+    color: #505a5f !important;
+  }
+  .flatpickr-day {
+    border-radius: 0 !important;
+    font-size: 1rem !important;
+    color: #0b0c0c !important;
+    border: 1px solid transparent !important;
+    background: #fff !important;
+    transition: background 0.2s, border 0.2s;
+  }
+  .flatpickr-day:hover, .flatpickr-day:focus {
+    background: #ffdd00 !important;
+    color: #0b0c0c !important;
+    border: 1px solid #0b0c0c !important;
+    outline: none !important;
+  }
+  .flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange {
+    background: #1d70b8 !important;
+    color: #fff !important;
+    border: 1px solid #1d70b8 !important;
+  }
+  .flatpickr-day.today {
+    border: 1px solid #0b0c0c !important;
+    background: #f3f2f1 !important;
+    color: #0b0c0c !important;
+  }
+  .flatpickr-current-month input.cur-year {
+    font-size: 1rem !important;
+    color: #0b0c0c !important;
+    font-weight: bold !important;
+  }
+  .flatpickr-months .flatpickr-prev-month, .flatpickr-months .flatpickr-next-month {
+    color: #1d70b8 !important;
+    fill: #1d70b8 !important;
+    transition: color 0.2s, fill 0.2s;
+  }
+  .flatpickr-months .flatpickr-prev-month:hover, .flatpickr-months .flatpickr-next-month:hover {
+    color: #003078 !important;
+    fill: #003078 !important;
+  }
+  .flatpickr-calendar.arrowTop:before, .flatpickr-calendar.arrowTop:after,
+  .flatpickr-calendar.arrowBottom:before, .flatpickr-calendar.arrowBottom:after {
+    border: none !important;
+  }
+  .flatpickr-time input, .flatpickr-time .flatpickr-am-pm {
+    font-family: inherit !important;
+    font-size: 1rem !important;
+    color: #0b0c0c !important;
+    background: #fff !important;
+    border: 1px solid #b1b4b6 !important;
+    border-radius: 0 !important;
+  }
+  /* --- End MoJ/GOV.UK style overrides for flatpickr --- */
+</style>
+{% endblock %}

@@ -9,29 +9,34 @@ Progress - Catch Certificates
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
-         <div class="govuk-phase-banner" style="position:relative;top:-50px;">
-	<p class="govuk-phase-banner__content">
-		<strong class="govuk-tag govuk-phase-banner__content__tag">BETA</strong>
-    	<span class="govuk-phase-banner__text">
-			This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
-		</span>
-	</p>
-</div>
+    <div class="govuk-phase-banner" style="position:relative;top:-50px;">
+      <p class="govuk-phase-banner__content">
+        <strong class="govuk-tag govuk-phase-banner__content__tag">Beta</strong>
+        <span class="govuk-phase-banner__text">
+          This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+        </span>
+      </p>
+    </div>
 
     <!-- Back link -->
     <a href="../gamma/landings-entry.html" class="govuk-back-link">Back</a>
 
 
-<h1 class="govuk-heading-xl govuk-!-margin-bottom-2" data-testid="progress-titling">Your progress</h1>
-<span class="govuk-caption-xl">Catch Certificate application: GBR-2025-CC-DB9443BBF</span>
-<br>
-<h2 class="govuk-heading-l govuk-!-margin-bottom-2">Application incomplete</h2>
-<p class="govuk-body govuk-!-margin-bottom-7">You have completed 0 of 7 required sections.</p>
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-2" data-testid="progress-titling">Your progress</h1>
+    <span class="govuk-caption-xl">Catch Certificate application: GBR-2025-CC-DB9443BBF</span>
+    <br>
+    <h2 class="govuk-heading-l" id="application-status" class="govuk-!-margin-bottom-2">Application incomplete</h2>
+    <p class="govuk-body" id="progress-counter" class="govuk-body govuk-!-margin-bottom-7">
+      You have completed 0 of 7 required sections.
+    </p>
+
+
 
 
     <ol class="app-task-list">
 
       <!-- Section 1 - Exporter -->
+
       <li>
         <h2 class="govuk-heading-m govuk-!-font-weight-bold govuk-!-font-size-36 app-task-list__section">
           <span class="app-task-list__section-number">1. </span>Exporter
@@ -43,8 +48,11 @@ Progress - Catch Certificates
             <span class="app-task-list__task-name">
               <a href="your-reference.html" aria-describedby="your-reference-status">Your reference (optional)</a>
             </span>
-            <strong class="govuk-tag app-task-list__tag govuk-tag--blue" id="exporter-details-status">Incomplete</strong>
-
+            {% if data['your-reference'] %}
+            <strong class="govuk-tag app-task-list__tag govuk-tag--green">Completed</strong>
+            {% else %}
+            <strong class="govuk-tag app-task-list__tag govuk-tag--blue">Incomplete</strong>
+            {% endif %}
           </li>
 
           <!-- Exporter details -->
@@ -52,11 +60,15 @@ Progress - Catch Certificates
             <span class="app-task-list__task-name">
               <a href="exporter-details.html" aria-describedby="exporter-details-status">Exporter details</a>
             </span>
-            <strong class="govuk-tag app-task-list__tag govuk-tag--blue" id="exporter-details-status">Incomplete</strong>
-            <strong class="govuk-tag app-task-list__tag" id="exporter-details-status" style="display:none;">Completed</strong>
+            {% if data['exporter-name'] and data ['company-name'] %}
+            <strong class="govuk-tag app-task-list__tag govuk-tag--green">Completed</strong>
+            {% else %}
+            <strong class="govuk-tag app-task-list__tag govuk-tag--blue">Incomplete</strong>
+            {% endif %}
           </li>
         </ul>
       </li>
+
 
       <!-- Section 2 - Products/Landings -->
       <li>
@@ -70,28 +82,44 @@ Progress - Catch Certificates
             <span class="app-task-list__task-name">
               <a href="add-products.html" aria-describedby="product-details-status">Products details</a>
             </span>
-            <strong class="govuk-tag app-task-list__tag govuk-tag--blue" id="product-details-status">Incomplete</strong>
-            <strong class="govuk-tag app-task-list__tag" id="product-details-status" style="display:none;">Completed</strong>
+            {% if data['species'] and data['state'] and data['presentation'] and data['commodity-code'] %}
+                <strong class="govuk-tag app-task-list__tag govuk-tag--green"
+              id="product-details-status">Completed</strong>
+              {% else %}
+                <strong class="govuk-tag app-task-list__tag govuk-tag--blue"
+              id="product-details-status">Incomplete</strong>
+              {% endif %}
           </li>
 
           <!-- Landings details -->
           <li class="app-task-list__item">
             <span class="app-task-list__task-name">
-                <a href="add-landings.html" aria-describedby="landings-details-status">Landings details</span>
+              <a href="add-landings.html" aria-describedby="landings-details-status">Landings details</a>
             </span>
-            <strong class="govuk-tag app-task-list__tag govuk-tag--grey" id="landings-details-status">Cannot start yet</strong>
-            <strong class="govuk-tag app-task-list__tag govuk-tag--blue" id="landings-details-status" style="display:none;">Incomplete</strong>
-            <strong class="govuk-tag app-task-list__tag" id="landings-details-status" style="display:none;">Completed</strong>
-            <strong class="govuk-tag app-task-list__tag govuk-tag--red" id="landings-details-status" style="display:none;">Submission failed</strong>
+            {% if not (data['species'] and data['state'] and data['presentation'] and data['commodity-code']) %}
+            <strong class="govuk-tag app-task-list__tag govuk-tag--grey" id="landings-details-status">Cannot start
+              yet</strong>
+            {% elif data['vessel'] and data['startDate'] and data['dateLanded'] and data['eez'] and
+            data['faoArea'] and data['weight'] and data['rfmo'] %}
+            <strong class="govuk-tag app-task-list__tag govuk-tag--green"
+              id="landings-details-status">Completed</strong>
+            {% else %}
+            <strong class="govuk-tag app-task-list__tag govuk-tag--blue"
+              id="landings-details-status">Incomplete</strong>
+            {% endif %}
           </li>
+
 
           <!-- Catch waters -->
           <li class="app-task-list__item">
             <span class="app-task-list__task-name">
               <a href="catch-waters.html" aria-describedby="catch-waters-status">Catch waters</a>
             </span>
+            {% if data['waters'] %}
+            <strong class="govuk-tag app-task-list__tag govuk-tag--green" id="catch-waters-status">Completed</strong>
+            {% else %}
             <strong class="govuk-tag app-task-list__tag govuk-tag--blue" id="catch-waters-status">Incomplete</strong>
-            <strong class="govuk-tag app-task-list__tag" id="catch-waters-status" style="display:none;">Completed</strong>
+            {% endif %}
           </li>
 
         </ul>
@@ -109,54 +137,133 @@ Progress - Catch Certificates
             <span class="app-task-list__task-name">
               <a href="export-journey.html" aria-describedby="export-journey-status">Export journey</a>
             </span>
-            <strong class="govuk-tag app-task-list__tag govuk-tag--blue" id="export-journey-status">Incomplete</strong>
-            <strong class="govuk-tag app-task-list__tag" id="export-journey-status" style="display:none;">Completed</strong>
+            {% if data['departure-country'] and data['destination-country'] and data['transport-type'] %}
+            <strong class="govuk-tag app-task-list__tag govuk-tag--green">Completed</strong>
+            {% else %}
+            <strong class="govuk-tag app-task-list__tag govuk-tag--blue">Incomplete</strong>
+            {% endif %}
           </li>
 
           <!-- Transport details -->
           <li class="app-task-list__item">
             <span class="app-task-list__task-name">
-              <a href="transport/transport-truck.html" aria-describedby="transport-type-status">Transport details</a>
+              <a href="transport/transport-additional.html" aria-describedby="transport-details-status">Transport
+                details</a>
             </span>
-            <strong class="govuk-tag app-task-list__tag govuk-tag--grey" id="transport-details-status">Cannot start yet</strong>
-            <strong class="govuk-tag app-task-list__tag govuk-tag--green" id="transport-details-status" style="display:none;">In progress</strong>
-            <strong class="govuk-tag app-task-list__tag" id="transport-details-status" style="display:none;">Completed</strong>
+            {% if not (data['departure-country'] and data['destination-country'] and data['transport-type']) %}
+            <strong class="govuk-tag app-task-list__tag govuk-tag--grey" id="transport-details-status">Cannot start
+              yet</strong>
+            {% elif data['transport-type'] and data['documentName'] and data['referenceNumber'] %}
+            <strong class="govuk-tag app-task-list__tag govuk-tag--green"
+              id="transport-details-status">Completed</strong>
+            {% else %}
+            <strong class="govuk-tag app-task-list__tag govuk-tag--blue"
+              id="transport-details-status">Incomplete</strong>
+            {% endif %}
           </li>
 
         </ul>
       </li>
     </ol>
 
-<!-- Page navigation -->
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-full">
-    <div class="govuk-button-group">
-      <a href="../gamma/catch-certificates.html" role="button"
-         class="dcx-button govuk-button govuk-button--secondary"
-         draggable="false" data-module="govuk-button" data-testid="return-to-dashboard-button">
-        Return to your dashboard
-      </a>
 
-      <a href="../gamma/transport/check-your-answers.html" role="button"
-         class="dcx-button govuk-button"
-         draggable="false" data-module="govuk-button" data-testid="continue-button">
-        Check your answers and submit
-      </a>
+    <!-- Page navigation -->
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+        <div class="govuk-button-group">
+          <a href="../gamma/catch-certificates.html" role="button"
+            class="dcx-button govuk-button govuk-button--secondary" draggable="false" data-module="govuk-button"
+            data-testid="return-to-dashboard-button">
+            Return to your dashboard
+          </a>
+
+          {% set allComplete = true %}
+
+          {# Exporter #}
+          {% if not data['exporter-name'] %}
+          {% set allComplete = false %}
+          {% endif %}
+
+          {# Products #}
+          {% if not (data['species'] and data['state'] and data['presentation'] and data['commodity-code']) %}
+          {% set allComplete = false %}
+          {% endif %}
+
+          {# Landings #}
+          {% if not (data['vessel'] and data['dateLandedDay'] and data['faoArea'] and data['weight']) %}
+          {% set allComplete = false %}
+          {% endif %}
+
+          {# Catch waters #}
+          {% if not data['waters'] %}
+          {% set allComplete = false %}
+          {% endif %}
+
+          {# Export journey #}
+          {% if not (data['departure-country'] and data['destination-country'] and data['transport-type']) %}
+          {% set allComplete = false %}
+          {% endif %}
+
+          {# Transport details #}
+          {% if not (data['documentName'] and data['referenceNumber']) %}
+          {% set allComplete = false %}
+          {% endif %}
+
+          {% if allComplete %}
+          <a href="../gamma/transport/check-your-answers.html" role="button" class="dcx-button govuk-button"
+            draggable="false" data-module="govuk-button" data-testid="continue-button">
+            Check your answers and submit
+          </a>
+          {% endif %}
+
+
+
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
 
     <div class="govuk-grid-row govuk-!-margin-bottom-6 govuk-!-margin-top-8">
       <div class="govuk-grid-column-full">
         <hr class="horizontal-line">
         <h2 class="govuk-heading-l">Need help?</h2>
-        <a data-testid="guidance-on-exporting-fish" class="govuk-link" href="https://www.gov.uk/guidance/exporting-and-importing-fish-if-theres-no-brexit-deal" target="_blank" rel="noopener noreferrer" aria-label="Get help exporting fish from the UK (gov.uk)">Get help exporting fish from the UK (gov.uk)<span class="govuk-visually-hidden">(opens in new tab)</span></a>
+        <a data-testid="guidance-on-exporting-fish" class="govuk-link"
+          href="https://www.gov.uk/guidance/exporting-and-importing-fish-if-theres-no-brexit-deal" target="_blank"
+          rel="noopener noreferrer" aria-label="Get help exporting fish from the UK (gov.uk)">Get help exporting fish
+          from the UK (gov.uk)<span class="govuk-visually-hidden">(opens in new tab)</span></a>
       </div>
     </div>
 
   </div>
 </div>
 
-{% endblock %}
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const allTags = document.querySelectorAll('.app-task-list__item .govuk-tag');
+    let completedCount = 0;
 
+    allTags.forEach(tag => {
+      const isCompleted = tag.textContent.trim() === 'Completed';
+      const isVisible = window.getComputedStyle(tag).display !== 'none';
+      if (isCompleted && isVisible) {
+        completedCount++;
+      }
+    });
+
+    // Update progress counter
+    const counter = document.getElementById('progress-counter');
+    if (counter) {
+      counter.textContent = `You have completed ${completedCount} of 7 required sections.`;
+    }
+
+    // Update application status heading
+    const statusHeading = document.getElementById('application-status');
+    if (statusHeading) {
+      statusHeading.textContent = completedCount === 7 ? 'Application complete' : 'Application incomplete';
+    }
+  });
+</script>
+
+
+
+{% endblock %}

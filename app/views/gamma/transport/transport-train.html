@@ -29,7 +29,7 @@
 		
 		<h1 class="govuk-heading-xl">Train details</h1>{{releaseVersion | log }}
 		
-		<form id="options-form" method="post">
+		<form id="details-form" method="post" action="/gamma/transport/transport-train">
 			
 			<!-- train nationality -->
       <div class="govuk-form-group">
@@ -55,14 +55,15 @@
       </div>
       
      <!-- Form controls -->
-     <div class="govuk-button-group">
-      <button class="govuk-button govuk-button--secondary" data-module="govuk-button" formaction="progress" type="submit">
-        Save as draft
-      </button>
-      <button class="govuk-button" data-module="govuk-button" type="button" onclick="location.href='transport-additional-modes.html'">
-        Save and continue
-      </button>      
-    </div>
+        <div class="govuk-button-group">
+          <button class="govuk-button govuk-button--secondary" data-module="govuk-button" formaction="/gamma/progress" type="submit">
+            Save as draft
+          </button>
+          <button class="govuk-button" data-module="govuk-button" type="submit">
+            Save and continue
+          </button>
+        </div>
+      </form>
    
 		
 		
