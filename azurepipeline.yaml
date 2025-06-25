@@ -13,8 +13,8 @@ resources:
   repositories:
     - repository: MMOPipelineCommon
       name: "DEFRA/eutd-mmo-fes-pipeline-common"
-      endpoint: DEFRA(1)
-      type: git
+      endpoint: DEFRA
+      type: github
       ref: refs/heads/main
 
 extends:
